@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { NextUIProvider } from '@nextui-org/react'
+import { NextUIProvider } from "@nextui-org/react";
+import NavbarComponent from "@/components/navbar/navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,11 +13,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <NextUIProvider>
-          {children}
-        </NextUIProvider>
-
+      <body className={inter.className} style={{background:"#eef2fb",width:'100%', height:'100vh'}}>
+        <div className="bg-[#eef2fb] w-full h-screen">
+          <NavbarComponent />
+          <NextUIProvider>{children}</NextUIProvider>
+        </div>
       </body>
     </html>
   );
