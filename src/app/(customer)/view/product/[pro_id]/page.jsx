@@ -1,4 +1,5 @@
 import BreadCrumb from "@/components/BreadCrumb/BreadCrumb";
+import ProductCard from "@/components/Card/ProductCard";
 import Tag from "@/components/Tag/Tag";
 import { AddToCart, MyToast } from "@/components/Toast/MyToast";
 import { Button } from "@/components/ui/button";
@@ -49,7 +50,7 @@ const page = ({ params: { pro_id } }) => {
           </p>
           <div className="flex flex-col gap-6">
             <div className="flex items-center gap-6">
-              <h3 className="text-2xl font-semibold">Xbox 2024</h3>
+              <h3 className="text-2xl font-bold">Xbox 2024</h3>
               <Tag
                 className={" !rounded-full text-sky-500"}
                 title={"Original"}
@@ -99,7 +100,7 @@ const page = ({ params: { pro_id } }) => {
           </div>
         </div>
         <div className="wrap-card">
-          <div className="w-full border p-3 rounded-md flex flex-col gap-6">
+          <div className="w-full bg-white shadow-md p-3 rounded-md flex flex-col gap-6">
             <div className="grid grid-cols-[auto_1fr] gap-4">
               <div className="relative rounded-full size-[60px]">
                 <Image
@@ -130,6 +131,14 @@ const page = ({ params: { pro_id } }) => {
               <Button className={" w-full"}>Buy Now</Button>
             </div>
           </div>
+        </div>
+      </section>
+      <section className="my-10">
+        <h3 className="text-2xl font-semibold mb-6">Related </h3>
+        <div className="grid grid-cols-4 gap-6">
+          {Array.from({ length: 4 }).map((itc, idx) => (
+            <ProductCard key={idx} />
+          ))}
         </div>
       </section>
     </div>

@@ -13,7 +13,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={open_san.className}>
+      <body className={open_san.className + " bg-gray-50"}>
         <NextUIProvider>{children}</NextUIProvider>
         <Toaster />
       </body>
