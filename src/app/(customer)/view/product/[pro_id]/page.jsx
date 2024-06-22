@@ -11,6 +11,7 @@ import Image from "next/image";
 import React from "react";
 
 const page = ({ params: { pro_id } }) => {
+
   return (
     <div className="w-[1300px] mx-auto my-10">
       <BreadCrumb />

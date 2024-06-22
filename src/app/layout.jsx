@@ -2,6 +2,7 @@ import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import { NextUIProvider } from "@nextui-org/react";
 import { Toaster } from "@/components/ui/toaster";
+import Navbar from "@/components/Navbar/Navbar";
 
 const open_san = Open_Sans({ subsets: ["latin"] });
 
@@ -14,9 +15,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={open_san.className + " bg-gray-50"}>
+        <Navbar />
         <NextUIProvider>{children}</NextUIProvider>
         <Toaster />
       </body>
     </html>
+
   );
 }

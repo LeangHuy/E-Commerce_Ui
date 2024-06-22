@@ -1,6 +1,6 @@
 export const my_links = [
   {
-    link: "Xbox",
+    link: "Home",
     path: "#",
   },
   {

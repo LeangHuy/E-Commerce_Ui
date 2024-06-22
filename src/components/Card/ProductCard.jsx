@@ -1,9 +1,17 @@
+"use client"
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { Button } from "../ui/button";
+import { useState } from "react";
+
 
 const ProductCard = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [isActive, setIsActive] = useState(0);
+  const handleButtonClick = () => {
+    setIsActive(1);
+  };
   return (
     <main className="p-4 bg-white shadow-md rounded-xl grid grid-rows-[1fr_auto_auto] gap-3">
       <div className="h-[15rem] relative">
@@ -16,7 +24,7 @@ const ProductCard = () => {
           }
           className="object-cover w-full h-full  rounded-md"
         />
-        <Heart className="absolute top-3 right-3 size-[30px] p-1 bg-white rounded-sm stroke-[1.5]" />
+        <Heart onClick={() => handleButtonClick()} className={`absolute top-3 right-3 size-[35px] stroke-red-500 p-2 bg-white  rounded-full stroke-[1.5] cursor-pointer  ${isActive === 1 ? 'fill-red-500' : ''} `} />
       </div>
       <div>
         <h3 className="font-bold text-xl">Xbox 2024</h3>
