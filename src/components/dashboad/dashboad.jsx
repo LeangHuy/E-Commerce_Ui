@@ -3,8 +3,8 @@
 import { usePathname } from "next/navigation";
 import NavbarComponent from "./navbar";
 
-export default function DashboadComponent({ children }) {
-    const pathname = usePathname()
+export default function DashboardComponent({ children }) {
+  const pathname = usePathname()
   return (
     <div>
       <NavbarComponent />
@@ -41,10 +41,10 @@ export default function DashboadComponent({ children }) {
             <li>
               <a
                 href="/dashboard"
-                className={`flex items-center p-2  hover:text-black rounded-lg dark:text-white  hover:bg-gray-100 dark:hover:bg-gray-700 group ${pathname ==='/dashboard'? 'bg-gray-100 text-black':'text-[#ffff]'}`}
+                className={`flex items-center p-2  hover:text-black rounded-lg dark:text-white  hover:bg-gray-100 dark:hover:bg-gray-700 group ${pathname === '/dashboard' ? 'bg-gray-100 text-black' : 'text-[#ffff]'}`}
               >
                 <svg
-                  className={`flex-shrink-0 w-5 h-5 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white ${pathname ==='/dashboard'? 'bg-gray-100 text-black':'text-[#ffff]'}`}
+                  className={`flex-shrink-0 w-5 h-5 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white ${pathname === '/dashboard' ? 'bg-gray-100 text-black' : 'text-[#ffff]'}`}
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="currentColor"
@@ -110,10 +110,10 @@ export default function DashboadComponent({ children }) {
             <li>
               <a
                 href="/products"
-                className={`flex items-center p-2  hover:text-black rounded-lg dark:text-white  hover:bg-gray-100 dark:hover:bg-gray-700 group ${pathname ==='/products'? 'bg-gray-100 text-black':'text-[#ffff]'}`}
+                className={`flex items-center p-2  hover:text-black rounded-lg dark:text-white  hover:bg-gray-100 dark:hover:bg-gray-700 group ${pathname === '/products' ? 'bg-gray-100 text-black' : 'text-[#ffff]'}`}
               >
                 <svg
-                  className={`flex-shrink-0 w-5 h-5 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white ${pathname ==='/products'? 'bg-gray-100 text-black':'text-[#ffff]'}`}
+                  className={`flex-shrink-0 w-5 h-5 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white ${pathname === '/products' ? 'bg-gray-100 text-black' : 'text-[#ffff]'}`}
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="currentColor"
