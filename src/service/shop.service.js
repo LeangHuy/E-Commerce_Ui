@@ -1,4 +1,4 @@
-import { shopUrl } from "../../utils/constants";
+import { shopUrl } from "@/utils/constants";
 
 export const getShopInfoService = async () => {
   try {
