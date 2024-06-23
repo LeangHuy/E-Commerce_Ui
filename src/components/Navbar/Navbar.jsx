@@ -7,15 +7,16 @@ import { ShoppingCart } from "lucide-react";
 import { Search } from "lucide-react";
 import { SearchDialog } from "../Search/SearchBtn";
 import { CustomSheet } from "../Sheet/CustomSheet";
-
+import Image from "next/image";
 const Navbar = () => {
   return (
     <header className="py-6  shadow-sm bg-white">
       <div className="w-[1300px] mx-auto flex items-center justify-between">
         <section className="logo-links flex gap-10 items-center">
           <Link href={"#"} className="font-bold text-3xl">
-            <span>Cam</span>
-            <span className="text-sky-500">Game</span>
+            {/* <span>Cam</span>
+            <span className="text-sky-500">Game</span> */}
+            <Image src="/images/logo.png" alt="alt" width={1000} height={1000} className="w-10 h-10 rounded-full" />
           </Link>
           <MyLink />
         </section>

@@ -6,13 +6,16 @@ import { useState } from "react";
 import { categories } from "@/data/categories";
 import { Button } from "@/components/ui/button";
 import ProductCard from "@/components/Card/ProductCard";
+import { getShopInfoService } from "@/service/shop.service";
 
-const page = () => {
+const page = async () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [isActive, setIsActive] = useState();
   const handleButtonClick = (categoryName) => {
     setIsActive(categoryName);
   };
+  const getShopInfo = await getShopInfoService();
+  console.log(getShopInfo?.payload)
   return (
     <main>
       <MyCarousel />
@@ -36,6 +39,9 @@ const page = () => {
           <ProductCard key={idx} />
         ))}
       </div>
+      {/* <div className="">
+        <h1>{getShopInfo?.payload?.shopName}</h1>
+      </div> */}
     </main>
   );
 };

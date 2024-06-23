@@ -1,8 +1,7 @@
 export const carousels = [
   {
     index: 0,
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAXBKHy5zPg9DnSmpNA6cyzcc9VUHyUcajlw&s",
+    image: "https://w.wallhaven.cc/full/6k/wallhaven-6krerq.png",
   },
   {
     index: 1,
@@ -14,12 +13,10 @@ export const carousels = [
   },
   {
     index: 3,
-    image:
-      "https://i.pinimg.com/564x/f2/25/86/f22586d03380460b7051b9420211606a.jpg",
+    image: "https://w.wallhaven.cc/full/01/wallhaven-016j81.jpg",
   },
   {
     index: 4,
-    image:
-      "https://i.pinimg.com/564x/e5/24/c0/e524c0b9e80c581f25650690d2fa10d8.jpg",
+    image: "https://w.wallhaven.cc/full/8x/wallhaven-8x318k.jpg",
   },
 ];
