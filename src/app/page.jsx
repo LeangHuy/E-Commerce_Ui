@@ -2,20 +2,32 @@
 import MyCarousel from "@/components/Carousel/MyCarousel";
 import Navbar from "@/components/Navbar/Navbar";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { categories } from "@/data/categories";
 import { Button } from "@/components/ui/button";
 import ProductCard from "@/components/Card/ProductCard";
 import { getShopInfoService } from "@/service/shop.service";
+import { getAllProductService } from "@/service/product.service";
 
-const page = async () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+
+function Home() {
+
   const [isActive, setIsActive] = useState();
+
+  const [data, setData] = useState();
   const handleButtonClick = (categoryName) => {
     setIsActive(categoryName);
   };
-  const getShopInfo = await getShopInfoService();
-  console.log(getShopInfo?.payload)
+
+  useEffect(() => {
+    const data = async () => {
+      const getAllProduct = await getAllProductService();
+      setData(getAllProduct);
+    }
+    data();
+  }, [])
+
+  console.log("all product : ", data)
   return (
     <main>
       <MyCarousel />
@@ -34,10 +46,8 @@ const page = async () => {
 
         </div>
       </div>
-      <div className="container grid grid-cols-4 gap-6 mt-8">
-        {Array.from({ length: 4 }).map((itc, idx) => (
-          <ProductCard key={idx} />
-        ))}
+      <div >
+        <ProductCard products={data?.payload} />
       </div>
       {/* <div className="">
         <h1>{getShopInfo?.payload?.shopName}</h1>
@@ -46,4 +56,4 @@ const page = async () => {
   );
 };
 
-export default page;
+export default Home;
