@@ -78,3 +78,7 @@
 .active-link {
   @apply text-sky-500 after:!w-full;
 }
+
+* {
+  scroll-behavior: smooth;
+}
