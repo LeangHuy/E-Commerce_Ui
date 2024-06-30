@@ -1,23 +1,22 @@
-"use client"
+"use client";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { Button } from "../ui/button";
 import { useState } from "react";
 
-
 const ProductCard = ({ products }) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [isActive, setIsActive] = useState(0);
   const handleButtonClick = () => {
     setIsActive(1);
   };
-  console.log("Payload prop :", products)
   return (
-
     <main className="container grid grid-cols-4 gap-6 mt-8">
       {products?.map((item, idx) => (
-        <div key={idx} className="p-4 bg-white shadow-md rounded-xl grid grid-rows-[1fr_auto_auto] gap-3">
+        <div
+          key={idx}
+          className="p-4 bg-white shadow-md rounded-xl grid grid-rows-[1fr_auto_auto] gap-3"
+        >
           <div className="h-[15rem] relative">
             <Image
               width={1000}
@@ -28,23 +27,24 @@ const ProductCard = ({ products }) => {
               }
               className="object-cover w-full h-full  rounded-md"
             />
-            <Heart onClick={() => handleButtonClick()} className={`absolute top-3 right-3 size-[35px] stroke-red-500 p-2 bg-white  rounded-full stroke-[1.5] cursor-pointer  ${isActive === 1 ? 'fill-red-500' : ''} `} />
+            <Heart
+              onClick={() => handleButtonClick()}
+              className={`absolute top-3 right-3 size-[35px] stroke-red-500 p-2 bg-white  rounded-full stroke-[1.5] cursor-pointer  ${
+                isActive === 1 ? "fill-red-500" : ""
+              } `}
+            />
           </div>
           <div>
             <h3 className="font-bold text-xl">{item?.productName}</h3>
-            <p className="text-gray-600">
-              {item?.productDesc}
-            </p>
+            <p className="text-gray-600">{item?.productDesc}</p>
           </div>
           <div className="grid grid-cols-[auto_1fr] gap-4 items-center">
             <p className="font-semibold text-[18px]">{item?.unitPrice}$</p>
             <Button className=" rounded-lg">Add to Cart</Button>
           </div>
         </div>
-
       ))}
     </main>
-
   );
 };
 
