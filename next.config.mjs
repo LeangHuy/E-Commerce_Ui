@@ -9,10 +9,16 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "*.**.**",
+        hostname: "**.**" || "**.**.**" || "**.**.**.**" || "**.**.**.**.**",
         port: "",
       },
+      {
+        protocol: "http",
+        hostname: "**.**" || "**.**.**" || "**.**.**.**" || "**.**.**.**.**",
+        port: "**",
+      },
     ],
+    domains: ["localhost"],
   },
 };
 

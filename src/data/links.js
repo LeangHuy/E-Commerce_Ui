@@ -1,12 +1,9 @@
 export const my_links = [
   {
     link: "Home",
-    path: "#",
+    path: "/",
   },
-  {
-    link: "Play Station",
-    path: "#",
-  },
+
   {
     link: "Contact",
     path: "#",

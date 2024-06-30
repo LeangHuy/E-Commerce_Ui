@@ -9,7 +9,7 @@ import {
 
 import React from "react";
 
-const BreadCrumb = () => {
+const BreadCrumb = ({ proName }) => {
   return (
     <Breadcrumb>
       <BreadcrumbList>
@@ -18,11 +18,7 @@ const BreadCrumb = () => {
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href="/components">Components</BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+          <BreadcrumbPage>{proName}</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>

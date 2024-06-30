@@ -4,6 +4,8 @@ import Image from "next/image";
 import React from "react";
 import { Button } from "../ui/button";
 import { useState } from "react";
+import Link from "next/link";
+import { getPhoto } from "@/lib/utils";
 
 const ProductCard = ({ products }) => {
   const [isActive, setIsActive] = useState(0);
@@ -11,36 +13,36 @@ const ProductCard = ({ products }) => {
     setIsActive(1);
   };
   return (
-    <main className="container grid grid-cols-4 gap-6 mt-8">
+    <main className="container grid grid-cols-4 gap-6 my-8">
       {products?.map((item, idx) => (
         <div
           key={idx}
-          className="p-4 bg-white shadow-md rounded-xl grid grid-rows-[1fr_auto_auto] gap-3"
+          className="grid transition-all grid-rows-[1fr_auto_auto] gap-3"
         >
-          <div className="h-[15rem] relative">
-            <Image
-              width={1000}
-              height={1000}
-              alt="pic 1"
-              src={
-                "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=3047&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              }
-              className="object-cover w-full h-full  rounded-md"
-            />
+          <div className="h-[20rem] relative">
+            <Link href={`/view/product/${item?.productId}`}>
+              <Image
+                width={1000}
+                height={1000}
+                alt="pic 1"
+                src={getPhoto(item?.imageProductList[0]?.fileName)}
+                className="object-cover w-full h-full  rounded-xl"
+              />
+            </Link>
             <Heart
-              onClick={() => handleButtonClick()}
-              className={`absolute top-3 right-3 size-[35px] stroke-red-500 p-2 bg-white  rounded-full stroke-[1.5] cursor-pointer  ${
-                isActive === 1 ? "fill-red-500" : ""
-              } `}
+              // onClick={() => setIsActive(idx)}
+              className={`absolute top-3 right-3 size-[35px] stroke-red-500 p-2 bg-white  rounded-full stroke-[2] cursor-pointer `}
             />
           </div>
-          <div>
-            <h3 className="font-bold text-xl">{item?.productName}</h3>
-            <p className="text-gray-600">{item?.productDesc}</p>
-          </div>
+          <Link href={`/view/product/${item?.productId}`} className="">
+            <p className=" text-[18px] text-[#ff540a]">{item?.unitPrice}$</p>
+            <h3 className="font-medium text-xl text-[#1d1d1d]">
+              {item?.productName}
+            </h3>
+            {/* <p className="text-gray-600">{item?.productDesc}</p> */}
+          </Link>
           <div className="grid grid-cols-[auto_1fr] gap-4 items-center">
-            <p className="font-semibold text-[18px]">{item?.unitPrice}$</p>
-            <Button className=" rounded-lg">Add to Cart</Button>
+            {/* <Button className=" rounded-lg">Add to Cart</Button> */}
           </div>
         </div>
       ))}

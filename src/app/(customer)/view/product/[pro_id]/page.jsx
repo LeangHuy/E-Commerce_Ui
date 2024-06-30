@@ -5,53 +5,51 @@ import { AddToCart, MyToast } from "@/components/Toast/MyToast";
 import { Button } from "@/components/ui/button";
 import { specs } from "@/data/spec";
 import { tags } from "@/data/tags";
+import { getPhoto } from "@/lib/utils";
+import { getProductById } from "@/service/product.service";
+import clsx from "clsx";
 import { Check } from "lucide-react";
 import { DollarSign } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
-const page = ({ params: { pro_id } }) => {
+const page = async ({ params: { pro_id } }) => {
+  const product = await getProductById(pro_id);
 
   return (
     <div className="w-[1300px] mx-auto my-10">
-      <BreadCrumb />
+      <BreadCrumb proName={product?.productName} />
       <section className="grid-photo h-[500px] w-full grid grid-cols-3 grid-rows-2 gap-3 my-10">
         <Image
           width={1000}
           height={1000}
           alt="pic 1"
-          src={
-            "https://images.unsplash.com/photo-1605899435973-ca2d1a8861cf?q=80&w=2625&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          }
+          src={getPhoto(product?.imageProductList[0].fileName)}
           className="object-cover w-full h-full col-span-2 row-span-2 rounded-md"
         />
         <Image
           width={1000}
           height={1000}
           alt="pic 1"
-          src={
-            "https://images.unsplash.com/photo-1571716846252-df1324ce17bb?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          }
+          src={getPhoto(product?.imageProductList[1].fileName)}
           className="object-cover w-full h-full col-start-[3/4] row-start-[1/2] rounded-md"
         />
         <Image
           width={1000}
           height={1000}
           alt="pic 1"
-          src={
-            "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=3047&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          }
+          src={getPhoto(product?.imageProductList[2].fileName)}
           className="object-cover w-full h-full  rounded-md"
         />
       </section>
       <section className="grid grid-cols-[1fr_300px] gap-10">
         <div className="flex flex-col gap-6">
           <p className="text-sm text-sky-500">
-            Published on {new Date().toDateString()}
+            Published on {new Date(product?.createAt).toDateString()}
           </p>
           <div className="flex flex-col gap-6">
             <div className="flex items-center gap-6">
-              <h3 className="text-2xl font-bold">Xbox 2024</h3>
+              <h3 className="text-2xl font-bold">{product?.productName}</h3>
               <Tag
                 className={" !rounded-full text-sky-500"}
                 title={"Original"}
@@ -59,20 +57,13 @@ const page = ({ params: { pro_id } }) => {
             </div>
             <p className="flex gap-2 items-center text-xl text-red-500 font-medium">
               <DollarSign className="size-[20px]" />
-              <span>200</span>
+              <span>{product?.unitPrice}</span>
             </p>
             <div className="flex flex-col gap-4">
               <p className="font-semibold">Description</p>
-              <p className="w-[70%] text-slate-600">
-                The Xbox 2024 is a cutting-edge gaming console emphasizing power
-                efficiency with a minimum consumption of 30 watts. It features a
-                high-performance processor, advanced graphics, extensive
-                backward compatibility, and seamless integration with Xbox Game
-                Pass, delivering an exceptional and eco-friendly gaming
-                experience.
-              </p>
+              <p className="w-[70%] text-slate-600">{product?.productDesc}</p>
             </div>
-            <div className="flex flex-col gap-2">
+            {/* <div className="flex flex-col gap-2">
               <p className="font-semibold">Spec</p>
               {specs.map((data, idx) => (
                 <p key={idx} className="flex items-center gap-3">
@@ -83,19 +74,16 @@ const page = ({ params: { pro_id } }) => {
                   </span>
                 </p>
               ))}
-            </div>
+            </div> */}
             <div className="flex flex-col gap-4">
               <p className="font-semibold">Tags</p>
               <div className="flex  gap-2">
-                {tags.map((tag, idx) => (
-                  <Tag
-                    key={idx}
-                    title={"#" + tag}
-                    className={
-                      " hover:-translate-y-1 transition-all cursor-pointer hover:bg-sky-400 hover:text-white hover:border-transparent"
-                    }
-                  />
-                ))}
+                <Tag
+                  title={"#" + product?.categoryName}
+                  className={
+                    " hover:-translate-y-1 transition-all cursor-pointer hover:bg-sky-400 hover:text-white hover:border-transparent"
+                  }
+                />
               </div>
             </div>
           </div>
