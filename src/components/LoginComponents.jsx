@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
 export default function LoginComponents() {
@@ -27,7 +28,7 @@ export default function LoginComponents() {
             Password
           </label>
           <input
-            type="text"
+            type="password"
             className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
             {...register("password")}
           />
@@ -35,7 +36,9 @@ export default function LoginComponents() {
             type="submit"
             className="transition duration-200 bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block"
           >
-            <span className="inline-block mr-2">Login</span>
+            <Link href="/" className="inline-block mr-2">
+              Login
+            </Link>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

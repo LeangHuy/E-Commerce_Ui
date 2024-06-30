@@ -31,7 +31,9 @@ const Navbar = () => {
           {/* <Search className="cursor-pointer hover:stroke-sky-500" /> */}
           {/* <ShoppingCart className="cursor-pointer hover:stroke-sky-500" /> */}
           <CustomSheet />
-          <User className="cursor-pointer hover:stroke-sky-500" />
+          <Link href={"/login"}>
+            <User className="cursor-pointer hover:stroke-sky-500" />
+          </Link>
         </div>
       </div>
     </header>
