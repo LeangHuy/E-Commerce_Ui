@@ -6,6 +6,7 @@ export const getAllCategories = async () => {
       },
       cache: "no-store",
     }).then((data) => data.json());
-    return res?.payload;
+
+    return Array.from(new Set(res?.payload.map((cate) => cate?.categoryName)));
   } catch (error) {}
 };

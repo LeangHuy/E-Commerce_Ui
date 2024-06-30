@@ -11,22 +11,13 @@ import { ImagesSliderDemo } from "@/components/Slider/ImageSlider";
 async function Home() {
   const products = await getAllProductService();
   const categories = await getAllCategories();
-  console.log(categories);
   return (
     <main>
       {/* <MyCarousel /> */}
       <ImagesSliderDemo />
       <div className="flex container mt-10 justify-between">
         <div className="font-medium text-[1.5rem]">Popular products</div>
-        <CategoryButton
-          categories={[
-            {
-              //   categoryId: "0c9849d4-5e06-4923-ae4a-0df141bb298c",
-              categoryName: "All",
-            },
-            ...categories,
-          ]}
-        />
+        <CategoryButton categories={["All", ...categories]} />
       </div>
       <div id="product" className="scroll-mt-10">
         <ProductCard products={products} />
