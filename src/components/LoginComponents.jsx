@@ -2,14 +2,32 @@
 
 import React from "react";
 import { useForm } from "react-hook-form";
+import { signIn } from "next-auth/react";
+import toast from "react-hot-toast";
 export default function LoginComponents() {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const handleLogin = (data) => {
+  const handleLogin = async (data) => {
     console.log("data: ", data);
+    try {
+      const res = await signIn("credentials", {
+        username: data?.email,
+        password: data?.password,
+        redirect: false
+      })
+      console.log("res: ", res)
+      if(res?.status === 200) {
+        toast.success("Login successfully")
+      } else {
+        toast.error("Failed to login")
+      }
+    } catch(err) {
+      console.log("Login failed: ", err)
+    } 
+
   };
   return (
     <div>

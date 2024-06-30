@@ -25,6 +25,10 @@ export const verfiyService = async (otpCode) => {
 export const loginService = async (req) => {
   const res = await fetch(`${baseUrl}/auths/login`, {
     method: "POST",
+    headers: {
+      accept: "*/*",
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(req),
   })
     .then((user) => user.json())
