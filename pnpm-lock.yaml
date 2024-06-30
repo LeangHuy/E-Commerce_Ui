@@ -38,6 +38,9 @@ dependencies:
   cmdk:
     specifier: ^1.0.0
     version: 1.0.0(react-dom@18.3.1)(react@18.3.1)
+  embla-carousel-autoplay:
+    specifier: ^8.1.5
+    version: 8.1.5(embla-carousel@8.1.5)
   embla-carousel-react:
     specifier: ^8.1.5
     version: 8.1.5(react@18.3.1)
@@ -3743,6 +3746,14 @@ packages:
 
   /eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
+
+  /embla-carousel-autoplay@8.1.5(embla-carousel@8.1.5):
+    resolution: {integrity: sha512-9pHIezRqiO9yism7wRFwmM1j/W9c9hBNX4hq3F4aTPbK84M0M57ryG8QUwhbsTGJbDoBBVTm//YEd0T6i/5YgA==}
+    peerDependencies:
+      embla-carousel: 8.1.5
+    dependencies:
+      embla-carousel: 8.1.5
+    dev: false
 
   /embla-carousel-react@8.1.5(react@18.3.1):
     resolution: {integrity: sha512-xFmfxgJd7mpWDHQ4iyK1Qs+5BTTwu4bkn+mSROKiUH9nKpPHTeilQ+rpeQDCHRrAPeshD67aBk0/p6FxWxXsng==}
