@@ -1,17 +1,38 @@
 "use client";
 
+import { verfiyAction } from "@/acitons/authAction";
+import { routePath } from "@/constants/route-path";
 import { Button } from "@nextui-org/react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 const VerifyFormComponent = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const handleSubmitOTP = (data) => {
-    console.log("data: ", data);
+  const handleSubmitOTP = async (data) => {
+    const otpCode = data?.a?.concat(
+      data?.b,
+      data?.c,
+      data?.d,
+      data?.e,
+      data?.f
+    );
+    console.log(otpCode);
+    const res = await verfiyAction(otpCode);
+    if (res?.status) {
+      toast.error(res?.detail);
+    } else {
+      toast.success("Verified successfully!");
+      router.push(routePath.LOGIN);
+    }
+    console.log(res);
   };
   return (
     <>
@@ -48,17 +69,15 @@ const VerifyFormComponent = () => {
             className="rounded-lg text-center bg-gray-100 cursor-text w-14 aspect-square flex items-center justify-center"
           />
         </div>
-        <div class="flex items-center flex-col justify-between my-6">
-          <button>
-            <p class="text-gray-600 text-sm">{"Didn't receive code?"}</p>
-          </button>
+        <div class="flex items-center flex-row justify-between my-6">
+          <Link href={routePath.LOGIN}>
+            <button className="text-gray-600 text-sm">Back to Login</button>
+          </Link>
+
+          <button className="text-gray-600 text-sm">Resend</button>
         </div>
 
-        <Button
-          type="submit"
-          color="primary"
-          className="rounded-sm w-full"
-        >
+        <Button type="submit" color="primary" className="rounded-sm w-full">
           Verify
         </Button>
       </form>
