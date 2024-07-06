@@ -8,7 +8,7 @@ const OrderDetailCard = () => {
   const { cartList, removeAllCart } = useAddToCart();
   const { toast } = useToast();
   return (
-    <div className="border p-6 rounded-md flex flex-col gap-6">
+    <div className="border h-fit sticky top-20 p-6 rounded-md flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <p className="font-medium">Subtotal</p>
         <p className="before:content-['$']">
