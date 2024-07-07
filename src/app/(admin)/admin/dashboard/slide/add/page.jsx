@@ -10,6 +10,7 @@ import Image from "next/image";
 import { uploadImgAction } from "@/acitons/uploadImgAction";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import { revalidateWhere } from "@/acitons/revalidateAction";
 
 const AdminDashboardPage = ({ searchParams: { tab = "Overview" } }) => {
   const {
@@ -27,13 +28,12 @@ const AdminDashboardPage = ({ searchParams: { tab = "Overview" } }) => {
 
   const onSubmit = async (data) => {
     const result = await createSlideAction(data);
-
     const formData = new FormData();
     formData.append("file", img.imgFile);
-
     const imgResult = await uploadImgAction(formData, result.slideId);
     reset();
     setImg({ imgFile: null, imgPreview: null });
+    await revalidateWhere("getAllSlideShows");
     if (result?.slideId && imgResult?.fileName) {
       router.back();
     }

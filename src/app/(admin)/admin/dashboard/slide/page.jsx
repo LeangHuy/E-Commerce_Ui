@@ -16,8 +16,12 @@ import Image from "next/image";
 import { Trash2Icon } from "lucide-react";
 import { Pencil } from "lucide-react";
 import Link from "next/link";
+import { getAllSlideShows } from "@/service/slide.service";
+import { getPhoto } from "@/lib/utils";
 
-const ShopPage = ({ searchParams: { tab = "Slide" } }) => {
+const ShopPage = async ({ searchParams: { tab = "Slide" } }) => {
+  const allSlides = await getAllSlideShows();
+
   return (
     <div className="w-full">
       <Header tab={tab}>
@@ -41,29 +45,29 @@ const ShopPage = ({ searchParams: { tab = "Slide" } }) => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              <TableRow className="group">
-                <TableCell className="font-medium">1</TableCell>
-                <TableCell>
-                  <Image
-                    src={
-                      "https://images.unsplash.com/photo-1614644147798-f8c0fc9da7f6?q=80&w=2504&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    }
-                    priority
-                    width={1000}
-                    height={1000}
-                    alt="profile"
-                    className="size-[3.5rem] object-cover rounded-sm"
-                  />
-                </TableCell>
-                <TableCell>Come and enjoy the best promotion</TableCell>
-                <TableCell className="text-right">
-                  <div className="flex justify-end gap-4">
-                    <Pencil className="size-[18px] p-2 box-content bg-gray-100 rounded-lg group-hover:bg-white transition-all hover:stroke-red-500 cursor-pointer" />
+              {allSlides.map((slide, idx) => (
+                <TableRow key={idx} className="group">
+                  <TableCell className="font-medium">{idx + 1}</TableCell>
+                  <TableCell>
+                    <Image
+                      src={getPhoto(slide?.image)}
+                      priority
+                      width={1000}
+                      height={1000}
+                      alt="profile"
+                      className="size-[3.5rem] object-cover rounded-sm"
+                    />
+                  </TableCell>
+                  <TableCell>{slide?.description}</TableCell>
+                  <TableCell className="text-right">
+                    <div className="flex justify-end gap-4">
+                      <Pencil className="size-[18px] p-2 box-content bg-gray-100 rounded-lg group-hover:bg-white transition-all hover:stroke-red-500 cursor-pointer" />
 
-                    <Trash2Icon className="size-[18px] p-2 box-content bg-gray-100 rounded-lg group-hover:bg-white transition-all hover:stroke-red-500 cursor-pointer" />
-                  </div>
-                </TableCell>
-              </TableRow>
+                      <Trash2Icon className="size-[18px] p-2 box-content bg-gray-100 rounded-lg group-hover:bg-white transition-all hover:stroke-red-500 cursor-pointer" />
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </div>
