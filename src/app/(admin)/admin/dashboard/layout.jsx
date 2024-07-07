@@ -5,7 +5,7 @@ const layout = ({ children }) => {
   return (
     <div className="">
       <Sidebar />
-      <main className="ml-[300px]">{children}</main>
+      <main className="ml-[250px]">{children}</main>
     </div>
   );
 };
