@@ -12,11 +12,14 @@ import clsx from "clsx";
 import { Check } from "lucide-react";
 import { DollarSign } from "lucide-react";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 import React from "react";
 
 const page = async ({ params: { pro_id } }) => {
+  if (pro_id == "undefined") notFound();
   const product = await getProductById(pro_id);
 
+  // return;
   return (
     <div className="w-[1300px] mx-auto my-10">
       <BreadCrumb proName={product?.productName} />
@@ -26,7 +29,7 @@ const page = async ({ params: { pro_id } }) => {
           height={1000}
           alt="pic 1"
           priority
-          src={getPhoto(product?.imageProductList[0].fileName)}
+          src={getPhoto(product?.imageProductList[0]?.fileName)}
           className="object-cover w-full h-full col-span-2 row-span-2 rounded-md"
         />
         <Image
@@ -34,7 +37,7 @@ const page = async ({ params: { pro_id } }) => {
           height={1000}
           alt="pic 1"
           priority
-          src={getPhoto(product?.imageProductList[1].fileName)}
+          src={getPhoto(product?.imageProductList[1]?.fileName)}
           className="object-cover w-full h-full col-start-[3/4] row-start-[1/2] rounded-md"
         />
         <Image
@@ -42,7 +45,7 @@ const page = async ({ params: { pro_id } }) => {
           height={1000}
           alt="pic 1"
           priority
-          src={getPhoto(product?.imageProductList[2].fileName)}
+          src={getPhoto(product?.imageProductList[2]?.fileName)}
           className="object-cover w-full h-full  rounded-md"
         />
       </section>
@@ -130,11 +133,7 @@ const page = async ({ params: { pro_id } }) => {
       </section>
       <section className="my-10">
         <h3 className="text-2xl font-semibold mb-6">Related </h3>
-        <div className="grid grid-cols-4 gap-6">
-          {Array.from({ length: 4 }).map((itc, idx) => (
-            <ProductCard key={idx} />
-          ))}
-        </div>
+        {/* <ProductCard /> */}
       </section>
     </div>
   );

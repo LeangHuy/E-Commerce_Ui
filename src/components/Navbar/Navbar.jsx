@@ -9,6 +9,7 @@ import { SearchDialog } from "../Search/SearchBtn";
 import { CustomSheet } from "../Sheet/CustomSheet";
 import Image from "next/image";
 import { DropdownMenuDemo, MenuDropdown } from "../Dropdown/Menu";
+import NavBadge from "./NavBadge";
 const Navbar = () => {
   return (
     <header className="py-6  shadow-sm bg-white">
@@ -32,8 +33,11 @@ const Navbar = () => {
           {/* <Search className="cursor-pointer hover:stroke-sky-500" /> */}
           {/* <ShoppingCart className="cursor-pointer hover:stroke-sky-500" /> */}
           {/* <CustomSheet /> */}
-          <Link href={"/view/cart"}>
+          <Link href={"/view/cart"} className="relative">
             <ShoppingCart className="cursor-pointer hover:stroke-sky-500" />
+            <div className="absolute -top-3 -right-3">
+              <NavBadge />
+            </div>
           </Link>
 
           {/* <Link href={"/login"}>

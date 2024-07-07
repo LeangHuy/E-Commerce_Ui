@@ -1,12 +1,16 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-const CategoryButton = ({ categories }) => {
-  const [isActive, setIsActive] = useState("All");
+const CategoryButton = ({ categories, searchParams }) => {
+  const [isActive, setIsActive] = useState(searchParams);
+  console.log(searchParams);
+  useEffect(() => {
+    setIsActive(searchParams);
+  }, [searchParams]);
 
   return (
     <div className="flex items-center gap-4">
