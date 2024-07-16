@@ -1,26 +1,40 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
-const CategoryButton = ({ categories }) => {
-  const [isActive, setIsActive] = useState("All");
+const CategoryButton = ({ categories, searchParams }) => {
+  const [isActive, setIsActive] = useState(searchParams);
+  console.log(searchParams);
+  useEffect(() => {
+    setIsActive(searchParams);
+  }, [searchParams]);
 
   return (
-    <div className="flex">
+    <div className="flex items-center gap-4">
       {categories.map((category, idx) => (
         <Link
-          href={`?q=${category?.categoryName}`}
+          href={`?q=${category}`}
           scroll={false}
           key={idx}
-          className={`border-2 hover:text-white border-blue-500 font-medium p-1 px-4 rounded-full ml-4 ${
-            isActive === category.categoryName
-              ? "bg-blue-500 text-white"
-              : "bg-color-none text-black"
-          } hover:bg-blue-500`}
-          onClick={() => setIsActive(category.categoryName)}
+          className={cn(
+            ` relative flex items-center z-10 font-medium p-1 px-4 rounded-full `,
+            isActive == category
+              ? " text-white border border-transparent"
+              : "border"
+          )}
+          onClick={() => setIsActive(category)}
         >
-          {category.categoryName}
+          {category}
+          {category === isActive && (
+            <motion.section
+              layoutId="filterButton"
+              transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
+              className={`absolute z-[-1] inset-0  bg-blue-500  rounded-full `}
+            />
+          )}
         </Link>
       ))}
     </div>

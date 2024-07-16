@@ -1,4 +1,5 @@
 import BreadCrumb from "@/components/BreadCrumb/BreadCrumb";
+import AddToCartButton from "@/components/Button/AddToCartButton";
 import ProductCard from "@/components/Card/ProductCard";
 import Tag from "@/components/Tag/Tag";
 import { AddToCart, MyToast } from "@/components/Toast/MyToast";
@@ -11,11 +12,14 @@ import clsx from "clsx";
 import { Check } from "lucide-react";
 import { DollarSign } from "lucide-react";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 import React from "react";
 
 const page = async ({ params: { pro_id } }) => {
+  if (pro_id == "undefined") notFound();
   const product = await getProductById(pro_id);
 
+  // return;
   return (
     <div className="w-[1300px] mx-auto my-10">
       <BreadCrumb proName={product?.productName} />
@@ -24,21 +28,24 @@ const page = async ({ params: { pro_id } }) => {
           width={1000}
           height={1000}
           alt="pic 1"
-          src={getPhoto(product?.imageProductList[0].fileName)}
+          priority
+          src={getPhoto(product?.imageProductList[0]?.fileName)}
           className="object-cover w-full h-full col-span-2 row-span-2 rounded-md"
         />
         <Image
           width={1000}
           height={1000}
           alt="pic 1"
-          src={getPhoto(product?.imageProductList[1].fileName)}
+          priority
+          src={getPhoto(product?.imageProductList[1]?.fileName)}
           className="object-cover w-full h-full col-start-[3/4] row-start-[1/2] rounded-md"
         />
         <Image
           width={1000}
           height={1000}
           alt="pic 1"
-          src={getPhoto(product?.imageProductList[2].fileName)}
+          priority
+          src={getPhoto(product?.imageProductList[2]?.fileName)}
           className="object-cover w-full h-full  rounded-md"
         />
       </section>
@@ -96,6 +103,7 @@ const page = async ({ params: { pro_id } }) => {
                   src={
                     "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   }
+                  priority
                   width={1000}
                   height={1000}
                   alt="pf seller"
@@ -112,6 +120,7 @@ const page = async ({ params: { pro_id } }) => {
             </div>
             <div className="grid grid-cols-[auto_1fr] gap-3">
               <AddToCart
+                data={{ ...product, qty: 1 }}
                 className={
                   "bg-transparent group border hover:border-transparent "
                 }
@@ -124,11 +133,7 @@ const page = async ({ params: { pro_id } }) => {
       </section>
       <section className="my-10">
         <h3 className="text-2xl font-semibold mb-6">Related </h3>
-        <div className="grid grid-cols-4 gap-6">
-          {Array.from({ length: 4 }).map((itc, idx) => (
-            <ProductCard key={idx} />
-          ))}
-        </div>
+        {/* <ProductCard /> */}
       </section>
     </div>
   );

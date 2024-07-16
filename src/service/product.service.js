@@ -16,7 +16,6 @@ export const getProductById = async (productId) => {
       headers: {
         "Content-Type": "*/*",
       },
-      cache: "no-store",
     }).then((data) => data.json());
     return res?.payload;
   } catch (error) {}
