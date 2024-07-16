@@ -1,54 +1,63 @@
 import LoginComponents from "@/components/LoginComponents";
-import { routePath } from "@/constants/route-path";
-import Link from "next/link";
 import React from "react";
+import TextBetweenLine from "../_component/TextBetweenLine";
+import Image from "next/image";
+import Link from "next/link";
 
-export default function page() {
+function LoginPage() {
   return (
-    <div>
-      <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">
-        <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
-          <h1 className="font-bold text-center text-2xl mb-5">Your Logo</h1>
-          <div className="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
-            <LoginComponents />
-
-            <div className="py-5">
-              <div className="grid grid-cols-2 gap-1">
-                <div className="text-center sm:text-left whitespace-nowrap">
-                  <button className="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      className="w-4 h-4 inline-block align-text-top"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"
-                      />
-                    </svg>
-                    <span className="inline-block ml-1">Forgot Password</span>
-                  </button>
-                </div>
+    <div className="flex h-full p-16">
+      <div className=" bg-white p-10 rounded-xl lg:rounded-r-none lg:rounded-l-xl w-[30rem]">
+        <div className="flex flex-col gap-5">
+          <div className="font-semibold text-[1rem]">Cambodia Shopping</div>
+          <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-3">
+              <div className="text-[1.4rem] font-bold">
+                Log in to your account
+              </div>
+              <div className="text-[0.85rem] text-gray-500 font-semibold">
+                Welcome back! Select method to log in
               </div>
             </div>
-          </div>
-          <div className="py-5">
-            <div className="grid grid-cols-2 gap-1">
-              <div className="text-center sm:text-left whitespace-nowrap">
-                <Link href={routePath.REGISTER}>
-                  <button className="text-gray-600 text-sm">
-                    Back to Register
-                  </button>
-                </Link>
+            <div className="flex gap-5">
+              <div className="border w-[15rem] h-[3rem] rounded flex items-center p-2 gap-5 cursor-pointer">
+                <Image
+                  src={"/google.svg"}
+                  width={30}
+                  height={30}
+                  alt="Google Icons"
+                />
+                <div className="text-[0.8rem] font-semibold">Google</div>
+              </div>
+              <div className="border w-[15rem] h-[3rem] rounded flex items-center p-2 gap-5 cursor-pointer">
+                <Image
+                  src={"/facebook.svg"}
+                  width={30}
+                  height={30}
+                  alt="Facebook Icons"
+                />
+                <div className="text-[0.8rem] font-semibold">Facebook</div>
               </div>
             </div>
+            {/* <div>Or continue with email</div> */}
+            <TextBetweenLine />
           </div>
         </div>
+        <LoginComponents />
+        <div className="text-[0.8rem] self-end ">
+          Dont have an account?
+          <Link
+            href={"/register"}
+            className="text-blue-500 ml-2 font-semibold"
+          >
+            Register
+          </Link>
+        </div>
       </div>
+
+      <div className="bg-blue-500 w-[30rem] object-fill h-full bg-[url('/images/girl.jpg')] rounded-r-xl lg:block hidden bg-cover"></div>
     </div>
   );
 }
+
+export default LoginPage;

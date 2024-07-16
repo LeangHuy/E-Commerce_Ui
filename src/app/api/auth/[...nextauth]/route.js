@@ -7,17 +7,31 @@ export const authOption = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
-      credentials: {},
+      credentials: {
+        email: "",
+        password: "",
+      },
       async authorize(data) {
         const userData = {
           email: data?.username,
           password: data?.password,
         };
         const token = await loginService(userData);
-        if (token?.token) {
+        console.log("usertoken", token);
+        // return token
+
+        switch (token.detail) {
+          case "Invalid Password":
+            throw new Error(token.detail);
+          case "Invalid email":
+            throw new Error(token.detail);
+          case "Your account is not verify yet":
+            throw new Error(token.detail);
+        }
+        if (token?.payload.token) {
           return token;
         } else {
-          return null;
+          return;
         }
       },
     }),
