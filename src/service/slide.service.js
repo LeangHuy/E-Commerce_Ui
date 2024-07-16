@@ -22,7 +22,7 @@ export const getAllSlideShows = async () => {
     `${process.env.BASE_URL}/slideshows`,
     {
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
         //   Authorization: `Bearer ${session?.user?.token}`,
         Authorization: `Bearer ${process.env.TOKEN}`,
       },
@@ -37,4 +37,23 @@ export const getAllSlideShows = async () => {
   const { payload } = await res.json();
 
   return payload;
+};
+
+export const changeStatusSlide = async (slideId, statusSlide) => {
+  const res = await fetch(
+    `${
+      process.env.BASE_URL
+    }/slideshows/active/${slideId}?isActive=${!statusSlide}`,
+
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        //   Authorization: `Bearer ${session?.user?.token}`,
+        Authorization: `Bearer ${process.env.TOKEN}`,
+      },
+    }
+  );
+  const data = await res.json();
+  return data;
 };
