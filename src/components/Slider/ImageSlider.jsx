@@ -12,7 +12,7 @@ export function ImagesSliderDemo() {
   ];
   return (
     <ImagesSlider
-      className="h-[37rem] my-10 rounded-lg w-[1330px] mx-auto"
+      className="h-[37rem] my-10 rounded-lg w-full mx-auto"
       images={images}
     >
       <motion.div

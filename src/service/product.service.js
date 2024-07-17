@@ -20,3 +20,22 @@ export const getProductById = async (productId) => {
     return res?.payload;
   } catch (error) {}
 };
+
+export const postProduct = async (data, warranty) => {
+  console.log("datassss", data, warranty);
+  const res = await fetch(
+    `${process.env.BASE_URL}/products/warranties?warrantyTime=${warranty}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        //   Authorization: `Bearer ${session?.user?.token}`,
+        Authorization: `Bearer ${process.env.TOKEN}`,
+      },
+      body: JSON.stringify(data),
+    }
+  );
+
+  const { payload } = await res.json();
+  return payload;
+};

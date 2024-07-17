@@ -1,12 +1,15 @@
-export const getAllCategories = async () => {
+export const getAllCategories = async (page = 1, size = 999) => {
   try {
-    const res = await fetch(`${process.env.BASE_URL}/categories`, {
-      headers: {
-        "Content-Type": "*/*",
-      },
-      cache: "no-store",
-    }).then((data) => data.json());
+    const res = await fetch(
+      `${process.env.BASE_URL}/categories?offset=${page}&limit=${size}`,
+      {
+        headers: {
+          "Content-Type": "*/*",
+        },
+        cache: "no-store",
+      }
+    ).then((data) => data.json());
 
-    return Array.from(new Set(res?.payload.map((cate) => cate?.categoryName)));
+    return res?.payload;
   } catch (error) {}
 };

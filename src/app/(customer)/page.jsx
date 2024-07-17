@@ -11,28 +11,33 @@ import { ImagesSliderDemo } from "@/components/Slider/ImageSlider";
 async function Home({ searchParams: { q = "All" } }) {
   const products = await getAllProductService();
   const categories = await getAllCategories();
+  const getCate = categories?.map((cate) => cate?.categoryName);
 
   return (
-    <main>
+    <main className="w-[1330px] mx-auto max-[1400px]:w-[90%] ">
       {/* <MyCarousel /> */}
       <ImagesSliderDemo />
-      <div className="flex container mt-10 justify-between">
-        <div className="font-medium text-[1.5rem]">Popular products</div>
+      <div className="flex mt-10 justify-between">
+        <div className="font-medium text-[1.5rem]">Promotion products</div>
         {/* <CategoryButton categories={["All", ...categories]} /> */}
       </div>
       <div id="popular" className="scroll-mt-10">
-        <ProductCard products={products} />
+        <ProductCard searchParams={q} products={products} isPromotion={true} />
       </div>
-      <div className="flex container mt-10 justify-between">
+      <div className="flex mt-10 justify-between">
         <div className="font-medium text-[1.5rem]">All products</div>
         <CategoryButton
           searchParams={q || "All"}
-          categories={["All", ...categories]}
+          categories={["All", ...getCate]}
         />
       </div>
 
       <div id="product" className="scroll-mt-10">
-        <ProductCard searchParams={q} products={products} />
+        <ProductCard
+          searchParams={q}
+          products={products?.filter((p) => p.discount <= 0)}
+          isPromotion={false}
+        />
       </div>
 
       {/* <div className="">

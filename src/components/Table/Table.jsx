@@ -37,7 +37,7 @@ export function TableData() {
                   height={1000}
                   alt="prod img"
                   priority
-                  src={getPhoto(product?.imageProductList[0].fileName)}
+                  src={getPhoto(product?.imageProductList[0]?.fileName)}
                   className="size-[100px] object-cover rounded-sm"
                 />
                 <div>

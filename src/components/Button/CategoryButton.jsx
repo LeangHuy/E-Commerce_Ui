@@ -32,7 +32,7 @@ const CategoryButton = ({ categories, searchParams }) => {
             <motion.section
               layoutId="filterButton"
               transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
-              className={`absolute z-[-1] inset-0  bg-blue-500  rounded-full `}
+              className={`absolute z-[-1] inset-0  bg-gray-900  rounded-full `}
             />
           )}
         </Link>
