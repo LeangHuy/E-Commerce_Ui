@@ -49,13 +49,13 @@ export const verfiyService = async (otpCode) => {
       },
     }
   );
-const data= await res.json();
+  const data = await res.json();
   console.log(data);
   return data;
 };
 
 export const loginService = async (req) => {
-  console.log(req)
+  console.log(req);
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auths/login`, {
     method: "POST",
     headers: {
@@ -67,4 +67,42 @@ export const loginService = async (req) => {
     .then((user) => user.json())
     .catch((e) => console.log(e));
   return res;
+};
+
+export const resendEmail = async (req) => {
+  console.log("myemail", req);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/auths/resend?email=${req.email}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  const data = await res.json();
+
+  return data;
+};
+
+export const forgotPassword = async (req) => {
+  console.log("reqnew-pass",req)
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/auths/forget?email=${req.email}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        password: req.password,
+        confirmPassword: req.confirmPassword,
+      }),
+    }
+  );
+
+  const data = await res.json();
+  console.log(data)
+  return data;
 };

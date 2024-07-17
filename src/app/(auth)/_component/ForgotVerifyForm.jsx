@@ -3,6 +3,7 @@
 import { verfiyAction } from "@/acitons/authAction";
 import { routePath } from "@/constants/route-path";
 import { resendEmail, verfiyService } from "@/service/auth.service";
+import { globalEmail } from "@/store/authglobal";
 import { Button } from "@nextui-org/react";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
@@ -11,8 +12,10 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import OTPInput from "react-otp-input";
+// import { authInfoGlobal } from "@/app/src/store/auth";
 
-const VerifyFormComponent = ({ email }) => {
+const ForgotVerifyFormComponent = ({ email }) => {
+  const setEmail = globalEmail((state) => state.setEmail);
   console.log(email);
   const emailData = {
     email: email,
@@ -35,8 +38,9 @@ const VerifyFormComponent = ({ email }) => {
     if (!res?.statusCode) {
       toast.error(res?.detail);
     } else {
+      setEmail(email);
       toast.success(res.message);
-      router.push(routePath.LOGIN);
+      router.push("/forgot-password/new-password");
       router.refresh();
     }
     console.log(res);
@@ -82,4 +86,4 @@ const VerifyFormComponent = ({ email }) => {
   );
 };
 
-export default VerifyFormComponent;
+export default ForgotVerifyFormComponent;

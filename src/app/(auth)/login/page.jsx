@@ -3,8 +3,12 @@ import React from "react";
 import TextBetweenLine from "../_component/TextBetweenLine";
 import Image from "next/image";
 import Link from "next/link";
+import { getUserData } from "@/service/user.service";
+import { getServerSession } from "next-auth";
+import { authOption } from "@/app/api/auth/[...nextauth]/route";
 
-function LoginPage() {
+async function LoginPage() {
+
   return (
     <div className="flex h-full p-16">
       <div className=" bg-white p-10 rounded-xl lg:rounded-r-none lg:rounded-l-xl w-[30rem]">
@@ -46,10 +50,7 @@ function LoginPage() {
         <LoginComponents />
         <div className="text-[0.8rem] self-end ">
           Dont have an account?
-          <Link
-            href={"/register"}
-            className="text-blue-500 ml-2 font-semibold"
-          >
+          <Link href={"/register"} className="text-blue-500 ml-2 font-semibold">
             Register
           </Link>
         </div>

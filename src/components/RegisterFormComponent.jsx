@@ -4,6 +4,7 @@ import { registerAction } from "@/acitons/authAction";
 import { routePath } from "@/constants/route-path";
 import { registerService } from "@/service/auth.service";
 import { Button } from "@nextui-org/react";
+import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -151,6 +152,7 @@ const RegisterFormComponent = () => {
           color="primary"
           className="rounded-sm"
         >
+          {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           Register
         </Button>
       </form>

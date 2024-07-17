@@ -9,7 +9,7 @@ const VerifyPage = ({ params: { verify } }) => {
           Code sent to{" "}
           <span className="text-primary">{verify.replace("%40", "@")}</span>{" "}
         </p>
-        <VerifyFormComponent />
+        <VerifyFormComponent email={verify.replace("%40", "@")} />
       </div>
     </div>
   );

@@ -11,13 +11,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import { Loader2 } from "lucide-react";
-export default function LoginComponents() {
+import { resendEmail } from "@/service/auth.service";
+export default function ForgotComponents() {
   const route = useRouter();
-  const loginZod = z.object({
+  const forgotZod = z.object({
     email: z.string().email({ message: "Please provide a valid email" }),
-    password: z
-      .string()
-      .min(5, { message: "Password must be atleast 5 characters" }),
   });
   const {
     register,
@@ -28,28 +26,19 @@ export default function LoginComponents() {
       email: "",
       password: "",
     },
-    resolver: zodResolver(loginZod),
+    resolver: zodResolver(forgotZod),
   });
   console.log(errors);
   const handleLogin = async (data) => {
-    console.log("data: ", data);
-    try {
-      const res = await signIn("credentials", {
-        username: data?.email,
-        password: data?.password,
-        redirect: false,
-      });
-      console.log("res: ", res);
-      if (res?.error === null) {
-        toast.success("Login Successfully");
-        route.push("/");
-        route.refresh();
-      } else {
-        toast.error(res.error);
-      }
-    } catch (err) {
-      console.log("Login failed: ", err);
+    const res = await resendEmail(data);
+    if (res.status !== 404 && res.state !== 400) {
+      toast.success("Email send! Check your email for OTP code");
+      route.push(`/forgot-password/${data?.email}`);
+      route.refresh();
+    } else {
+      toast.error(res.detail);
     }
+    console.log("responseDATA", res);
   };
   return (
     <div>
@@ -79,43 +68,6 @@ export default function LoginComponents() {
               </p>
             )}
           </div>
-
-          {/* <label className="font-semibold text-sm text-gray-600 pb-1 block">
-            Password
-          </label> */}
-          <div>
-            <div className=" focus-within:border-gray-500 focus-within:border-2 flex gap-4 items-center px-4  rounded-lg   w-full justify-center border ">
-              <Image
-                src={"/password.svg"}
-                width={20}
-                height={20}
-                alt="Email Icons"
-              />
-
-              <input
-                placeholder="Password"
-                type="password"
-                className="focus:outline-none border-none px-3 py-2  w-full  text-sm"
-                {...register("password", { required: true })}
-              />
-            </div>
-            {errors.password && (
-              <p className="text-[0.65rem] mt-2 text-red-500 self-end">
-                {errors.password.message}
-              </p>
-            )}
-          </div>
-
-          <div className="text-[0.8rem] self-end ">
-            Forgot password?
-            <Link
-              href={"/forgot-password"}
-              className="text-blue-500 ml-2 font-semibold"
-            >
-              Click here
-            </Link>
-          </div>
-
           <Button
             // isLoading={isSubmitting}
             type="submit"
@@ -123,7 +75,7 @@ export default function LoginComponents() {
             className="rounded-sm"
           >
             {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Login
+            Continue
           </Button>
         </div>
       </form>
