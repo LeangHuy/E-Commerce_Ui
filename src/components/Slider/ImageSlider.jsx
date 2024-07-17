@@ -4,12 +4,10 @@ import React from "react";
 import { ImagesSlider } from "../ui/image-slider";
 import Link from "next/link";
 
-export function ImagesSliderDemo() {
-  const images = [
-    "https://images.unsplash.com/photo-1602029908656-b54d40a76ad8?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1585857188823-77658a70979a?q=80&w=2971&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1613750629907-e8f64ea16396?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  ];
+export function ImagesSliderDemo({ slides }) {
+  const images = [...slides];
+  console.log("slides", images);
+  // return;
   return (
     <ImagesSlider
       className="h-[37rem] my-10 rounded-lg w-full mx-auto"

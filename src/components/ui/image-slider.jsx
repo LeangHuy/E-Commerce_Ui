@@ -1,5 +1,5 @@
 "use client";
-import { cn } from "@/lib/utils";
+import { cn, getPhoto } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import React, { useEffect, useState } from "react";
 
@@ -34,11 +34,11 @@ export const ImagesSlider = ({
 
   const loadImages = () => {
     setLoading(true);
-    const loadPromises = images.map((image) => {
+    const loadPromises = images.map((ima) => {
       return new Promise((resolve, reject) => {
         const img = new Image();
-        img.src = image;
-        img.onload = () => resolve(image);
+        img.src = `http://34.143.196.56:9090/api/v1/files?fileName=${ima?.image}`;
+        img.onload = () => resolve(img.src);
         img.onerror = reject;
       });
     });
@@ -122,7 +122,7 @@ export const ImagesSlider = ({
       {areImagesLoaded && overlay && (
         <div
           className={cn(
-            "absolute inset-0 bg-black/[.4] z-40",
+            "absolute inset-0 bg-black/[.1] z-40",
             overlayClassName
           )}
         />

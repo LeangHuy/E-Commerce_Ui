@@ -7,16 +7,18 @@ import { getAllProductService } from "@/service/product.service";
 import { mock_data } from "@/data/mock_data";
 import { getAllCategories } from "@/service/category.service";
 import { ImagesSliderDemo } from "@/components/Slider/ImageSlider";
+import { getAllSlideActive } from "@/service/slide.service";
 
 async function Home({ searchParams: { q = "All" } }) {
   const products = await getAllProductService();
   const categories = await getAllCategories();
   const getCate = categories?.map((cate) => cate?.categoryName);
+  const activeSlides = await getAllSlideActive();
 
   return (
     <main className="w-[1330px] mx-auto max-[1400px]:w-[90%] ">
       {/* <MyCarousel /> */}
-      <ImagesSliderDemo />
+      <ImagesSliderDemo slides={activeSlides} />
       <div className="flex mt-10 justify-between">
         <div className="font-medium text-[1.5rem]">Promotion products</div>
         {/* <CategoryButton categories={["All", ...categories]} /> */}

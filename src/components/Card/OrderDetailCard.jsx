@@ -1,12 +1,26 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { useAddToCart } from "@/store/useAddToCart";
 import { useToast } from "../ui/use-toast";
+import { orderAction } from "@/acitons/orderAction";
 
 const OrderDetailCard = () => {
   const { cartList, removeAllCart } = useAddToCart();
   const { toast } = useToast();
+
+  const [order, setOrder] = useState([]);
+
+  const onOrder = async (pro) => {
+    console.log("got clicked");
+    const result = await orderAction(pro);
+    console.log("order result ", result);
+  };
+
+  useEffect(() => {
+    console.log("Change : ", cartList);
+  }, [cartList]);
+
   return (
     <div className="border h-fit sticky top-20 p-6 rounded-md flex flex-col gap-6">
       <div className="flex items-center justify-between">
@@ -50,6 +64,12 @@ const OrderDetailCard = () => {
                 title: "Thank you",
                 description: "We will delivery products to you soon",
               });
+              onOrder(
+                cartList.map((pro) => ({
+                  qty: pro?.qty,
+                  productId: pro?.productId,
+                }))
+              );
               removeAllCart();
             }}
             className="w-full"
