@@ -1,29 +1,62 @@
 import { baseUrl } from "../utils/constants";
 
+// export const registerService = async (req) => {
+//   const res = await fetch(`${baseUrl}/auths/register`, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(req),
+//   })
+//     .then((user) => user.json())
+//     .catch((e) => console.log(e));
+//     console.log(res)
+//   return res;
+// };
+
+// export const verfiyService = async (otpCode) => {
+//   const res = await fetch(`${baseUrl}/auths/verify?otpCode=${otpCode}`, {
+//     method: "PUT",
+//   })
+//     .then((user) => user.json())
+//     .catch((e) => console.log(e));
+//   console.log(res)
+//   return res;
+// };
+
 export const registerService = async (req) => {
-  const res = await fetch(`${baseUrl}/auths/register`, {
+  console.log(req);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auths/register`, {
     method: "POST",
     headers: {
+      // accept: "*/*",
       "Content-Type": "application/json",
     },
     body: JSON.stringify(req),
-  })
-    .then((user) => user.json())
-    .catch((e) => console.log(e));
-  return res;
+  });
+  const data = await res.json();
+  console.log(data);
+  return data;
 };
 
 export const verfiyService = async (otpCode) => {
-  const res = await fetch(`${baseUrl}/auths/verify?otpCode=${otpCode}`, {
-    method: "PUT",
-  })
-    .then((user) => user.json())
-    .catch((e) => console.log(e));
-  return res;
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/auths/verify?otpCode=${otpCode}`,
+    {
+      method: "PUT",
+      headers: {
+        "CONTENT-TYPE": "application/json",
+      },
+    }
+  );
+  const data = await res.json();
+  console.log(data);
+  return data;
 };
 
 export const loginService = async (req) => {
-  const res = await fetch(`${baseUrl}/auths/login`, {
+  console.log(req);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auths/login`, {
     method: "POST",
     headers: {
       accept: "*/*",
@@ -34,4 +67,42 @@ export const loginService = async (req) => {
     .then((user) => user.json())
     .catch((e) => console.log(e));
   return res;
+};
+
+export const resendEmail = async (req) => {
+  console.log("myemail", req);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/auths/resend?email=${req.email}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  const data = await res.json();
+
+  return data;
+};
+
+export const forgotPassword = async (req) => {
+  console.log("reqnew-pass",req)
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/auths/forget?email=${req.email}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        password: req.password,
+        confirmPassword: req.confirmPassword,
+      }),
+    }
+  );
+
+  const data = await res.json();
+  console.log(data)
+  return data;
 };
