@@ -43,7 +43,7 @@ const ShopPage = async ({ searchParams: { tab = "Categories" } }) => {
                                     <TableCell>{slide?.categoryName}</TableCell>
 
                                     <TableCell className="text-right flex justify-end gap-4">
-                                        <EditCategoryPage />
+                                        <EditCategoryPage cate={slide} />
                                     </TableCell>
                                 </TableRow>
                             ))}

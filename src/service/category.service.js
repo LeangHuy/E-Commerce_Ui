@@ -27,6 +27,19 @@ export const createCategory = async (data) => {
   return payload;
 };
 
+export const editCategory = async (data, categoryId) => {
+  const res = await fetch(`${process.env.BASE_URL}/categories/${categoryId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.TOKEN}`,
+    },
+    body: JSON.stringify(data),
+  });
+  const { payload } = await res.json();
+  return payload;
+};
+
 export const updateCategory = async (data, categoryId) => {
   const res = await fetch(`${process.env.BASE_URL}/categories/${categoryId}`, {
     method: "PUT",

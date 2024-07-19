@@ -18,7 +18,7 @@ async function Home({ searchParams: { q = "All" } }) {
   return (
     <main className="w-[1330px] mx-auto max-[1400px]:w-[90%] ">
       {/* <MyCarousel /> */}
-      <ImagesSliderDemo slides={activeSlides} />
+      <ImagesSliderDemo slides={activeSlides.map((slide) => slide?.image)} />
       <div className="flex mt-10 justify-between">
         <div className="font-medium text-[1.5rem]">Promotion products</div>
         {/* <CategoryButton categories={["All", ...categories]} /> */}
@@ -26,7 +26,7 @@ async function Home({ searchParams: { q = "All" } }) {
       <div id="popular" className="scroll-mt-10">
         <ProductCard searchParams={q} products={products} isPromotion={true} />
       </div>
-      <div className="flex mt-10 justify-between">
+      <div id="cate" className="flex mt-10 scroll-mt-10 justify-between">
         <div className="font-medium text-[1.5rem]">All products</div>
         <CategoryButton
           searchParams={q || "All"}
