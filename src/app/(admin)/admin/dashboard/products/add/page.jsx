@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { createSlideAction } from "@/acitons/slideAction";
 import Image from "next/image";
 import {
+  postImgAction,
   uploadImgAction,
   uploadImgProductAction,
 } from "@/acitons/uploadImgAction";
@@ -34,35 +35,33 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
   const [img, setImg] = useState([]);
   const [cate, setCate] = useState([]);
   const [warranty, setWarranty] = useState([null]);
+  const [storeFile, setStoreFile] = useState([]);
 
   const onSubmit = async (data) => {
-    // const result = await postProductAction(
-    //   {
-    //     ...data,
-    //     isStatus: data?.isStatus == 1 ? true : false,
-    //   },
-    //   warranty
-    // );
+    console.log("data : ", data);
 
-    const formData = new FormData();
-    img.forEach((i) => formData.append("files", i.imgFile));
-
-    try {
-      const imgResult = await uploadImgProductAction(
-        formData,
-        "00c70d50-cd73-42c1-ae11-915f21ab01b4"
+    for (let index = 0; index < img.length; index++) {
+      const formData = new FormData();
+      formData.append("file", img[index].imgFile);
+      postImgAction(formData).then((data) =>
+        setStoreFile([...storeFile, data])
       );
-      console.log("Upload result:", imgResult);
-    } catch (error) {
-      console.error("Error uploading images:", error);
     }
-    // console.log("result", imgResult);
-    // reset();
-    // setImg({ imgFile: null, imgPreview: null });
-    // await revalidateWhere("getAllSlideShows");
-    // if (result?.slideId && imgResult?.fileName) {
-    // router.push("/admin/dashboard/products?tab=Products");
-    // }
+
+    const result = await postProductAction(
+      {
+        ...data,
+        productImages: storeFile,
+      },
+      warranty
+    );
+
+    reset();
+    setImg([{ imgFile: null, imgPreview: null }]);
+    await revalidateWhere("getAllSlideShows");
+    if (result?.productId) {
+      router.push("/admin/dashboard/products?tab=Products");
+    }
   };
 
   useEffect(() => {
@@ -196,27 +195,7 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
                       </div>
                     </div>
                   </div>
-                  <div class="w-full">
-                    <label
-                      for="username"
-                      class="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Product Status
-                    </label>
-                    <div class="mt-2">
-                      <div class="flex w-full rounded-md shadow-sm ring-inset ring-gray-300 ">
-                        <select
-                          {...register("isStatus", {
-                            required: true,
-                            valueAsNumber: true,
-                          })}
-                        >
-                          <option value={parseInt(1)}>true</option>
-                          <option value={parseInt(0)}>false</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
+
                   <div class="w-full">
                     <label
                       for="username"

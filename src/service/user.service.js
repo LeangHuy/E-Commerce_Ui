@@ -4,12 +4,12 @@ import { getSession } from "next-auth/react";
 
 export const getUserData = async () => {
   const session = await getServerSession(authOption);
-  console.log("userSession", session);
+
   const res = await fetch(`${process.env.BASE_URL}/users`, {
     method: "GET",
     headers: {
       "CONTENT-TYPE": "application/json",
-        Authorization: `Bearer ${session.user.payload.token}`,
+      Authorization: `Bearer ${session.user.payload.token}`,
     },
   });
   const data = await res.json();

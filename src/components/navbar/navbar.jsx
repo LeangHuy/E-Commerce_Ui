@@ -13,7 +13,7 @@ import NavBadge from "./NavBadge";
 const Navbar = () => {
   return (
     <header className="py-6  shadow-sm bg-white">
-      <div className="w-[1330px] mx-auto flex items-center justify-between">
+      <div className="w-[1330px] max-[1400px]:w-[90%] mx-auto flex items-center justify-between">
         <section className="logo-links flex gap-10 items-center">
           <Link href={"/"} className="font-bold text-3xl">
             {/* <span>Cam</span>
