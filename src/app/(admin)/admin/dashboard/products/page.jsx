@@ -45,6 +45,7 @@ import {
 } from "@/components/ui/dialog";
 import ButtonDeleteProduct from "./ButtonDeleteProduct";
 import ButtonDelete from "./ButtonDeleteProduct";
+import { deleteProductAction } from "@/acitons/productAction";
 
 const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
   const products = await getAllProductService();
@@ -117,11 +118,16 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
                           {/* <DropdownMenuLabel>Action</DropdownMenuLabel> */}
                           {/* <DropdownMenuSeparator /> */}
                           <DropdownMenuGroup>
-                            <DropdownMenuItem className="flex items-center gap-3 group">
-                              <Pen className="size-[18px] group-hover:stroke-indigo-400  transition-all hover:stroke-red-500 cursor-pointer" />
-                              <p className="group-hover:text-indigo-400">
-                                Edit
-                              </p>
+                            <DropdownMenuItem>
+                              <Link
+                                className="flex items-center gap-3 group"
+                                href={`/admin/dashboard/products/edit/${slide?.productId}?tab=Products`}
+                              >
+                                <Pen className="size-[18px] group-hover:stroke-indigo-400  transition-all hover:stroke-red-500 cursor-pointer" />
+                                <p className="group-hover:text-indigo-400">
+                                  Edit
+                                </p>
+                              </Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem className="flex items-center gap-3 group">
                               <Eye className="size-[18px] group-hover:stroke-green-400  transition-all hover:stroke-red-500 cursor-pointer" />
@@ -172,13 +178,16 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
                                           </div>
                                         </div> */}
                                       </div>
-                                      <DialogFooter>
-                                        <ButtonDelete
-                                          productId={slide?.productId}
-                                        >
-                                          Delete Product
-                                        </ButtonDelete>
-                                      </DialogFooter>
+                                      <DropdownMenuItem>
+                                        <div>
+                                          <ButtonDelete
+                                            productId={slide?.productId}
+                                            fnDelete={deleteProductAction}
+                                          >
+                                            Delete Product
+                                          </ButtonDelete>
+                                        </div>
+                                      </DropdownMenuItem>
                                     </form>
                                   </DialogContent>
                                 </Dialog>

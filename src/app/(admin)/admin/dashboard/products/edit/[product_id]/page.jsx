@@ -1,19 +1,16 @@
 "use client";
-import React, { useEffect, useState } from "react";
+
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { useEffect } from "react";
+import Header from "../../../components/Header";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import Header from "../../components/Header";
-import { useForm } from "react-hook-form";
-import Image from "next/image";
-import { postImgAction } from "@/acitons/uploadImgAction";
 import { ArrowLeft } from "lucide-react";
 import { getAllCategoriesAction } from "@/acitons/categoryAction";
-import { postProductAction } from "@/acitons/productAction";
-import { X } from "lucide-react";
-import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
 
-const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
+const EditProductPage = ({ searchParams: { tab = "Overview" } }) => {
   const {
     register,
     handleSubmit,
@@ -27,6 +24,7 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
   const [cate, setCate] = useState([]);
   const [warranty, setWarranty] = useState([null]);
   const [storeFile, setStoreFile] = useState([]);
+  const [currentPro, setCurrentPro] = useState(null);
 
   const onSubmit = async (data) => {
     console.log("data : ", data);
@@ -355,4 +353,4 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
   );
 };
 
-export default AddProductPage;
+export default EditProductPage;

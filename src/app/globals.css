@@ -107,3 +107,7 @@
 /* #footer {
   @apply text-gray-300;
 } */
+
+body {
+  @apply !pointer-events-auto;
+}
