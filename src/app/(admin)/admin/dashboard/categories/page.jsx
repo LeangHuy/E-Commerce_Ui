@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "../components/Header";
 
-import { Tooltip, Button } from "@nextui-org/react";
 import {
     Table,
     TableBody,
@@ -15,6 +14,7 @@ import {
 import AddCategoryPage from "./add/page";
 import { getAllCategories } from "@/service/category.service";
 import { Pencil } from "lucide-react";
+import EditCategoryPage from "./edit/page";
 const ShopPage = async ({ searchParams: { tab = "Categories" } }) => {
     const categories = await getAllCategories(1, 999);
 
@@ -43,10 +43,7 @@ const ShopPage = async ({ searchParams: { tab = "Categories" } }) => {
                                     <TableCell>{slide?.categoryName}</TableCell>
 
                                     <TableCell className="text-right flex justify-end gap-4">
-                                        <Tooltip className="bg-blue-400 rounded-md px-2 py-0 text-white text-sm " content="Edit" >
-                                            <Pencil className="size-[18px] p-2 box-content bg-gray-100 rounded-lg group-hover:bg-white transition-all hover:stroke-red-500 cursor-pointer" />
-                                        </Tooltip>
-
+                                        <EditCategoryPage />
                                     </TableCell>
                                 </TableRow>
                             ))}
