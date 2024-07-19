@@ -1,11 +1,19 @@
 export const getAllProductService = async () => {
   try {
-    const res = await fetch(`${process.env.BASE_URL}/products`, {
-      headers: {
-        "Content-Type": "*/*",
+    const res = await fetch(
+      `${process.env.BASE_URL}/products`,
+      {
+        headers: {
+          "Content-Type": "*/*",
+        },
+        cache: "no-store",
       },
-      cache: "no-store",
-    }).then((data) => data.json());
+      {
+        next: {
+          tag: ["getAllProductService"],
+        },
+      }
+    ).then((data) => data.json());
     return res?.payload;
   } catch (error) {}
 };
@@ -22,9 +30,9 @@ export const getProductById = async (productId) => {
 };
 
 export const postProduct = async (data, warranty) => {
-  console.log("datassss", data, warranty);
+  console.log("data submit : ", { ...data });
   const res = await fetch(
-    `${process.env.BASE_URL}/products/warranties?warrantyTime=${warranty}`,
+    `${process.env.BASE_URL}/products?warrantyTime=${warranty}`,
     {
       method: "POST",
       headers: {
@@ -32,7 +40,7 @@ export const postProduct = async (data, warranty) => {
         //   Authorization: `Bearer ${session?.user?.token}`,
         Authorization: `Bearer ${process.env.TOKEN}`,
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ ...data }),
     }
   );
 
