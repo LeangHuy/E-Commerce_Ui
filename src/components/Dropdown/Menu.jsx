@@ -32,7 +32,7 @@ export async function DropdownMenuDemo() {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>Profile</DropdownMenuItem>
-          {userData.payload.role !== "USER" && (
+          {userData != null && userData.payload.role !== "USER" && (
             <DropdownMenuItem>
               <Link href={"/admin/dashboard"}>Dashboard</Link>
             </DropdownMenuItem>

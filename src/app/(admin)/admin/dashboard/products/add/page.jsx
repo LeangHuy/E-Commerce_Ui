@@ -12,13 +12,13 @@ import {
   uploadImgAction,
   uploadImgProductAction,
 } from "@/acitons/uploadImgAction";
-import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { revalidateWhere } from "@/acitons/revalidateAction";
 import { ArrowLeft } from "lucide-react";
 import { getAllCategoriesAction } from "@/acitons/categoryAction";
 import { postProductAction } from "@/acitons/productAction";
 import { X } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
   const {
@@ -40,26 +40,32 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
   const onSubmit = async (data) => {
     console.log("data : ", data);
 
-    img?.map(async (i) => {
-      const formData = new FormData();
-      formData.append("file", i.imgFile);
-      postImgAction(formData).then((data) =>
-        setStoreFile([...storeFile, data])
-      );
-    });
+    // Wait for all images to be uploaded
+    const uploadedFiles = await Promise.all(
+      img.map(async (i) => {
+        const formData = new FormData();
+        formData.append("file", i.imgFile);
+        const response = await postImgAction(formData);
+        console.log("file now ", response);
+        return response;
+      })
+    );
 
+    // Set storeFile state
+    setStoreFile([...storeFile, ...uploadedFiles]);
+
+    // Proceed with submitting the product data
     const result = await postProductAction(
       {
         ...data,
-        productImages: storeFile,
+        productImages: [...storeFile, ...uploadedFiles],
       },
       warranty
     );
 
-    reset();
-    setImg([{ imgFile: null, imgPreview: null }]);
-    await revalidateWhere("getAllSlideShows");
     if (result?.productId) {
+      reset();
+      setImg([{ imgFile: null, imgPreview: null }]);
       router.push("/admin/dashboard/products?tab=Products");
     }
   };

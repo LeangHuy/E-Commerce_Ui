@@ -2,12 +2,11 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { useAddToCart } from "@/store/useAddToCart";
-import { useToast } from "../ui/use-toast";
 import { orderAction } from "@/acitons/orderAction";
+import toast from "react-hot-toast";
 
 const OrderDetailCard = () => {
   const { cartList, removeAllCart } = useAddToCart();
-  const { toast } = useToast();
 
   const [order, setOrder] = useState([]);
 
@@ -60,10 +59,7 @@ const OrderDetailCard = () => {
         <div>
           <Button
             onClick={() => {
-              toast({
-                title: "Thank you",
-                description: "We will delivery products to you soon",
-              });
+              toast.success("We will delivery products to you soon");
               onOrder(
                 cartList.map((pro) => ({
                   qty: pro?.qty,

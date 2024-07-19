@@ -21,8 +21,7 @@ const ProductCard = ({
               .includes(searchParams.toLocaleLowerCase())
           );
   } else {
-    filterProducts = products?.filter((p) => p.discount > 5);
-    console.log("filter pro", filterProducts);
+    filterProducts = products?.filter((p) => p.discount > 0);
   }
 
   return (
