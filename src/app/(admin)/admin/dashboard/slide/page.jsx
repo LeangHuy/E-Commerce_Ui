@@ -23,7 +23,6 @@ import SwtichToggle from "../components/SwtichToggle";
 
 const ShopPage = async ({ searchParams: { tab = "Slide" } }) => {
   const allSlides = await getAllSlideShows();
-  console.log("all slides", allSlides);
 
   return (
     <div className="w-full">
@@ -75,7 +74,11 @@ const ShopPage = async ({ searchParams: { tab = "Slide" } }) => {
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-4">
-                      <Pencil className="size-[18px] p-2 box-content bg-gray-100 rounded-lg group-hover:bg-white transition-all hover:stroke-red-500 cursor-pointer" />
+                      <Link
+                        href={`/admin/dashboard/slide/edit/${slide?.slideId}?tab=Slide`}
+                      >
+                        <Pencil className="size-[18px] p-2 box-content bg-gray-100 rounded-lg group-hover:bg-white transition-all hover:stroke-red-500 cursor-pointer" />
+                      </Link>
                     </div>
                   </TableCell>
                 </TableRow>

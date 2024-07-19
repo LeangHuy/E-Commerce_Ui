@@ -18,7 +18,9 @@ async function Home({ searchParams: { q = "All" } }) {
   return (
     <main className="w-[1330px] mx-auto max-[1400px]:w-[90%] ">
       {/* <MyCarousel /> */}
-      <ImagesSliderDemo slides={activeSlides.map((slide) => slide?.image)} />
+      {activeSlides?.length >= 1 && (
+        <ImagesSliderDemo slides={activeSlides.map((slide) => slide?.image)} />
+      )}
       <div className="flex mt-10 justify-between">
         <div className="font-medium text-[1.5rem]">Promotion products</div>
         {/* <CategoryButton categories={["All", ...categories]} /> */}

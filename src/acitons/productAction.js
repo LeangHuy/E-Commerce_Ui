@@ -5,6 +5,7 @@ import {
   getAllProductService,
   getProductById,
   postProduct,
+  updateProductById,
 } from "@/service/product.service";
 import { revalidateTag } from "next/cache";
 
@@ -27,4 +28,10 @@ export const deleteProductAction = async (productId) => {
 
 export const getProductByIdAction = async (productId) => {
   return await getProductById(productId);
+};
+
+export const updateProductByIdAction = async (data, warranty, productId) => {
+  const result = await updateProductById(data, warranty, productId);
+  revalidateTag("getAllProductService");
+  return result;
 };
