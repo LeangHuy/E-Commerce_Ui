@@ -7,7 +7,6 @@ export const getAllCategoriesAction = async (page, size) => {
 };
 
 export const postCategoryAction = async (data) => {
-  console.log(data);
   const result = await createCategory(data);
   revalidateTag("getAllProductService");
   return result;

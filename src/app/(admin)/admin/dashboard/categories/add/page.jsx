@@ -33,7 +33,6 @@ const AddCategoryPage = () => {
     } = useForm();
 
     return (
-        // <div className="">
         <form onSubmit={handleSubmit(onSubmit)}>
             <Dialog>
                 <DialogTrigger asChild>
@@ -46,7 +45,7 @@ const AddCategoryPage = () => {
                     <DialogHeader>
                         <DialogTitle>Add Category</DialogTitle>
                         <DialogDescription>
-                            Make category here. Click save when you're done.
+                            Make category name here. Click save when you're done.
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
@@ -75,7 +74,6 @@ const AddCategoryPage = () => {
                 </DialogContent>
             </Dialog>
         </form>
-        // </div>
     )
 }
 export default AddCategoryPage;
