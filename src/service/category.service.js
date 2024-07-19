@@ -21,7 +21,7 @@ export const createCategory = async (data) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${process.env.TOKEN}`,
     },
-    body: JSON.stringify({ data }),
+    body: JSON.stringify(data),
   });
   const { payload } = await res.json();
   return payload;
