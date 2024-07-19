@@ -31,19 +31,26 @@ export async function DropdownMenuDemo() {
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>Profile</DropdownMenuItem>
+          {userData != null && <DropdownMenuItem>Profile</DropdownMenuItem>}
           {userData != null && userData.payload.role !== "USER" && (
             <DropdownMenuItem>
               <Link href={"/admin/dashboard"}>Dashboard</Link>
             </DropdownMenuItem>
           )}
+          {userData == null && (
+            <DropdownMenuItem>
+              <Link href={"/login"}>Login</Link>
+            </DropdownMenuItem>
+          )}
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
+        {/* <DropdownMenuSeparator /> */}
         {/* <DropdownMenuItem>Log out</DropdownMenuItem> */}
-        <DropdownMenuItem>
-          <SignoutButton />
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-        </DropdownMenuItem>
+        {userData != null && (
+          <DropdownMenuItem>
+            <SignoutButton />
+            <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+          </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );

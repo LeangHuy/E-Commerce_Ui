@@ -11,6 +11,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import { Loader2 } from "lucide-react";
+import { useState } from "react";
+import { Eye } from "lucide-react";
+import { EyeOff } from "lucide-react";
 export default function LoginComponents() {
   const route = useRouter();
   const loginZod = z.object({
@@ -48,9 +51,12 @@ export default function LoginComponents() {
         toast.error(res.error);
       }
     } catch (err) {
-      console.log("Login failed: ", err);
+      // console.log("Login failed: ", err);
     }
   };
+
+  const [showPass, setShowPass] = useState(false);
+
   return (
     <div>
       <form onSubmit={handleSubmit(handleLogin)}>
@@ -84,7 +90,7 @@ export default function LoginComponents() {
             Password
           </label> */}
           <div>
-            <div className=" focus-within:border-gray-500 focus-within:border-2 flex gap-4 items-center px-4  rounded-lg   w-full justify-center border ">
+            <div className="relative  focus-within:border-gray-500 focus-within:border-2 flex gap-4 items-center px-4  rounded-lg   w-full border ">
               <Image
                 src={"/password.svg"}
                 width={20}
@@ -92,12 +98,25 @@ export default function LoginComponents() {
                 alt="Email Icons"
               />
 
+              {/* <div> */}
               <input
                 placeholder="Password"
-                type="password"
+                type={showPass ? "text" : "password"}
                 className="focus:outline-none border-none px-3 py-2  w-full  text-sm"
                 {...register("password", { required: true })}
               />
+              {/* </div> */}
+              {!showPass ? (
+                <Eye
+                  className="cursor-pointer"
+                  onClick={() => setShowPass(!showPass)}
+                />
+              ) : (
+                <EyeOff
+                  className="cursor-pointer"
+                  onClick={() => setShowPass(!showPass)}
+                />
+              )}
             </div>
             {errors.password && (
               <p className="text-[0.65rem] mt-2 text-red-500 self-end">
