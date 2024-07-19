@@ -13,3 +13,7 @@ export const postProductAction = async (data, warranty) => {
   revalidateTag("getAllProductService");
   return result;
 };
+
+export const deleteProductAction = async (productId) => {
+  const result = await deleteProductService(productId);
+};
