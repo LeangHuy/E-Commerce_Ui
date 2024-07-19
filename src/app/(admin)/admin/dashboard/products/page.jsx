@@ -38,8 +38,6 @@ import { Trash } from "lucide-react";
 const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
   const products = await getAllProductService();
 
-  console.log("data :", products);
-
   return (
     <div className="w-full">
       <Header tab={tab}>

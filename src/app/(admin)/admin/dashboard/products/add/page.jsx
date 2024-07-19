@@ -40,13 +40,13 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
   const onSubmit = async (data) => {
     console.log("data : ", data);
 
-    for (let index = 0; index < img.length; index++) {
+    img?.map(async (i) => {
       const formData = new FormData();
-      formData.append("file", img[index].imgFile);
+      formData.append("file", i.imgFile);
       postImgAction(formData).then((data) =>
         setStoreFile([...storeFile, data])
       );
-    }
+    });
 
     const result = await postProductAction(
       {

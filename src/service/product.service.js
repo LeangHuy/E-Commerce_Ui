@@ -1,11 +1,19 @@
 export const getAllProductService = async () => {
   try {
-    const res = await fetch(`${process.env.BASE_URL}/products`, {
-      headers: {
-        "Content-Type": "*/*",
+    const res = await fetch(
+      `${process.env.BASE_URL}/products`,
+      {
+        headers: {
+          "Content-Type": "*/*",
+        },
+        cache: "no-store",
       },
-      cache: "no-store",
-    }).then((data) => data.json());
+      {
+        next: {
+          tag: ["getAllProductService"],
+        },
+      }
+    ).then((data) => data.json());
     return res?.payload;
   } catch (error) {}
 };

@@ -51,5 +51,5 @@ export const postImg = async (fileImg) => {
   });
 
   const data = await res.json();
-  return data.payload.fileName;
+  return data?.payload?.fileName;
 };
