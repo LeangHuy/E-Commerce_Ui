@@ -1,9 +1,10 @@
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { NextUIProvider } from "@nextui-org/react";
-import NavbarComponent from "@/components/navbar/navbar";
+import { Toaster } from "@/components/ui/toaster";
+// import Navbar from "@/components/Navbar/Navbar";
 
-const inter = Inter({ subsets: ["latin"] });
+const open_san = Plus_Jakarta_Sans({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Create Next App",
@@ -13,11 +14,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className} style={{background:"#eef2fb",width:'100%', height:'100vh'}}>
-        <div className="bg-[#eef2fb] w-full h-screen">
-          <NavbarComponent />
-          <NextUIProvider>{children}</NextUIProvider>
-        </div>
+      <body className={open_san.className + " bg-gray-50"}>
+        {/* <Navbar /> */}
+        <NextUIProvider>{children}</NextUIProvider>
+        <Toaster />
       </body>
     </html>
   );
