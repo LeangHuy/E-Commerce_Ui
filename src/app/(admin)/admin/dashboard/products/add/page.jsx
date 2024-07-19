@@ -2,10 +2,8 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ImagePlusIcon } from "lucide-react";
 import Header from "../../components/Header";
 import { useForm } from "react-hook-form";
-import { createSlideAction } from "@/acitons/slideAction";
 import Image from "next/image";
 import {
   postImgAction,
