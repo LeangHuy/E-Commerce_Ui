@@ -41,7 +41,6 @@ const AdminDashboardPage = ({ searchParams: { tab = "Overview" } }) => {
   };
 
   useEffect(() => {
-    console.log("img file", img);
   }, [img]);
 
   return (

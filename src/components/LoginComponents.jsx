@@ -33,16 +33,13 @@ export default function LoginComponents() {
     },
     resolver: zodResolver(loginZod),
   });
-  console.log(errors);
   const handleLogin = async (data) => {
-    console.log("data: ", data);
     try {
       const res = await signIn("credentials", {
         username: data?.email,
         password: data?.password,
         redirect: false,
       });
-      console.log("res: ", res);
       if (res?.error === null) {
         toast.success("Login Successfully");
         route.push("/");
@@ -51,7 +48,6 @@ export default function LoginComponents() {
         toast.error(res.error);
       }
     } catch (err) {
-      // console.log("Login failed: ", err);
     }
   };
 

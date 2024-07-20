@@ -29,7 +29,6 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
   const [storeFile, setStoreFile] = useState([]);
 
   const onSubmit = async (data) => {
-    console.log("data : ", data);
 
     // Wait for all images to be uploaded
     const uploadedFiles = await Promise.all(
@@ -37,7 +36,6 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
         const formData = new FormData();
         formData.append("file", i.imgFile);
         const response = await postImgAction(formData);
-        console.log("file now ", response);
         return response;
       })
     );
@@ -67,7 +65,6 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
   }, []);
 
   useEffect(() => {
-    console.log("img", img);
   }, [img]);
 
   return (

@@ -38,7 +38,6 @@ const EditProductPage = ({
   const [currentPro, setCurrentPro] = useState(null);
 
   const onSubmit = async (data) => {
-    console.log("data : ", data, warranty);
 
     // Wait for all images to be uploaded
     const uploadedFiles = await Promise.all(
@@ -46,7 +45,6 @@ const EditProductPage = ({
         const formData = new FormData();
         formData.append("file", i.imgFile);
         const response = await postImgAction(formData);
-        console.log("file now ", response);
         return response;
       })
     );
@@ -75,12 +73,11 @@ const EditProductPage = ({
   useEffect(() => {
     getAllCategoriesAction(1, 999).then((data) => setCate(data));
     getProductByIdAction(product_id).then((data) => {
-      setCurrentPro(data), console.log(data);
+      setCurrentPro(data);
     });
   }, []);
 
   useEffect(() => {
-    console.log("img", img);
   }, [img]);
 
   return (

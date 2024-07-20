@@ -11,13 +11,10 @@ const OrderDetailCard = () => {
   const [order, setOrder] = useState([]);
 
   const onOrder = async (pro) => {
-    console.log("got clicked");
     const result = await orderAction(pro);
-    console.log("order result ", result);
   };
 
   useEffect(() => {
-    console.log("Change : ", cartList);
   }, [cartList]);
 
   return (
@@ -48,11 +45,11 @@ const OrderDetailCard = () => {
               (acc, product) => acc + product?.qty * product?.unitPrice,
               0
             ) *
-              (cartList?.reduce(
-                (acc, product) => acc + product?.discount || 0,
-                0
-              ) /
-                100)}
+            (cartList?.reduce(
+              (acc, product) => acc + product?.discount || 0,
+              0
+            ) /
+              100)}
         </p>
       </div>
       {cartList?.length > 0 && (

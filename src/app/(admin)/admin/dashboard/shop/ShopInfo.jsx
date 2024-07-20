@@ -34,14 +34,13 @@ function ShopInfo({ shopData }) {
 
   async function onSubmit(reqdata) {
     const data = {
-        ...reqdata,
-        shopId
+      ...reqdata,
+      shopId
     }
     const updateInfo = await updateShopInfoService(data);
-    if(updateInfo.statusCode === 200){
-        toast.success("Shop Info Updated!")
+    if (updateInfo.statusCode === 200) {
+      toast.success("Shop Info Updated!")
     }
-    console.log("updateInfo", updateInfo);
   }
 
   return (
@@ -63,7 +62,7 @@ function ShopInfo({ shopData }) {
         <div className="flex items-center w-full">
           <div className="w-[20rem] font-semibold">Shop ID</div>
           <input
-          disabled
+            disabled
             {...register("shopId")}
             defaultValue={shopId}
             type="text"

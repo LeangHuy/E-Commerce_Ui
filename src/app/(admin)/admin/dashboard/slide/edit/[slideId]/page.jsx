@@ -32,7 +32,6 @@ const AdminDashboardPage = ({
 
     reset();
 
-    console.log("result", result);
 
     if (result?.slideId) {
       toast.success("Slide has been updated successfully");
@@ -41,7 +40,6 @@ const AdminDashboardPage = ({
   };
 
   useEffect(() => {
-    console.log("img file", img);
   }, [img]);
 
   const [currentSlide, setCurrentSlide] = useState(null);

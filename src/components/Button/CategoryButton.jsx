@@ -7,7 +7,6 @@ import { cn } from "@/lib/utils";
 
 const CategoryButton = ({ categories, searchParams }) => {
   const [isActive, setIsActive] = useState(searchParams);
-  console.log(searchParams);
   useEffect(() => {
     setIsActive(searchParams);
   }, [searchParams]);
