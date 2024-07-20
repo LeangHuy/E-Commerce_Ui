@@ -16,10 +16,10 @@ const ProductCard = ({
       searchParams == "All" || undefined
         ? products
         : products.filter((p) =>
-            p.categoryName
-              .toLocaleLowerCase()
-              .includes(searchParams.toLocaleLowerCase())
-          );
+          p.categoryName
+            .toLocaleLowerCase()
+            .includes(searchParams.toLocaleLowerCase())
+        );
   } else {
     filterProducts = products?.filter((p) => p.discount > 0);
   }
@@ -39,8 +39,8 @@ const ProductCard = ({
                 alt="pic 1"
                 src={getPhoto(
                   item &&
-                    item?.imageProductList &&
-                    item?.imageProductList[0]?.fileName
+                  item?.imageProductList &&
+                  item?.imageProductList[0]?.fileName
                 )}
                 className="object-cover w-full h-full  rounded-xl"
               />
@@ -59,7 +59,16 @@ const ProductCard = ({
             )}
           </div>
           <Link href={`/view/product/${item?.productId}`} className="">
-            <p className=" text-[18px] text-[#ff540a]">{item?.unitPrice}$</p>
+            <div className=" text-[18px] text-[#ff540a]">
+              {item?.discount == 0 ?
+                <span className="text-blue-500 font-bold">{item?.unitPrice}$</span> :
+                <div>
+                  <span className="line-through text-sm">{item?.unitPrice}$</span>
+                  <span className="text-blue-500 font-bold">  {item?.priceAfterDiscount}$</span>
+                </div>
+
+              }
+            </div>
             <h3 className="font-medium text-xl text-[#1d1d1d]">
               {item?.productName}
             </h3>
