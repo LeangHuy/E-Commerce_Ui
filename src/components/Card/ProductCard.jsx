@@ -8,17 +8,24 @@ import { BadgePercent } from "lucide-react";
 const ProductCard = ({
   products = [{ categoryName: "" }],
   searchParams = "All",
+  isPromotion = false,
 }) => {
-  const filterProducts =
-    searchParams == "All" || undefined
-      ? products
-      : products.filter((p) =>
-          p.categoryName
-            .toLocaleLowerCase()
-            .includes(searchParams.toLocaleLowerCase())
-        );
+  let filterProducts;
+  if (!isPromotion) {
+    filterProducts =
+      searchParams == "All" || undefined
+        ? products
+        : products.filter((p) =>
+            p.categoryName
+              .toLocaleLowerCase()
+              .includes(searchParams.toLocaleLowerCase())
+          );
+  } else {
+    filterProducts = products?.filter((p) => p.discount > 0);
+  }
+
   return (
-    <main className="container grid grid-cols-4 gap-6 my-8">
+    <main className="w-full grid grid-cols-4 gap-6 my-8 max-[1400px]:grid-cols-3 max-[950px]:grid-cols-2 max-[600px]:grid-cols-1">
       {filterProducts?.map((item, idx) => (
         <div
           key={idx}

@@ -1,7 +1,14 @@
 import React from "react";
 import Header from "./components/Header";
+import { redirect } from "next/navigation";
+import { getUserData } from "@/service/user.service";
 
-const AdminDashboardPage = ({ searchParams: { tab = "Overview" } }) => {
+const AdminDashboardPage = async ({ searchParams: { tab = "Overview" } }) => {
+  const userData = await getUserData();
+  if (userData.payload.role === "USER") {
+    redirect("/");
+  }
+
   return (
     <div className="w-full">
       <Header tab={tab} />

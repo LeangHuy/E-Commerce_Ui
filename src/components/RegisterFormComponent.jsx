@@ -2,7 +2,9 @@
 
 import { registerAction } from "@/acitons/authAction";
 import { routePath } from "@/constants/route-path";
+import { registerService } from "@/service/auth.service";
 import { Button } from "@nextui-org/react";
+import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -14,12 +16,11 @@ const RegisterFormComponent = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm();
 
   const handleRegister = async (data) => {
-    setIsLoading(true);
-    const res = await registerAction({
+    const res = await registerService({
       firstName: data?.firstName,
       lastName: data?.lastName,
       phone: "0962626669",
@@ -31,11 +32,9 @@ const RegisterFormComponent = () => {
       confirmPassword: data?.confirmPassword,
     });
     if (res?.status === 400) {
-      setIsLoading(false);
-      toast.error("Failed to register!");
+      toast.error(res.detail);
     } else {
-      setIsLoading(false);
-      toast.success("Registed successfully!");
+      toast.success(res.message);
       router.push(`${routePath.REGISTER}/${data?.email}`);
     }
   };
@@ -43,9 +42,9 @@ const RegisterFormComponent = () => {
     <>
       <form
         onSubmit={handleSubmit(handleRegister)}
-        className="w-full flex flex-col gap-4"
+        className="w-full flex flex-col my-2 gap-2"
       >
-        <div className="flex items-start flex-col justify-start">
+        <div className="flex items-start flex-col justify-start  ">
           <label htmlFor="firstName" className="text-sm text-gray-700 mr-2">
             First Name:
           </label>
@@ -57,9 +56,8 @@ const RegisterFormComponent = () => {
             name="firstName"
             className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
           />
-
           {errors?.firstName?.message && (
-            <p className="text-red-500 text-sm mt-2">
+            <p className="text-red-500 text-[0.65rem] mt-2 self-end">
               {errors?.firstName?.message}
             </p>
           )}
@@ -78,7 +76,7 @@ const RegisterFormComponent = () => {
             className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
           />
           {errors?.lastName?.message && (
-            <p className="text-red-500 text-sm mt-2">
+            <p className="text-red-500 text-[0.65rem] mt-2 self-end">
               {errors?.lastName?.message}
             </p>
           )}
@@ -97,15 +95,14 @@ const RegisterFormComponent = () => {
             name="email"
             className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
           />
-
           {errors?.email?.message && (
-            <p className="text-red-500 text-sm mt-2">
+            <p className="text-red-500 text-[0.65rem] mt-2 self-end">
               {errors?.email?.message}
             </p>
           )}
         </div>
 
-        <div className="flex items-start flex-col justify-start">
+        <div className="flex items-start flex-col justify-start ">
           <label htmlFor="password" className="text-sm text-gray-700 mr-2">
             Password:
           </label>
@@ -119,13 +116,13 @@ const RegisterFormComponent = () => {
             className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
           />
           {errors?.password?.message && (
-            <p className="text-red-500 text-sm mt-2">
+            <p className="text-red-500 text-[0.65rem] mt-2 self-end">
               {errors?.password?.message}
             </p>
           )}
         </div>
 
-        <div className="flex items-start flex-col justify-start">
+        <div className="flex items-start flex-col justify-start ">
           <label
             htmlFor="confirmPassword"
             className="text-sm text-gray-700 mr-2"
@@ -142,18 +139,19 @@ const RegisterFormComponent = () => {
             className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
           />
           {errors?.confirmPassword?.message && (
-            <p className="text-red-500 text-sm mt-2">
+            <p className="text-red-500 text-[0.65rem] mt-2 self-end">
               {errors?.confirmPassword?.message}
             </p>
           )}
         </div>
 
         <Button
-          isLoading={isLoading ? true : false}
+          isLoading={isSubmitting}
           type="submit"
           color="primary"
           className="rounded-sm"
         >
+          {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           Register
         </Button>
       </form>

@@ -8,6 +8,7 @@ import { specs } from "@/data/spec";
 import { tags } from "@/data/tags";
 import { getPhoto } from "@/lib/utils";
 import { getProductById } from "@/service/product.service";
+import { getUserData } from "@/service/user.service";
 import clsx from "clsx";
 import { Check } from "lucide-react";
 import { DollarSign } from "lucide-react";
@@ -18,6 +19,8 @@ import React from "react";
 const page = async ({ params: { pro_id } }) => {
   if (pro_id == "undefined") notFound();
   const product = await getProductById(pro_id);
+
+  const user = await getUserData();
 
   // return;
   return (
@@ -120,6 +123,7 @@ const page = async ({ params: { pro_id } }) => {
             </div>
             <div className="grid grid-cols-[auto_1fr] gap-3">
               <AddToCart
+                user={user}
                 data={{ ...product, qty: 1 }}
                 className={
                   "bg-transparent group border hover:border-transparent "

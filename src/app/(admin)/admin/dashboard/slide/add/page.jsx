@@ -11,6 +11,7 @@ import { uploadImgAction } from "@/acitons/uploadImgAction";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { revalidateWhere } from "@/acitons/revalidateAction";
+import { ArrowLeft } from "lucide-react";
 
 const AdminDashboardPage = ({ searchParams: { tab = "Overview" } }) => {
   const {
@@ -35,21 +36,20 @@ const AdminDashboardPage = ({ searchParams: { tab = "Overview" } }) => {
     setImg({ imgFile: null, imgPreview: null });
     await revalidateWhere("getAllSlideShows");
     if (result?.slideId && imgResult?.fileName) {
-      router.back();
+      router.push("/admin/dashboard/slide?tab=Slide");
     }
   };
 
   useEffect(() => {
-    console.log("img file", img);
   }, [img]);
 
   return (
     <div className="w-full">
       <Header tab={tab}>
-        <Link href={"/admin/dashboard/slide/add?tab=Slide"}>
+        <Link href={"/admin/dashboard/slide?tab=Slide"}>
           <Button className="flex gap-2 items-center">
-            <ImagePlusIcon className="size-[20px]" />
-            <span className="text-sm">Add Slides</span>
+            <ArrowLeft className="size-[20px]" />
+            <span className="text-sm">Back</span>
           </Button>
         </Link>
       </Header>
@@ -172,12 +172,12 @@ const AdminDashboardPage = ({ searchParams: { tab = "Overview" } }) => {
             </div>
 
             <div class="mt-6 flex items-center justify-end gap-x-6">
-              <button
-                type="submit"
+              <Link
+                href={"/admin/dashboard/slide?tab=Slide"}
                 class="text-sm font-semibold leading-6 text-gray-900"
               >
                 Cancel
-              </button>
+              </Link>
               <Button>Save</Button>
             </div>
           </form>

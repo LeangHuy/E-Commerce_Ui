@@ -14,8 +14,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { User } from "lucide-react";
+import Link from "next/link";
+import { signOut } from "next-auth/react";
+import SignoutButton from "./SignoutButton";
+import { getUserData } from "@/service/user.service";
 
-export function DropdownMenuDemo() {
+export async function DropdownMenuDemo() {
+  const userData = await getUserData();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -25,20 +31,26 @@ export function DropdownMenuDemo() {
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            Profile
-            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            Settings
-            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-          </DropdownMenuItem>
+          {userData != null && <DropdownMenuItem>Profile</DropdownMenuItem>}
+          {userData != null && userData.payload.role !== "USER" && (
+            <DropdownMenuItem>
+              <Link href={"/admin/dashboard"}>Dashboard</Link>
+            </DropdownMenuItem>
+          )}
+          {userData == null && (
+            <DropdownMenuItem>
+              <Link href={"/login"}>Login</Link>
+            </DropdownMenuItem>
+          )}
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          Log out
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-        </DropdownMenuItem>
+        {/* <DropdownMenuSeparator /> */}
+        {/* <DropdownMenuItem>Log out</DropdownMenuItem> */}
+        {userData != null && (
+          <DropdownMenuItem>
+            <SignoutButton />
+            <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+          </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );

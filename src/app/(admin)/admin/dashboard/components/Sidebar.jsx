@@ -2,6 +2,7 @@
 import { clsx } from "clsx";
 import { Images } from "lucide-react";
 import { ShoppingBag } from "lucide-react";
+import { PackagePlus } from "lucide-react";
 import { LayoutDashboardIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -114,5 +115,29 @@ const menu_links = [
       />
     ),
     tab: "/admin/dashboard/slide?tab=Slide",
+  },
+  {
+    title: "Products",
+    icon: (active) => (
+      <PackagePlus
+        className={clsx(
+          "size-[18px] ",
+          active ? "stroke-white" : "stroke-black"
+        )}
+      />
+    ),
+    tab: "/admin/dashboard/products?tab=Products",
+  },
+  {
+    title: "Categories",
+    icon: (active) => (
+      <PackagePlus
+        className={clsx(
+          "size-[18px] ",
+          active ? "stroke-white" : "stroke-black"
+        )}
+      />
+    ),
+    tab: "/admin/dashboard/categories?tab=Categories",
   },
 ];

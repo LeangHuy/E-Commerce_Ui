@@ -1,5 +1,5 @@
 "use client";
-import { cn } from "@/lib/utils";
+import { cn, getPhoto } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import React, { useEffect, useState } from "react";
 
@@ -37,8 +37,8 @@ export const ImagesSlider = ({
     const loadPromises = images.map((image) => {
       return new Promise((resolve, reject) => {
         const img = new Image();
-        img.src = image;
-        img.onload = () => resolve(image);
+        img.src = getPhoto(image);
+        img.onload = () => resolve(getPhoto(image));
         img.onerror = reject;
       });
     });
@@ -50,6 +50,7 @@ export const ImagesSlider = ({
       })
       .catch((error) => console.error("Failed to load images", error));
   };
+
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "ArrowRight") {
@@ -122,7 +123,7 @@ export const ImagesSlider = ({
       {areImagesLoaded && overlay && (
         <div
           className={cn(
-            "absolute inset-0 bg-black/[.4] z-40",
+            "absolute inset-0 bg-black/[.1] z-40",
             overlayClassName
           )}
         />

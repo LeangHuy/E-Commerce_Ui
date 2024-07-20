@@ -1,12 +1,22 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { useAddToCart } from "@/store/useAddToCart";
-import { useToast } from "../ui/use-toast";
+import { orderAction } from "@/acitons/orderAction";
+import toast from "react-hot-toast";
 
 const OrderDetailCard = () => {
   const { cartList, removeAllCart } = useAddToCart();
-  const { toast } = useToast();
+
+  const [order, setOrder] = useState([]);
+
+  const onOrder = async (pro) => {
+    const result = await orderAction(pro);
+  };
+
+  useEffect(() => {
+  }, [cartList]);
+
   return (
     <div className="border h-fit sticky top-20 p-6 rounded-md flex flex-col gap-6">
       <div className="flex items-center justify-between">
@@ -35,21 +45,24 @@ const OrderDetailCard = () => {
               (acc, product) => acc + product?.qty * product?.unitPrice,
               0
             ) *
-              (cartList?.reduce(
-                (acc, product) => acc + product?.discount || 0,
-                0
-              ) /
-                100)}
+            (cartList?.reduce(
+              (acc, product) => acc + product?.discount || 0,
+              0
+            ) /
+              100)}
         </p>
       </div>
       {cartList?.length > 0 && (
         <div>
           <Button
             onClick={() => {
-              toast({
-                title: "Thank you",
-                description: "We will delivery products to you soon",
-              });
+              toast.success("We will delivery products to you soon");
+              onOrder(
+                cartList.map((pro) => ({
+                  qty: pro?.qty,
+                  productId: pro?.productId,
+                }))
+              );
               removeAllCart();
             }}
             className="w-full"
