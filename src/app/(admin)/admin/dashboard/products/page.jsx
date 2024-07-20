@@ -129,12 +129,12 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
                                 </p>
                               </Link>
                             </DropdownMenuItem>
-                            <DropdownMenuItem className="flex items-center gap-3 group">
+                            <DropdownMenuItem className="flex items-center gap-3 group cursor-pointer">
                               <Eye className="size-[18px] group-hover:stroke-green-400  transition-all hover:stroke-red-500 cursor-pointer" />
                               <p className="group-hover:text-green-400">View</p>
                             </DropdownMenuItem>
-                            <div className="flex items-center gap-3 group">
-                              <div>
+                            <div>
+                              <div className="flex items-center gap-3 group cursor-pointer">
                                 <Dialog>
                                   <DialogTrigger asChild>
                                     <div className="flex w-full rounded-sm gap-3 items-center px-2 py-1.5 hover:bg-accent">
@@ -157,28 +157,15 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
                                       // onSubmit={handleSubmit(onSubmit)}
                                       className="grid gap-4 py-4"
                                     >
-                                      <div class="">
+                                      <div class="font-bold">
                                         <label
                                           htmlFor="categoryName"
                                           class="block text-sm capitalize font-medium leading-6 text-gray-900"
                                         >
-                                          {slide?.productName}
+                                          <span >Product name : </span><span className="text-blue-500">{slide?.productName}</span>
                                         </label>
-                                        {/* <div class="mt-2">
-                                          <div class="flex rounded-md shadow-sm ring-inset ring-gray-300  sm:max-w-md">
-                                            <input
-                                              autoComplete="off"
-                                              {...register("categoryName", {
-                                                required: true,
-                                              })}
-                                              type="text"
-                                              class="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                              placeholder="Category name"
-                                            />
-                                          </div>
-                                        </div> */}
                                       </div>
-                                      <DropdownMenuItem>
+                                      <DropdownMenuItem >
                                         <div>
                                           <ButtonDelete
                                             productId={slide?.productId}
