@@ -38,7 +38,6 @@ const EditProductPage = ({
   const [currentPro, setCurrentPro] = useState(null);
 
   const onSubmit = async (data) => {
-
     // Wait for all images to be uploaded
     const uploadedFiles = await Promise.all(
       img.map(async (i) => {
@@ -62,11 +61,15 @@ const EditProductPage = ({
       product_id
     );
 
+    console.log("result", result);
+
+    reset();
     if (result?.productId) {
-      reset();
       setImg([{ imgFile: null, imgPreview: null }]);
       toast.success("Updated product successfully");
       router.push("/admin/dashboard/products?tab=Products");
+    } else {
+      toast.error("Updated product was not success");
     }
   };
 
@@ -77,8 +80,7 @@ const EditProductPage = ({
     });
   }, []);
 
-  useEffect(() => {
-  }, [img]);
+  useEffect(() => {}, [img]);
 
   return (
     <div className="w-full">

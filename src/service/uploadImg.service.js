@@ -1,11 +1,16 @@
+import { authOption } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
+
 export const uploadImg = async (fileImg, slideId) => {
+  const session = await getServerSession(authOption);
+
   console.log("file slide : ", fileImg);
   const res = await fetch(`${process.env.BASE_URL}/files/slide/${slideId}`, {
     method: "POST",
     headers: {
       // "Content-Type": "multipart/form-data",
       //   Authorization: `Bearer ${session?.user?.token}`,
-      Authorization: `Bearer ${process.env.TOKEN}`,
+      Authorization: `Bearer ${session.user.payload.token}`,
     },
     body: fileImg,
   });
@@ -17,8 +22,9 @@ export const uploadImg = async (fileImg, slideId) => {
 
 export const uploadImgProduct = async (fileImg, productId) => {
   // let arrFile =
-  console.log("adsdasdadas", { ...fileImg }, productId);
   // return;
+  const session = await getServerSession(authOption);
+
   const res = await fetch(
     `${process.env.BASE_URL}/post-multiple/${productId}`,
     {
@@ -27,7 +33,7 @@ export const uploadImgProduct = async (fileImg, productId) => {
         // "Content-Type": "multipart/form-data",
         // accept: "*/*",
         //   Authorization: `Bearer ${session?.user?.token}`,
-        Authorization: `Bearer ${process.env.TOKEN}`,
+        Authorization: `Bearer ${session.user.payload.token}`,
       },
       body: fileImg,
     }

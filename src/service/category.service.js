@@ -1,3 +1,6 @@
+import { authOption } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
+
 export const getAllCategories = async (page = 1, size = 999) => {
   try {
     const res = await fetch(
@@ -15,11 +18,13 @@ export const getAllCategories = async (page = 1, size = 999) => {
 };
 
 export const createCategory = async (data) => {
+  const session = await getServerSession(authOption);
+
   const res = await fetch(`${process.env.BASE_URL}/categories`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.TOKEN}`,
+      Authorization: `Bearer ${session.user.payload.token}`,
     },
     body: JSON.stringify(data),
   });
@@ -28,11 +33,13 @@ export const createCategory = async (data) => {
 };
 
 export const editCategory = async (data, categoryId) => {
+  const session = await getServerSession(authOption);
+
   const res = await fetch(`${process.env.BASE_URL}/categories/${categoryId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.TOKEN}`,
+      Authorization: `Bearer ${session.user.payload.token}`,
     },
     body: JSON.stringify(data),
   });
@@ -41,11 +48,13 @@ export const editCategory = async (data, categoryId) => {
 };
 
 export const updateCategory = async (data, categoryId) => {
+  const session = await getServerSession(authOption);
+
   const res = await fetch(`${process.env.BASE_URL}/categories/${categoryId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.TOKEN}`,
+      Authorization: `Bearer ${session.user.payload.token}`,
     },
     body: JSON.stringify({ data }),
   });
