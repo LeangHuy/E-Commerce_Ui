@@ -22,7 +22,6 @@ import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 const EditCategoryPage = ({ cate }) => {
   const onSubmit = async (data) => {
-    console.log("category data :", data);
     const result = await editCategoryAction(data, cate?.categoryId);
     if (result?.categoryId) {
       toast.success("Category has been updated");
@@ -77,9 +76,9 @@ const EditCategoryPage = ({ cate }) => {
                 </div>
               </div>
             </div>
-            <DialogTrigger>
+            <DialogFooter>
               <Button>Save changes</Button>
-            </DialogTrigger>
+            </DialogFooter>
           </form>
         </DialogContent>
       </Dialog>

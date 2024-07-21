@@ -15,10 +15,7 @@ export const createSlideAction = async ({ title, description }) => {
 };
 
 export const changeStatusSlideAction = async (slideId, statusSlide) => {
-  console.log("slide", slideId, statusSlide);
-
   const result = await changeStatusSlide(slideId, statusSlide);
-  // revalidateTag("getAllSlideShows");
   revalidatePath("/admin/dashboard/slide");
   return result;
 };

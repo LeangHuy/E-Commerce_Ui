@@ -31,7 +31,6 @@ const RegisterFormComponent = () => {
       password: data?.password,
       confirmPassword: data?.confirmPassword,
     });
-    console.log(res);
     if (res?.status === 400) {
       toast.error(res.detail);
     } else {

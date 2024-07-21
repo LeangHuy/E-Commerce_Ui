@@ -16,8 +16,8 @@ import {
 import { User } from "lucide-react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
-import SignoutButton from "./SignoutButton";
 import { getUserData } from "@/service/user.service";
+import SignOutButton from "./SignOutButton";
 
 export async function DropdownMenuDemo() {
   const userData = await getUserData();
@@ -34,21 +34,21 @@ export async function DropdownMenuDemo() {
           {userData != null && <DropdownMenuItem>Profile</DropdownMenuItem>}
           {userData != null && userData.payload.role !== "USER" && (
             <DropdownMenuItem>
-              <Link href={"/admin/dashboard"}>Dashboard</Link>
+              <Link href={"/admin/dashboard"} target="new">Dashboard</Link>
             </DropdownMenuItem>
           )}
           {userData == null && (
-            <DropdownMenuItem>
-              <Link href={"/login"}>Login</Link>
-            </DropdownMenuItem>
+            <Link href={"/login"} >
+              <DropdownMenuItem className="cursor-pointer">
+                Login
+              </DropdownMenuItem>
+            </Link>
+
           )}
         </DropdownMenuGroup>
-        {/* <DropdownMenuSeparator /> */}
-        {/* <DropdownMenuItem>Log out</DropdownMenuItem> */}
         {userData != null && (
-          <DropdownMenuItem>
-            <SignoutButton />
-            <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+          <DropdownMenuItem >
+            <SignOutButton />
           </DropdownMenuItem>
         )}
       </DropdownMenuContent>

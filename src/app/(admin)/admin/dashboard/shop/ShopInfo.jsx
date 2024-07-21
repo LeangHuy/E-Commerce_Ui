@@ -41,7 +41,6 @@ function ShopInfo({ shopData }) {
     if (updateInfo.statusCode === 200) {
       toast.success("Shop Info Updated!")
     }
-    console.log("updateInfo", updateInfo);
   }
 
   return (
@@ -127,7 +126,7 @@ function ShopInfo({ shopData }) {
         <div className="self-end">
           <Button type="submit">
             {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Update Shop
+            Update Shop Info
           </Button>
         </div>
       </form>

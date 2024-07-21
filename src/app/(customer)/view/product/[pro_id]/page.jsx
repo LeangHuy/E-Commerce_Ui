@@ -22,10 +22,10 @@ const page = async ({ params: { pro_id } }) => {
 
   const user = await getUserData();
 
-  // return;
   return (
     <div className="w-[1300px] mx-auto my-10">
       <BreadCrumb proName={product?.productName} />
+
       <section className="grid-photo h-[500px] w-full grid grid-cols-3 grid-rows-2 gap-3 my-10">
         <Image
           width={1000}
@@ -65,26 +65,77 @@ const page = async ({ params: { pro_id } }) => {
                 title={"Original"}
               />
             </div>
-            <p className="flex gap-2 items-center text-xl text-red-500 font-medium">
-              <DollarSign className="size-[20px]" />
-              <span>{product?.unitPrice}</span>
-            </p>
+            {product.discount !== 0 &&
+              <div className="flex gap-4">
+                <p className="font-semibold">Discount</p>
+                <div className="flex  gap-2">
+                  <Tag
+                    className={
+                      "w-16 cursor-pointer bg-sky-400 text-white font-medium"
+                    }
+                    title={`${product?.discount} %`}
+                  />
+                </div>
+              </div>
+            }
+
+            <div className=" text-[18px] text-[#ff540a]">
+              {product?.discount == 0 ?
+                <div className="flex gap-2">
+                  <p className="font-semibold">Original price :</p>
+                  <div className="flex text-sky-400 font-bold">
+                    {product?.unitPrice}$
+                  </div>
+                </div>
+                :
+                <div className="">
+                  <div className="flex gap-2">
+                    <p className="font-semibold">Original price :</p>
+                    <div className="flex text-sky-400 font-bold line-through">
+                      {product?.unitPrice}$
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <p className="font-semibold">Discount price:</p>
+                    <div className="flex text-sky-400 font-bold">
+                      {product?.priceAfterDiscount}$
+                    </div>
+                  </div>
+                </div>
+
+
+
+              }
+            </div>
+            {/* <div className="flex gap-2 items-center text-xl text-red-500 font-medium">
+
+              <div className=" text-[18px] text-[#ff540a]">
+                {product?.discount == 0 ?
+                  <div className="flex gap-4">
+                    <p className="font-semibold">Discount</p>
+                    <div className="flex  gap-2">
+                      <Tag
+                        className={
+                          "w-16 cursor-pointer bg-sky-400 text-white font-medium"
+                        }
+                        title={`${product?.discount} %`}
+                      />
+                      <span className="text-sky-400 font-bold">{product?.unitPrice}$</span>
+                    </div>
+                  </div>
+                  :
+                  <div>
+                    <span className="line-through text-sm">{product?.unitPrice}$</span>
+                    <span className="text-sky-400 font-bold">  {product?.priceAfterDiscount}$</span>
+                  </div>
+
+                }
+              </div>
+            </div> */}
             <div className="flex flex-col gap-4">
               <p className="font-semibold">Description</p>
               <p className="w-[70%] text-slate-600">{product?.productDesc}</p>
             </div>
-            {/* <div className="flex flex-col gap-2">
-              <p className="font-semibold">Spec</p>
-              {specs.map((data, idx) => (
-                <p key={idx} className="flex items-center gap-3">
-                  <span className="size-[6px] bg-black rounded-full"></span>
-                  <span className="flex gap-4 items-center">
-                    <span className="font-medium">{data.spec_title}</span>
-                    <span className="">{data.spec}</span>
-                  </span>
-                </p>
-              ))}
-            </div> */}
             <div className="flex flex-col gap-4">
               <p className="font-semibold">Tags</p>
               <div className="flex  gap-2">
@@ -121,16 +172,15 @@ const page = async ({ params: { pro_id } }) => {
                 </p>
               </div>
             </div>
-            <div className="grid grid-cols-[auto_1fr] gap-3">
+            <div className="">
               <AddToCart
                 user={user}
                 data={{ ...product, qty: 1 }}
                 className={
-                  "bg-transparent group border hover:border-transparent "
+                  "bg-primary group border hover:border-transparent w-full"
                 }
               />
 
-              <Button className={" w-full"}>Buy Now</Button>
             </div>
           </div>
         </div>

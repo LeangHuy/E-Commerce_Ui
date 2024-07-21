@@ -13,22 +13,18 @@ import toast from "react-hot-toast";
 import OTPInput from "react-otp-input";
 
 const VerifyFormComponent = ({ email }) => {
-  console.log(email);
   const emailData = {
     email: email,
   };
   const [otp, setOtp] = useState("");
   const router = useRouter();
   const handleResend = async () => {
-    console.log("email", email);
     const res = await resendEmail(emailData);
     if (res.status !== 404 && res.status !== 400) {
       toast.success(res.message);
-      console.log(res);
     } else {
       toast.error(res.detail);
     }
-    console.log("responseDATA", res);
   };
   const handleSubmitOTP = async (data) => {
     const res = await verfiyService(otp);
@@ -39,7 +35,6 @@ const VerifyFormComponent = ({ email }) => {
       router.push(routePath.LOGIN);
       router.refresh();
     }
-    console.log(res);
   };
 
   return (

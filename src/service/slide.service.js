@@ -1,10 +1,15 @@
+import { authOption } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
+
 export const createSlideShow = async ({ title, description }) => {
+  const session = await getServerSession(authOption);
+
   const res = await fetch(`${process.env.BASE_URL}/slideshows`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       //   Authorization: `Bearer ${session?.user?.token}`,
-      Authorization: `Bearer ${process.env.TOKEN}`,
+      Authorization: `Bearer ${session.user.payload.token}`,
     },
     body: JSON.stringify({
       title,
@@ -31,6 +36,8 @@ export const getAllSlideShows = async () => {
 };
 
 export const changeStatusSlide = async (slideId, statusSlide) => {
+  const session = await getServerSession(authOption);
+
   const res = await fetch(
     `${
       process.env.BASE_URL
@@ -41,7 +48,7 @@ export const changeStatusSlide = async (slideId, statusSlide) => {
       headers: {
         "Content-Type": "application/json",
         //   Authorization: `Bearer ${session?.user?.token}`,
-        Authorization: `Bearer ${process.env.TOKEN}`,
+        Authorization: `Bearer ${session.user.payload.token}`,
       },
     }
   );
@@ -52,28 +59,26 @@ export const changeStatusSlide = async (slideId, statusSlide) => {
 export const getAllSlideActive = async () => {
   const res = await fetch(`${process.env.BASE_URL}/slideshows/active`);
   const { payload } = await res.json();
-  console.log(payload);
   return payload;
 };
 
 export const getSlideById = async (slideId) => {
-  console.log(slideId);
   const res = await fetch(`${process.env.BASE_URL}/slideshows/${slideId}`);
 
   const { payload } = await res.json();
-
-  console.log("get slide", payload);
 
   return payload;
 };
 
 export const editSlideById = async (data, slideId) => {
+  const session = await getServerSession(authOption);
+
   const res = await fetch(`${process.env.BASE_URL}/slideshows/${slideId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
       //   Authorization: `Bearer ${session?.user?.token}`,
-      Authorization: `Bearer ${process.env.TOKEN}`,
+      Authorization: `Bearer ${session.user.payload.token}`,
     },
     body: JSON.stringify(data),
   });

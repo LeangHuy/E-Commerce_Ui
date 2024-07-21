@@ -5,11 +5,9 @@ import { changeStatusSlideAction } from "@/acitons/slideAction";
 
 const SwtichToggle = ({ isActive, slideId, slide }) => {
   const onChange = async (slideId) => {
-    console.log("Slide id", slideId);
     await changeStatusSlideAction(slideId, isActive);
   };
 
-  console.log("slide", slide);
 
   return (
     <Switch

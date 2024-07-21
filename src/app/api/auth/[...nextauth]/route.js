@@ -17,7 +17,6 @@ export const authOption = {
           password: data?.password,
         };
         const token = await loginService(userData);
-        console.log("usertoken", token);
         // return token
 
         switch (token.detail) {

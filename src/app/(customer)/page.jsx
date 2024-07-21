@@ -8,12 +8,15 @@ import { mock_data } from "@/data/mock_data";
 import { getAllCategories } from "@/service/category.service";
 import { ImagesSliderDemo } from "@/components/Slider/ImageSlider";
 import { getAllSlideActive } from "@/service/slide.service";
+import MyPagination from "../(admin)/admin/dashboard/components/MyPagination";
+
 
 async function Home({ searchParams: { q = "All" } }) {
   const products = await getAllProductService();
   const categories = await getAllCategories();
   const getCate = categories?.map((cate) => cate?.categoryName);
   const activeSlides = await getAllSlideActive();
+
 
   return (
     <main className="w-[1330px] mx-auto max-[1400px]:w-[90%] ">
@@ -43,10 +46,9 @@ async function Home({ searchParams: { q = "All" } }) {
           isPromotion={false}
         />
       </div>
-
-      {/* <div className="">
-        <h1>{getShopInfo?.payload?.shopName}</h1>
-      </div> */}
+      <div className="flex justify-center m-5 text-black">
+        <MyPagination products={products} />
+      </div>
     </main>
   );
 }

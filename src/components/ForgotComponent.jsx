@@ -28,7 +28,6 @@ export default function ForgotComponents() {
     },
     resolver: zodResolver(forgotZod),
   });
-  console.log(errors);
   const handleLogin = async (data) => {
     const res = await resendEmail(data);
     if (res.status !== 404 && res.state !== 400) {
@@ -38,7 +37,6 @@ export default function ForgotComponents() {
     } else {
       toast.error(res.detail);
     }
-    console.log("responseDATA", res);
   };
   return (
     <div>

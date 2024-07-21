@@ -25,7 +25,6 @@ import { baseUrl } from "../utils/constants";
 // };
 
 export const registerService = async (req) => {
-  console.log(req);
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auths/register`, {
     method: "POST",
     headers: {
@@ -35,7 +34,6 @@ export const registerService = async (req) => {
     body: JSON.stringify(req),
   });
   const data = await res.json();
-  console.log(data);
   return data;
 };
 
@@ -50,12 +48,10 @@ export const verfiyService = async (otpCode) => {
     }
   );
   const data = await res.json();
-  console.log(data);
   return data;
 };
 
 export const loginService = async (req) => {
-  console.log(req);
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auths/login`, {
     method: "POST",
     headers: {
@@ -70,7 +66,6 @@ export const loginService = async (req) => {
 };
 
 export const resendEmail = async (req) => {
-  console.log("myemail", req);
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/auths/resend?email=${req.email}`,
     {
@@ -87,7 +82,6 @@ export const resendEmail = async (req) => {
 };
 
 export const forgotPassword = async (req) => {
-  console.log("reqnew-pass",req)
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/auths/forget?email=${req.email}`,
     {
@@ -103,6 +97,5 @@ export const forgotPassword = async (req) => {
   );
 
   const data = await res.json();
-  console.log(data)
   return data;
 };

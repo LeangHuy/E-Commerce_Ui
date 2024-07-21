@@ -13,7 +13,6 @@ export const registerAction = async (req) => {
 
 export const verfiyAction = async (otpCode) => {
   const res = await verfiyService(otpCode);
-  console.log(res)
   return res;
 };
 

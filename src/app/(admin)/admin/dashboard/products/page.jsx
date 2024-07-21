@@ -115,29 +115,29 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
                           <MoreHorizontal className="size-[18px] p-2 box-content bg-gray-100 rounded-lg group-hover:bg-white transition-all hover:stroke-red-500 cursor-pointer" />
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="w-50">
-                          {/* <DropdownMenuLabel>Action</DropdownMenuLabel> */}
-                          {/* <DropdownMenuSeparator /> */}
                           <DropdownMenuGroup>
-                            <DropdownMenuItem>
-                              <Link
-                                className="flex items-center gap-3 group"
-                                href={`/admin/dashboard/products/edit/${slide?.productId}?tab=Products`}
-                              >
-                                <Pen className="size-[18px] group-hover:stroke-indigo-400  transition-all hover:stroke-red-500 cursor-pointer" />
-                                <p className="group-hover:text-indigo-400">
-                                  Edit
-                                </p>
-                              </Link>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem className="flex items-center gap-3 group">
+                            <Link
+                              href={`/admin/dashboard/products/edit/${slide?.productId}?tab=Products`}
+                            >
+                              <DropdownMenuItem className="cursor-pointer">
+                                <div className="flex items-center gap-3 group">
+                                  <Pen className="size-[18px] group-hover:stroke-indigo-400  transition-all hover:stroke-red-500 cursor-pointer" />
+                                  <p className="group-hover:text-indigo-400">
+                                    Edit
+                                  </p>
+                                </div>
+                              </DropdownMenuItem>
+                            </Link>
+
+                            <DropdownMenuItem className="flex items-center gap-3 group cursor-pointer">
                               <Eye className="size-[18px] group-hover:stroke-green-400  transition-all hover:stroke-red-500 cursor-pointer" />
                               <p className="group-hover:text-green-400">View</p>
                             </DropdownMenuItem>
-                            <div className="flex items-center gap-3 group">
-                              <div>
+                            <div  >
+                              <div className="flex items-center gap-3 group">
                                 <Dialog>
                                   <DialogTrigger asChild>
-                                    <div className="flex w-full rounded-sm gap-3 items-center px-2 py-1.5 hover:bg-accent">
+                                    <div className="flex w-full rounded-sm gap-3 items-center px-2 py-1.5 hover:bg-accent cursor-pointer ">
                                       <Trash className="size-[18px] group-hover:stroke-red-400  transition-all hover:stroke-red-500 cursor-pointer" />
                                       <p className="group-hover:text-red-400">
                                         Delete

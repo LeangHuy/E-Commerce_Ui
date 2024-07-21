@@ -16,10 +16,10 @@ const ProductCard = ({
       searchParams == "All" || undefined
         ? products
         : products.filter((p) =>
-            p.categoryName
-              .toLocaleLowerCase()
-              .includes(searchParams.toLocaleLowerCase())
-          );
+          p.categoryName
+            .toLocaleLowerCase()
+            .includes(searchParams.toLocaleLowerCase())
+        );
   } else {
     filterProducts = products?.filter((p) => p.discount > 0);
   }
@@ -29,7 +29,7 @@ const ProductCard = ({
       {filterProducts?.map((item, idx) => (
         <div
           key={idx}
-          className="grid transition-all grid-rows-[1fr_auto_auto] gap-3"
+          className="grid transition-all grid-rows-[1fr_auto_auto] gap-3 p-2 bg-gray-300 bg-opacity-20 rounded-xl"
         >
           <div className="h-[20rem] relative">
             <Link href={`/view/product/${item?.productId}`}>
@@ -39,8 +39,8 @@ const ProductCard = ({
                 alt="pic 1"
                 src={getPhoto(
                   item &&
-                    item?.imageProductList &&
-                    item?.imageProductList[0]?.fileName
+                  item?.imageProductList &&
+                  item?.imageProductList[0]?.fileName
                 )}
                 className="object-cover w-full h-full  rounded-xl"
               />
@@ -58,16 +58,24 @@ const ProductCard = ({
               </p>
             )}
           </div>
+          <section className="flex-grow border-t border-primary opacity-20"></section>
           <Link href={`/view/product/${item?.productId}`} className="">
-            <p className=" text-[18px] text-[#ff540a]">{item?.unitPrice}$</p>
-            <h3 className="font-medium text-xl text-[#1d1d1d]">
+            <h3 className="font-medium text-xl text-[#1d1d1d] line-clamp-1">
               {item?.productName}
             </h3>
-            {/* <p className="text-gray-600">{item?.productDesc}</p> */}
+
+            <div className=" text-[18px flex justify-end">
+              {item?.discount == 0 ?
+                <span className="text-white font-medium bg-sky-300 py-0 px-2 rounded-md">{item?.unitPrice}$</span> :
+                <div className="flex gap-2 items-center">
+                  <div className="line-through text-sm text-red-500">{item?.unitPrice}$</div>
+                  <div className="text-white font-medium bg-sky-300 py-0 px-2 rounded-md">{item?.priceAfterDiscount}$</div>
+                </div>
+
+              }
+            </div>
           </Link>
-          <div className="grid grid-cols-[auto_1fr] gap-4 items-center">
-            {/* <Button className=" rounded-lg">Add to Cart</Button> */}
-          </div>
+
         </div>
       ))}
     </main>

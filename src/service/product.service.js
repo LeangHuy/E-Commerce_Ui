@@ -1,3 +1,6 @@
+import { authOption } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
+
 export const getAllProductService = async () => {
   try {
     const res = await fetch(
@@ -30,7 +33,8 @@ export const getProductById = async (productId) => {
 };
 
 export const postProduct = async (data, warranty) => {
-  console.log("data submit : ", { ...data });
+  const session = await getServerSession(authOption);
+
   const res = await fetch(
     `${process.env.BASE_URL}/products?warrantyTime=${warranty}`,
     {
@@ -38,7 +42,7 @@ export const postProduct = async (data, warranty) => {
       headers: {
         "Content-Type": "application/json",
         //   Authorization: `Bearer ${session?.user?.token}`,
-        Authorization: `Bearer ${process.env.TOKEN}`,
+        Authorization: `Bearer ${session.user.payload.token}`,
       },
       body: JSON.stringify({ ...data }),
     }
@@ -49,12 +53,14 @@ export const postProduct = async (data, warranty) => {
 };
 
 export const deleteProductService = async (productId) => {
+  const session = await getServerSession(authOption);
+
   const res = await fetch(`${process.env.BASE_URL}/products/${productId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
       //   Authorization: `Bearer ${session?.user?.token}`,
-      Authorization: `Bearer ${process.env.TOKEN}`,
+      Authorization: `Bearer ${session.user.payload.token}`,
     },
   });
 
@@ -63,7 +69,8 @@ export const deleteProductService = async (productId) => {
 };
 
 export const updateProductById = async (data, warranty, productId) => {
-  console.log("data submit : ", { ...data });
+  const session = await getServerSession(authOption);
+
   const res = await fetch(
     `${process.env.BASE_URL}/products/${productId}?warrantyTime=${warranty}`,
     {
@@ -71,7 +78,7 @@ export const updateProductById = async (data, warranty, productId) => {
       headers: {
         "Content-Type": "application/json",
         //   Authorization: `Bearer ${session?.user?.token}`,
-        Authorization: `Bearer ${process.env.TOKEN}`,
+        Authorization: `Bearer ${session.user.payload.token}`,
       },
       body: JSON.stringify(data),
     }

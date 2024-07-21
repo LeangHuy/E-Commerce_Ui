@@ -38,15 +38,12 @@ const EditProductPage = ({
   const [currentPro, setCurrentPro] = useState(null);
 
   const onSubmit = async (data) => {
-    console.log("data : ", data, warranty);
-
     // Wait for all images to be uploaded
     const uploadedFiles = await Promise.all(
       img.map(async (i) => {
         const formData = new FormData();
         formData.append("file", i.imgFile);
         const response = await postImgAction(formData);
-        console.log("file now ", response);
         return response;
       })
     );
@@ -64,24 +61,25 @@ const EditProductPage = ({
       product_id
     );
 
+
+    reset();
     if (result?.productId) {
-      reset();
       setImg([{ imgFile: null, imgPreview: null }]);
       toast.success("Updated product successfully");
       router.push("/admin/dashboard/products?tab=Products");
+    } else {
+      toast.error("Updated product was not success");
     }
   };
 
   useEffect(() => {
     getAllCategoriesAction(1, 999).then((data) => setCate(data));
     getProductByIdAction(product_id).then((data) => {
-      setCurrentPro(data), console.log(data);
+      setCurrentPro(data);
     });
   }, []);
 
-  useEffect(() => {
-    console.log("img", img);
-  }, [img]);
+  useEffect(() => { }, [img]);
 
   return (
     <div className="w-full">
@@ -96,44 +94,44 @@ const EditProductPage = ({
       <div className="content p-5 bg-gray-100">
         <div className=" bg-white rounded-2xl p-10">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div class="space-y-12">
-              <div class="border-b border-gray-900/10 pb-12">
-                <h2 class="text-base font-semibold leading-7 text-gray-900">
+            <div className="space-y-12">
+              <div className="border-b border-gray-900/10 pb-12">
+                <h2 className="text-base font-semibold leading-7 text-gray-900">
                   Edit Product
                 </h2>
-                <p class="mt-1 text-sm leading-6 text-gray-600">
+                <p className="mt-1 text-sm leading-6 text-gray-600">
                   Start enter your product information
                 </p>
 
-                <div class="mt-10 grid grid-cols-4 gap-x-6 gap-y-8 ">
-                  <div class="">
+                <div className="mt-10 grid grid-cols-4 gap-x-6 gap-y-8 ">
+                  <div className="">
                     <label
                       for="username"
-                      class="block text-sm font-medium leading-6 text-gray-900"
+                      className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Product Name
                     </label>
-                    <div class="mt-2">
-                      <div class="flex rounded-md shadow-sm ring-inset ring-gray-300  sm:max-w-md">
+                    <div className="mt-2">
+                      <div className="flex rounded-md shadow-sm ring-inset ring-gray-300  sm:max-w-md">
                         <input
                           {...register("productName", { required: true })}
                           type="text"
                           defaultValue={currentPro?.productName}
-                          class="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                          className="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                           placeholder="title of your image"
                         />
                       </div>
                     </div>
                   </div>
-                  <div class="">
+                  <div className="">
                     <label
                       for="username"
-                      class="block text-sm font-medium leading-6 text-gray-900"
+                      className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Product Stock
                     </label>
-                    <div class="mt-2">
-                      <div class="flex rounded-md shadow-sm ring-inset ring-gray-300  sm:max-w-md">
+                    <div className="mt-2">
+                      <div className="flex rounded-md shadow-sm ring-inset ring-gray-300  sm:max-w-md">
                         <input
                           {...register("productStock", {
                             required: true,
@@ -141,21 +139,21 @@ const EditProductPage = ({
                           })}
                           type="number"
                           defaultValue={currentPro?.productStock}
-                          class="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                          className="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                           placeholder="title of your image"
                         />
                       </div>
                     </div>
                   </div>
-                  <div class="">
+                  <div className="">
                     <label
                       for="username"
-                      class="block text-sm font-medium leading-6 text-gray-900"
+                      className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Product Price
                     </label>
-                    <div class="mt-2">
-                      <div class="flex rounded-md shadow-sm ring-inset ring-gray-300  sm:max-w-md">
+                    <div className="mt-2">
+                      <div className="flex rounded-md shadow-sm ring-inset ring-gray-300  sm:max-w-md">
                         <input
                           {...register("unitPrice", {
                             required: true,
@@ -163,21 +161,21 @@ const EditProductPage = ({
                           })}
                           defaultValue={currentPro?.unitPrice}
                           type="number"
-                          class="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                          className="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                           placeholder="title of your image"
                         />
                       </div>
                     </div>
                   </div>
-                  <div class="">
+                  <div className="">
                     <label
                       for="username"
-                      class="block text-sm font-medium leading-6 text-gray-900"
+                      className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Product Discount
                     </label>
-                    <div class="mt-2">
-                      <div class="flex rounded-md shadow-sm ring-inset ring-gray-300  sm:max-w-md">
+                    <div className="mt-2">
+                      <div className="flex rounded-md shadow-sm ring-inset ring-gray-300  sm:max-w-md">
                         <input
                           {...register("discount", {
                             required: true,
@@ -185,21 +183,21 @@ const EditProductPage = ({
                           })}
                           defaultValue={currentPro?.discount}
                           type="number"
-                          class="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                          className="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                           placeholder="title of your image"
                         />
                       </div>
                     </div>
                   </div>
-                  <div class="">
+                  <div className="">
                     <label
                       for="username"
-                      class="block text-sm font-medium leading-6 text-gray-900"
+                      className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Product Category
                     </label>
-                    <div class="mt-2">
-                      <div class="flex rounded-md shadow-sm ring-inset ring-gray-300 ">
+                    <div className="mt-2">
+                      <div className="flex rounded-md shadow-sm ring-inset ring-gray-300 ">
                         <select {...register("categoryId", { required: true })}>
                           {cate?.map((c) => (
                             <option value={c.categoryId}>
@@ -211,15 +209,15 @@ const EditProductPage = ({
                     </div>
                   </div>
 
-                  <div class="w-full">
+                  <div className="w-full">
                     <label
                       for="username"
-                      class="block text-sm font-medium leading-6 text-gray-900"
+                      className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Product Warranty
                     </label>
-                    <div class="mt-2">
-                      <div class="flex w-full rounded-md shadow-sm ring-inset ring-gray-300 ">
+                    <div className="mt-2">
+                      <div className="flex w-full rounded-md shadow-sm ring-inset ring-gray-300 ">
                         <select onChange={(e) => setWarranty(e.target.value)}>
                           <option value={null}>Select</option>
 
@@ -230,15 +228,15 @@ const EditProductPage = ({
                       </div>
                     </div>
                   </div>
-                  <div class="w-full">
+                  <div className="w-full">
                     <label
                       for="username"
-                      class="block text-sm font-medium leading-6 text-gray-900"
+                      className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Product Warranty Count
                     </label>
-                    <div class="mt-2">
-                      <div class="flex w-full rounded-md shadow-sm ring-inset ring-gray-300 ">
+                    <div className="mt-2">
+                      <div className="flex w-full rounded-md shadow-sm ring-inset ring-gray-300 ">
                         <input
                           {...register("warrantyDate", {
                             required: true,
@@ -246,44 +244,44 @@ const EditProductPage = ({
                           })}
                           type="number"
                           defaultValue={currentPro?.warranty?.warrantyDate}
-                          class="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                          className="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                           placeholder="title of your image"
                         />
                       </div>
                     </div>
                   </div>
-                  <div class="col-span-full">
+                  <div className="col-span-full">
                     <label
                       for="about"
-                      class="block text-sm font-medium leading-6 text-gray-900"
+                      className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Description
                     </label>
-                    <div class="mt-2">
+                    <div className="mt-2">
                       <textarea
                         {...register("productDesc", { required: true })}
                         placeholder="describe about your images slideshow"
                         rows="3"
                         defaultValue={currentPro?.productDesc}
-                        class="block w-full rounded-md border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 max-h-[100px] focus:ring-inset  sm:text-sm sm:leading-6"
+                        className="block w-full rounded-md border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 max-h-[100px] focus:ring-inset  sm:text-sm sm:leading-6"
                       ></textarea>
                     </div>
-                    <p class="mt-3 text-sm leading-6 text-gray-600">
+                    <p className="mt-3 text-sm leading-6 text-gray-600">
                       Write a few sentences about product.
                     </p>
                   </div>
-                  <div class="col-span-full">
+                  <div className="col-span-full">
                     <label
                       for="cover-photo"
-                      class="block text-sm font-medium leading-6 text-gray-900"
+                      className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Slideshow photo
                     </label>
                     {img?.length <= 2 && (
-                      <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                        <div class="text-center">
+                      <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                        <div className="text-center">
                           <svg
-                            class="mx-auto h-12 w-12 text-gray-300"
+                            className="mx-auto h-12 w-12 text-gray-300"
                             viewBox="0 0 24 24"
                             fill="currentColor"
                             aria-hidden="true"
@@ -294,10 +292,10 @@ const EditProductPage = ({
                               clip-rule="evenodd"
                             />
                           </svg>
-                          <div class="mt-4 flex text-sm leading-6 text-gray-600">
+                          <div className="mt-4 flex text-sm leading-6 text-gray-600">
                             <label
                               for="file-upload"
-                              class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+                              className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                             >
                               <span>Upload a file</span>
                               <input
@@ -316,12 +314,12 @@ const EditProductPage = ({
                                 name="file-upload"
                                 multiple
                                 type="file"
-                                class="sr-only"
+                                className="sr-only"
                               />
                             </label>
-                            <p class="pl-1">or drag and drop</p>
+                            <p className="pl-1">or drag and drop</p>
                           </div>
-                          <p class="text-xs leading-5 text-gray-600">
+                          <p className="text-xs leading-5 text-gray-600">
                             PNG, JPG, GIF up to 10MB
                           </p>
                         </div>
@@ -358,10 +356,10 @@ const EditProductPage = ({
               </div>
             </div>
 
-            <div class="mt-6 flex items-center justify-end gap-x-6">
+            <div className="mt-6 flex items-center justify-end gap-x-6">
               <Link
                 href={"/admin/dashboard/products?tab=Products"}
-                class="text-sm font-semibold leading-6 text-gray-900"
+                className="text-sm font-semibold leading-6 text-gray-900"
               >
                 Cancel
               </Link>

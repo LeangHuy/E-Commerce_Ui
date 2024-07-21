@@ -3,7 +3,7 @@
 import { signOut } from "next-auth/react";
 import React from "react";
 
-function SignoutButton() {
+function SignOutButton() {
   return (
     <div
       className="cursor-pointer"
@@ -14,4 +14,4 @@ function SignoutButton() {
   );
 }
 
-export default SignoutButton;
+export default SignOutButton;
