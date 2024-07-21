@@ -4,7 +4,6 @@ import { getServerSession } from "next-auth";
 export const uploadImg = async (fileImg, slideId) => {
   const session = await getServerSession(authOption);
 
-  console.log("file slide : ", fileImg);
   const res = await fetch(`${process.env.BASE_URL}/files/slide/${slideId}`, {
     method: "POST",
     headers: {
@@ -39,9 +38,9 @@ export const uploadImgProduct = async (fileImg, productId) => {
     }
   );
 
-  if (!res.ok) {
-    console.log("res", res);
-  }
+  // if (!res.ok) {
+  //   console.log("res", res);
+  // }
 
   const { payload } = await res.json();
 

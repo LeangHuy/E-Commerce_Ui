@@ -59,17 +59,13 @@ export const changeStatusSlide = async (slideId, statusSlide) => {
 export const getAllSlideActive = async () => {
   const res = await fetch(`${process.env.BASE_URL}/slideshows/active`);
   const { payload } = await res.json();
-  console.log(payload);
   return payload;
 };
 
 export const getSlideById = async (slideId) => {
-  console.log(slideId);
   const res = await fetch(`${process.env.BASE_URL}/slideshows/${slideId}`);
 
   const { payload } = await res.json();
-
-  console.log("get slide", payload);
 
   return payload;
 };

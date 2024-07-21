@@ -35,7 +35,6 @@ export const getProductById = async (productId) => {
 export const postProduct = async (data, warranty) => {
   const session = await getServerSession(authOption);
 
-  console.log("data submit : ", { ...data });
   const res = await fetch(
     `${process.env.BASE_URL}/products?warrantyTime=${warranty}`,
     {
@@ -72,7 +71,6 @@ export const deleteProductService = async (productId) => {
 export const updateProductById = async (data, warranty, productId) => {
   const session = await getServerSession(authOption);
 
-  console.log("data submit : ", { ...data });
   const res = await fetch(
     `${process.env.BASE_URL}/products/${productId}?warrantyTime=${warranty}`,
     {

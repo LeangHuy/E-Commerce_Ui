@@ -18,7 +18,6 @@ import { getSession } from "next-auth/react";
 
 export const getShopInfoService = async () => {
   const session = await getServerSession(authOption);
-  console.log("userSession", session);
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/shops`, {
     method: "GET",
     headers: {
@@ -31,7 +30,6 @@ export const getShopInfoService = async () => {
 };
 
 export const updateShopInfoService = async (req) => {
-  console.log(req)
   const {
     shopId,
     shopName,

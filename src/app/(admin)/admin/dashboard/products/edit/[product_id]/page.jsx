@@ -61,7 +61,6 @@ const EditProductPage = ({
       product_id
     );
 
-    console.log("result", result);
 
     reset();
     if (result?.productId) {
