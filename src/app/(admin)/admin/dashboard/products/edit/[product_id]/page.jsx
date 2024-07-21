@@ -1,19 +1,27 @@
 "use client";
-import React, { useEffect, useState } from "react";
+
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { useEffect } from "react";
+import Header from "../../../components/Header";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import Header from "../../components/Header";
-import { useForm } from "react-hook-form";
-import Image from "next/image";
-import { postImgAction } from "@/acitons/uploadImgAction";
 import { ArrowLeft } from "lucide-react";
 import { getAllCategoriesAction } from "@/acitons/categoryAction";
-import { postProductAction } from "@/acitons/productAction";
+import {
+  getProductByIdAction,
+  updateProductByIdAction,
+} from "@/acitons/productAction";
 import { X } from "lucide-react";
-import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { postImgAction } from "@/acitons/uploadImgAction";
 import toast from "react-hot-toast";
 
-const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
+const EditProductPage = ({
+  searchParams: { tab = "Overview" },
+  params: { product_id },
+}) => {
   const {
     register,
     handleSubmit,
@@ -27,9 +35,10 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
   const [cate, setCate] = useState([]);
   const [warranty, setWarranty] = useState([null]);
   const [storeFile, setStoreFile] = useState([]);
+  const [currentPro, setCurrentPro] = useState(null);
 
   const onSubmit = async (data) => {
-    console.log("data : ", data);
+    console.log("data : ", data, warranty);
 
     // Wait for all images to be uploaded
     const uploadedFiles = await Promise.all(
@@ -46,24 +55,28 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
     setStoreFile([...storeFile, ...uploadedFiles]);
 
     // Proceed with submitting the product data
-    const result = await postProductAction(
+    const result = await updateProductByIdAction(
       {
         ...data,
         productImages: [...storeFile, ...uploadedFiles],
       },
-      warranty
+      warranty,
+      product_id
     );
 
     if (result?.productId) {
       reset();
       setImg([{ imgFile: null, imgPreview: null }]);
-      toast.success("Added new product");
+      toast.success("Updated product successfully");
       router.push("/admin/dashboard/products?tab=Products");
     }
   };
 
   useEffect(() => {
     getAllCategoriesAction(1, 999).then((data) => setCate(data));
+    getProductByIdAction(product_id).then((data) => {
+      setCurrentPro(data), console.log(data);
+    });
   }, []);
 
   useEffect(() => {
@@ -86,7 +99,7 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
             <div class="space-y-12">
               <div class="border-b border-gray-900/10 pb-12">
                 <h2 class="text-base font-semibold leading-7 text-gray-900">
-                  Product
+                  Edit Product
                 </h2>
                 <p class="mt-1 text-sm leading-6 text-gray-600">
                   Start enter your product information
@@ -105,6 +118,7 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
                         <input
                           {...register("productName", { required: true })}
                           type="text"
+                          defaultValue={currentPro?.productName}
                           class="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                           placeholder="title of your image"
                         />
@@ -126,6 +140,7 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
                             valueAsNumber: true,
                           })}
                           type="number"
+                          defaultValue={currentPro?.productStock}
                           class="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                           placeholder="title of your image"
                         />
@@ -146,6 +161,7 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
                             required: true,
                             valueAsNumber: true,
                           })}
+                          defaultValue={currentPro?.unitPrice}
                           type="number"
                           class="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                           placeholder="title of your image"
@@ -167,6 +183,7 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
                             required: true,
                             valueAsNumber: true,
                           })}
+                          defaultValue={currentPro?.discount}
                           type="number"
                           class="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                           placeholder="title of your image"
@@ -228,6 +245,7 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
                             valueAsNumber: true,
                           })}
                           type="number"
+                          defaultValue={currentPro?.warranty?.warrantyDate}
                           class="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                           placeholder="title of your image"
                         />
@@ -246,6 +264,7 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
                         {...register("productDesc", { required: true })}
                         placeholder="describe about your images slideshow"
                         rows="3"
+                        defaultValue={currentPro?.productDesc}
                         class="block w-full rounded-md border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 max-h-[100px] focus:ring-inset  sm:text-sm sm:leading-6"
                       ></textarea>
                     </div>
@@ -355,4 +374,4 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
   );
 };
 
-export default AddProductPage;
+export default EditProductPage;

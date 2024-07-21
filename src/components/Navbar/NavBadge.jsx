@@ -1,6 +1,5 @@
 "use client";
 import { useAddToCart } from "@/store/useAddToCart";
-import React from "react";
 
 const NavBadge = () => {
   const { cartList } = useAddToCart();

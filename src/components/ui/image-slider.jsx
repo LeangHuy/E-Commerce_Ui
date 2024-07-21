@@ -34,11 +34,11 @@ export const ImagesSlider = ({
 
   const loadImages = () => {
     setLoading(true);
-    const loadPromises = images.map((ima) => {
+    const loadPromises = images.map((image) => {
       return new Promise((resolve, reject) => {
         const img = new Image();
-        img.src = `http://34.143.196.56:9090/api/v1/files?fileName=${ima?.image}`;
-        img.onload = () => resolve(img.src);
+        img.src = getPhoto(image);
+        img.onload = () => resolve(getPhoto(image));
         img.onerror = reject;
       });
     });
@@ -50,6 +50,7 @@ export const ImagesSlider = ({
       })
       .catch((error) => console.error("Failed to load images", error));
   };
+
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "ArrowRight") {

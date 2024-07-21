@@ -34,6 +34,18 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Pen } from "lucide-react";
 import { Trash } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import ButtonDeleteProduct from "./ButtonDeleteProduct";
+import ButtonDelete from "./ButtonDeleteProduct";
+import { deleteProductAction } from "@/acitons/productAction";
 
 const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
   const products = await getAllProductService();
@@ -106,20 +118,81 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
                           {/* <DropdownMenuLabel>Action</DropdownMenuLabel> */}
                           {/* <DropdownMenuSeparator /> */}
                           <DropdownMenuGroup>
-                            <DropdownMenuItem className="flex items-center gap-3 group">
-                              <Pen className="size-[18px] group-hover:stroke-indigo-400  transition-all hover:stroke-red-500 cursor-pointer" />
-                              <p className="group-hover:text-indigo-400">
-                                Edit
-                              </p>
+                            <DropdownMenuItem>
+                              <Link
+                                className="flex items-center gap-3 group"
+                                href={`/admin/dashboard/products/edit/${slide?.productId}?tab=Products`}
+                              >
+                                <Pen className="size-[18px] group-hover:stroke-indigo-400  transition-all hover:stroke-red-500 cursor-pointer" />
+                                <p className="group-hover:text-indigo-400">
+                                  Edit
+                                </p>
+                              </Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem className="flex items-center gap-3 group">
                               <Eye className="size-[18px] group-hover:stroke-green-400  transition-all hover:stroke-red-500 cursor-pointer" />
                               <p className="group-hover:text-green-400">View</p>
                             </DropdownMenuItem>
-                            <DropdownMenuItem className="flex items-center gap-3 group">
-                              <Trash className="size-[18px] group-hover:stroke-red-400  transition-all hover:stroke-red-500 cursor-pointer" />
-                              <p className="group-hover:text-red-400">Delete</p>
-                            </DropdownMenuItem>
+                            <div className="flex items-center gap-3 group">
+                              <div>
+                                <Dialog>
+                                  <DialogTrigger asChild>
+                                    <div className="flex w-full rounded-sm gap-3 items-center px-2 py-1.5 hover:bg-accent">
+                                      <Trash className="size-[18px] group-hover:stroke-red-400  transition-all hover:stroke-red-500 cursor-pointer" />
+                                      <p className="group-hover:text-red-400">
+                                        Delete
+                                      </p>
+                                    </div>
+                                  </DialogTrigger>
+                                  <DialogContent className="sm:max-w-[425px]">
+                                    <DialogHeader>
+                                      <DialogTitle className="text-red-500">
+                                        Attention
+                                      </DialogTitle>
+                                      <DialogDescription>
+                                        Do you want to delete this product?
+                                      </DialogDescription>
+                                    </DialogHeader>
+                                    <form
+                                      // onSubmit={handleSubmit(onSubmit)}
+                                      className="grid gap-4 py-4"
+                                    >
+                                      <div class="">
+                                        <label
+                                          htmlFor="categoryName"
+                                          class="block text-sm capitalize font-medium leading-6 text-gray-900"
+                                        >
+                                          {slide?.productName}
+                                        </label>
+                                        {/* <div class="mt-2">
+                                          <div class="flex rounded-md shadow-sm ring-inset ring-gray-300  sm:max-w-md">
+                                            <input
+                                              autoComplete="off"
+                                              {...register("categoryName", {
+                                                required: true,
+                                              })}
+                                              type="text"
+                                              class="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                                              placeholder="Category name"
+                                            />
+                                          </div>
+                                        </div> */}
+                                      </div>
+                                      <DropdownMenuItem>
+                                        <div>
+                                          <ButtonDelete
+                                            productId={slide?.productId}
+                                            fnDelete={deleteProductAction}
+                                          >
+                                            Delete Product
+                                          </ButtonDelete>
+                                        </div>
+                                      </DropdownMenuItem>
+                                    </form>
+                                  </DialogContent>
+                                </Dialog>
+                              </div>
+                            </div>
                           </DropdownMenuGroup>
                           {/* <DropdownMenuSeparator /> */}
                           {/* <DropdownMenuItem>Log out</DropdownMenuItem> */}

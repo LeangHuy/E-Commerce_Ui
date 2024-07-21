@@ -15,6 +15,8 @@ import RemoveFromCart from "../Button/RemoveFromCart";
 
 export function TableData() {
   const { cartList } = useAddToCart();
+  console.log("cart", cartList);
+
   return (
     <Table>
       <TableHeader>
