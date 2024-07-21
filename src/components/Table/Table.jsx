@@ -59,10 +59,11 @@ export function TableData() {
             </TableCell>
             <TableCell className="text-right w-[100px]">
               <p className="before:content-['$']">
-                {cartList?.reduce(
-                  (acc, product) => acc + product?.qty * product?.unitPrice,
-                  0
-                )}
+                {cartList?.map((pro) => {
+                  return pro.productId == product?.productId
+                    ? pro.unitPrice * pro.qty
+                    : "";
+                })}
               </p>
             </TableCell>
 

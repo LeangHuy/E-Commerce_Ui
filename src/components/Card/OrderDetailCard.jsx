@@ -26,7 +26,7 @@ const OrderDetailCard = () => {
     const result = await orderAction(pro);
   };
 
-  useEffect(() => { }, [cartList]);
+  useEffect(() => {}, [cartList]);
 
   return (
     <div className="border h-fit sticky top-20 p-6 rounded-md flex flex-col gap-6">
@@ -48,19 +48,7 @@ const OrderDetailCard = () => {
       <div className="pt-4 border-t flex justify-between items-center">
         <p className="font-medium">Grand Total</p>
         <p className="before:content-['$']">
-          {cartList?.reduce(
-            (acc, product) => acc + product?.qty * product?.unitPrice,
-            0
-          ) -
-            cartList?.reduce(
-              (acc, product) => acc + product?.qty * product?.unitPrice,
-              0
-            ) *
-            (cartList?.reduce(
-              (acc, product) => acc + product?.discount || 0,
-              0
-            ) /
-              100)}
+          {cartList?.reduce((acc, pro) => pro?.unitPrice * pro?.qty + acc, 0)}
         </p>
       </div>
       {cartList?.length > 0 && (
