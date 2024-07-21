@@ -76,9 +76,9 @@ const EditCategoryPage = ({ cate }) => {
                 </div>
               </div>
             </div>
-            <DialogTrigger>
+            <DialogFooter>
               <Button>Save changes</Button>
-            </DialogTrigger>
+            </DialogFooter>
           </form>
         </DialogContent>
       </Dialog>
