@@ -29,7 +29,7 @@ const ProductCard = ({
       {filterProducts?.map((item, idx) => (
         <div
           key={idx}
-          className="grid transition-all grid-rows-[1fr_auto_auto] gap-3"
+          className="grid transition-all grid-rows-[1fr_auto_auto] gap-3 p-2 bg-gray-300 bg-opacity-20 rounded-xl"
         >
           <div className="h-[20rem] relative">
             <Link href={`/view/product/${item?.productId}`}>
@@ -58,25 +58,24 @@ const ProductCard = ({
               </p>
             )}
           </div>
+          <section className="flex-grow border-t border-primary opacity-20"></section>
           <Link href={`/view/product/${item?.productId}`} className="">
-            <div className=" text-[18px] text-[#ff540a]">
+            <h3 className="font-medium text-xl text-[#1d1d1d] line-clamp-1">
+              {item?.productName}
+            </h3>
+
+            <div className=" text-[18px flex justify-end">
               {item?.discount == 0 ?
-                <span className="text-blue-500 font-bold">{item?.unitPrice}$</span> :
-                <div>
-                  <span className="line-through text-sm">{item?.unitPrice}$</span>
-                  <span className="text-blue-500 font-bold">  {item?.priceAfterDiscount}$</span>
+                <span className="text-white font-medium bg-sky-300 py-0 px-2 rounded-md">{item?.unitPrice}$</span> :
+                <div className="flex gap-2 items-center">
+                  <div className="line-through text-sm text-red-500">{item?.unitPrice}$</div>
+                  <div className="text-white font-medium bg-sky-300 py-0 px-2 rounded-md">{item?.priceAfterDiscount}$</div>
                 </div>
 
               }
             </div>
-            <h3 className="font-medium text-xl text-[#1d1d1d]">
-              {item?.productName}
-            </h3>
-            {/* <p className="text-gray-600">{item?.productDesc}</p> */}
           </Link>
-          <div className="grid grid-cols-[auto_1fr] gap-4 items-center">
-            {/* <Button className=" rounded-lg">Add to Cart</Button> */}
-          </div>
+
         </div>
       ))}
     </main>

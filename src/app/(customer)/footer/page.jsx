@@ -7,7 +7,7 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <div id="footer" className="py-24  relative overflow-hidden  isolate">
+    <div id="footer" className="py-24  relative overflow-hidden  isolate bg-sky-300 bg-opacity-20">
       <div className="w-[1330px] mx-auto grid grid-cols-[200px_1fr_auto] gap-[8rem]">
         <div className="flex flex-col gap-3">
           <Image
