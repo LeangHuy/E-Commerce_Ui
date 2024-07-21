@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
-import SignoutButton from "@/components/Dropdown/SignoutButton";
+import SignOutButton from "@/components/Dropdown/SignOutButton";
 
 const DropdownHeader = () => {
   return (
@@ -54,7 +54,7 @@ const DropdownHeader = () => {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <SignoutButton/>
+          <SignOutButton />
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>
