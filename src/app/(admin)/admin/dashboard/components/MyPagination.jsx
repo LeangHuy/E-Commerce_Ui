@@ -9,7 +9,7 @@ function MyPagination({ products }) {
   const [page, setPage] = useState(1);
   const [value, setValue] = useState("");
 
-  const rowsPerPage = 1;
+  const rowsPerPage = 12;
   const pages = Math.ceil(products?.length / rowsPerPage);
   const product = useMemo(() => {
     const start = (page - 1) * rowsPerPage;
