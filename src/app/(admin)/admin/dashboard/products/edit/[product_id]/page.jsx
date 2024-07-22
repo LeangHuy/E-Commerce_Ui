@@ -197,13 +197,16 @@ const EditProductPage = ({
                       Product Category
                     </label>
                     <div className="mt-2">
-                      <div className="flex rounded-md shadow-sm ring-inset ring-gray-300 ">
-                        <select {...register("categoryId", { required: true })}>
-                          {cate?.map((c) => (
-                            <option value={c.categoryId}>
-                              {c.categoryName}
-                            </option>
-                          ))}
+                      <div className="flex rounded-md shadow-sm ring-inset ring-gray-300 h-10 ">
+                        <select className="w-full rounded-md shadow-sm" {...register("categoryId", { required: true })}>
+                          <option value={currentPro?.categoryName}>{currentPro?.categoryName}</option>
+                          {cate
+                            ?.filter((c) => c?.categoryName !== currentPro?.categoryName)
+                            .map((c) => (
+                              <option value={c?.categoryId} key={c?.categoryId}>
+                                {c?.categoryName}
+                              </option>
+                            ))}
                         </select>
                       </div>
                     </div>
@@ -217,13 +220,16 @@ const EditProductPage = ({
                       Product Warranty
                     </label>
                     <div className="mt-2">
-                      <div className="flex w-full rounded-md shadow-sm ring-inset ring-gray-300 ">
-                        <select onChange={(e) => setWarranty(e.target.value)}>
-                          <option value={null}>Select</option>
-
-                          <option value={"DAY"}>DAY</option>
-                          <option value={"MONTH"}>MONTH</option>
-                          <option value={"YEAR"}>YEAR</option>
+                      <div className="flex w-full rounded-md shadow-sm ring-inset ring-gray-300 h-10">
+                        <select className="w-full rounded-md shadow-sm " onChange={(e) => setWarranty(e.target.value)}>
+                          <option>{currentPro?.warranty?.warrantyTime}</option>
+                          {["DAY", "MONTH", "YEAR"]
+                            .filter((time) => time !== currentPro?.warranty?.warrantyTime)
+                            .map((time) => (
+                              <option key={time} value={time}>
+                                {time}
+                              </option>
+                            ))}
                         </select>
                       </div>
                     </div>

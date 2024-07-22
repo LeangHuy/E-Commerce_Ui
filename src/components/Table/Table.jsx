@@ -61,7 +61,7 @@ export function TableData() {
               <p className="before:content-['$']">
                 {cartList?.map((pro) => {
                   return pro.productId == product?.productId
-                    ? pro.unitPrice * pro.qty
+                    ? pro.priceAfterDiscount * pro.qty
                     : "";
                 })}
               </p>
