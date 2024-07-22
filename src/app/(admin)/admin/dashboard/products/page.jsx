@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "../components/Header";
 import { Button } from "@/components/ui/button";
-import { ImagePlusIcon } from "lucide-react";
 
 import {
   Table,
@@ -13,23 +12,18 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Image from "next/image";
-import { Pencil } from "lucide-react";
 import Link from "next/link";
-import { getAllSlideShows } from "@/service/slide.service";
 import { getPhoto } from "@/lib/utils";
-import SwtichToggle from "../components/SwtichToggle";
+import SwitchToggle from "../components/SwtichToggle";
 import { getAllProductService } from "@/service/product.service";
 import { Package } from "lucide-react";
 import { Eye } from "lucide-react";
-import { Dot } from "lucide-react";
 import { MoreHorizontal } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Pen } from "lucide-react";
@@ -38,14 +32,13 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import ButtonDeleteProduct from "./ButtonDeleteProduct";
 import ButtonDelete from "./ButtonDeleteProduct";
 import { deleteProductAction } from "@/acitons/productAction";
+import SwitchProduct from "../components/SwitchProduct";
 
 const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
   const products = await getAllProductService();
@@ -79,12 +72,12 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {products?.map((slide, idx) => (
+              {products?.map((product, idx) => (
                 <TableRow key={idx} className="group">
                   <TableCell className="font-medium">{idx + 1}</TableCell>
                   <TableCell>
                     <Image
-                      src={getPhoto(slide?.imageProductList[0]?.fileName)}
+                      src={getPhoto(product?.imageProductList[0]?.fileName)}
                       priority
                       width={1000}
                       height={1000}
@@ -92,20 +85,20 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
                       className="size-[3.5rem] object-cover rounded-sm"
                     />
                   </TableCell>
-                  <TableCell>{slide?.productName}</TableCell>
-                  <TableCell>{slide?.productStock}</TableCell>
+                  <TableCell>{product?.productName}</TableCell>
+                  <TableCell>{product?.productStock}</TableCell>
                   <TableCell className="after:content-['$']">
-                    {slide?.unitPrice}
+                    {product?.unitPrice}
                   </TableCell>
                   <TableCell className="after:content-['%']">
-                    {slide?.discount}
+                    {product?.discount}
                   </TableCell>
 
                   <TableCell className="flex items-center">
-                    <SwtichToggle
-                      slideId={slide?.productId}
-                      isActive={slide?.isStatus}
-                      slide={slide}
+                    <SwitchProduct
+                      productId={product?.productId}
+                      isActive={product?.isStatus}
+                      product={product}
                     />
                   </TableCell>
                   <TableCell className="text-right">
@@ -117,7 +110,7 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
                         <DropdownMenuContent className="w-50">
                           <DropdownMenuGroup>
                             <Link
-                              href={`/admin/dashboard/products/edit/${slide?.productId}?tab=Products`}
+                              href={`/admin/dashboard/products/edit/${product?.productId}?tab=Products`}
                             >
                               <DropdownMenuItem className="cursor-pointer">
                                 <div className="flex items-center gap-3 group">
@@ -162,7 +155,7 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
                                           htmlFor="categoryName"
                                           class="block text-sm capitalize font-medium leading-6 text-gray-900"
                                         >
-                                          {slide?.productName}
+                                          {product?.productName}
                                         </label>
                                         {/* <div class="mt-2">
                                           <div class="flex rounded-md shadow-sm ring-inset ring-gray-300  sm:max-w-md">
@@ -181,7 +174,7 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
                                       <DropdownMenuItem>
                                         <div>
                                           <ButtonDelete
-                                            productId={slide?.productId}
+                                            productId={product?.productId}
                                             fnDelete={deleteProductAction}
                                           >
                                             Delete Product

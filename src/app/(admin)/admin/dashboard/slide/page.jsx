@@ -2,7 +2,6 @@ import React from "react";
 import Header from "../components/Header";
 import { Button } from "@/components/ui/button";
 import { ImagePlusIcon } from "lucide-react";
-import { Switch } from "@/components/ui/switch";
 
 import {
   Table,
@@ -14,12 +13,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Image from "next/image";
-import { Trash2Icon } from "lucide-react";
 import { Pencil } from "lucide-react";
 import Link from "next/link";
 import { getAllSlideShows } from "@/service/slide.service";
 import { getPhoto } from "@/lib/utils";
-import SwtichToggle from "../components/SwtichToggle";
+import SwitchToggle from "../components/SwtichToggle";
 
 const ShopPage = async ({ searchParams: { tab = "Slide" } }) => {
   const allSlides = await getAllSlideShows();
@@ -66,7 +64,7 @@ const ShopPage = async ({ searchParams: { tab = "Slide" } }) => {
                   <TableCell>{slide?.title}</TableCell>
                   <TableCell>{slide?.description}</TableCell>
                   <TableCell className="flex items-center">
-                    <SwtichToggle
+                    <SwitchToggle
                       slideId={slide?.slideId}
                       isActive={slide?.isActive}
                       slide={slide}

@@ -1,13 +1,14 @@
 "use server";
 
 import {
+  changeStatusProduct,
   deleteProductService,
   getAllProductService,
   getProductById,
   postProduct,
   updateProductById,
 } from "@/service/product.service";
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 export const getAllProduct = async () => {
   const res = await getAllProductService();
@@ -33,5 +34,11 @@ export const getProductByIdAction = async (productId) => {
 export const updateProductByIdAction = async (data, warranty, productId) => {
   const result = await updateProductById(data, warranty, productId);
   revalidateTag("getAllProductService");
+  return result;
+};
+
+export const changeStatusProductAction = async (productId, statusProduct) => {
+  const result = await changeStatusProduct(productId, statusProduct);
+  revalidatePath("/admin/dashboard/product");
   return result;
 };

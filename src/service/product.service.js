@@ -87,3 +87,24 @@ export const updateProductById = async (data, warranty, productId) => {
   const { payload } = await res.json();
   return payload;
 };
+
+export const changeStatusProduct = async (productId, statusProduct) => {
+  const session = await getServerSession(authOption);
+
+  const res = await fetch(
+    `${
+      process.env.BASE_URL
+    }/products/status/${productId}?isStatus=${!statusProduct}`,
+
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        //   Authorization: `Bearer ${session?.user?.token}`,
+        Authorization: `Bearer ${session.user.payload.token}`,
+      },
+    }
+  );
+  const data = await res.json();
+  return data;
+};
