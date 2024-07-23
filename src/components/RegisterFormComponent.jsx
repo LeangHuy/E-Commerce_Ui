@@ -4,6 +4,8 @@ import { registerAction } from "@/acitons/authAction";
 import { routePath } from "@/constants/route-path";
 import { registerService } from "@/service/auth.service";
 import { Button } from "@nextui-org/react";
+import { EyeOff } from "lucide-react";
+import { Eye } from "lucide-react";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -38,6 +40,9 @@ const RegisterFormComponent = () => {
       router.push(`${routePath.REGISTER}/${data?.email}`);
     }
   };
+  const [showPass, setShowPass] = useState(false);
+  const [showCPass, setShowCPass] = useState(false);
+
   return (
     <>
       <form
@@ -54,7 +59,7 @@ const RegisterFormComponent = () => {
             })}
             type="text"
             name="firstName"
-            className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
           />
           {errors?.firstName?.message && (
             <p className="text-red-500 text-[0.65rem] mt-2 self-end">
@@ -73,7 +78,7 @@ const RegisterFormComponent = () => {
             })}
             type="text"
             name="lastName"
-            className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
           />
           {errors?.lastName?.message && (
             <p className="text-red-500 text-[0.65rem] mt-2 self-end">
@@ -93,7 +98,7 @@ const RegisterFormComponent = () => {
             type="email"
             id="email"
             name="email"
-            className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
           />
           {errors?.email?.message && (
             <p className="text-red-500 text-[0.65rem] mt-2 self-end">
@@ -102,19 +107,33 @@ const RegisterFormComponent = () => {
           )}
         </div>
 
-        <div className="flex items-start flex-col justify-start ">
+        <div className=" flex items-start flex-col justify-start ">
           <label htmlFor="password" className="text-sm text-gray-700 mr-2">
             Password:
           </label>
-          <input
-            {...register("password", {
-              required: "Password is required",
-            })}
-            type="password"
-            id="password"
-            name="password"
-            className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
-          />
+          <div className="flex relative w-full px-3 py-2 rounded-md border focus-within:border-gray-500 focus-within:border-2 justify-between items-center">
+            <input
+              {...register("password", {
+                required: "Password is required",
+              })}
+              type={showPass ? "text" : "password"}
+              id="password"
+              name="password"
+              className="focus:outline-none border-none w-full"
+            />
+            {!showPass ? (
+              <Eye
+                className="cursor-pointer"
+                onClick={() => setShowPass(!showPass)}
+              />
+            ) : (
+              <EyeOff
+                className="cursor-pointer"
+                onClick={() => setShowPass(!showPass)}
+              />
+            )}
+
+          </div>
           {errors?.password?.message && (
             <p className="text-red-500 text-[0.65rem] mt-2 self-end">
               {errors?.password?.message}
@@ -122,7 +141,44 @@ const RegisterFormComponent = () => {
           )}
         </div>
 
-        <div className="flex items-start flex-col justify-start ">
+        <div className=" flex items-start flex-col justify-start ">
+          <label
+            htmlFor="confirmPassword"
+            className="text-sm text-gray-700 mr-2"
+          >
+            Confirm Password:
+          </label>
+          <div className="flex relative w-full px-3 py-2 rounded-md border focus-within:border-gray-500 focus-within:border-2 justify-between items-center">
+            <input
+              {...register("confirmPassword", {
+                required: "Confirmed password is required",
+              })}
+              type={showCPass ? "text" : "password"}
+              id="confirmPassword"
+              name="confirmPassword"
+              className="focus:outline-none border-none w-full"
+            />
+            {!showPass ? (
+              <Eye
+                className="cursor-pointer"
+                onClick={() => setShowCPass(!showPass)}
+              />
+            ) : (
+              <EyeOff
+                className="cursor-pointer"
+                onClick={() => setShowCPass(!showPass)}
+              />
+            )}
+
+          </div>
+          {errors?.confirmPassword?.message && (
+            <p className="text-red-500 text-[0.65rem] mt-2 self-end">
+              {errors?.confirmPassword?.message}
+            </p>
+          )}
+        </div>
+
+        {/* <div className="flex items-start flex-col justify-start ">
           <label
             htmlFor="confirmPassword"
             className="text-sm text-gray-700 mr-2"
@@ -133,17 +189,17 @@ const RegisterFormComponent = () => {
             {...register("confirmPassword", {
               required: "Confirmed password is required",
             })}
-            type="password"
+            type={showCPass ? "text" : "password"}
             id="confirmPassword"
             name="confirmPassword"
-            className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
           />
           {errors?.confirmPassword?.message && (
             <p className="text-red-500 text-[0.65rem] mt-2 self-end">
               {errors?.confirmPassword?.message}
             </p>
           )}
-        </div>
+        </div> */}
 
         <Button
           isLoading={isSubmitting}

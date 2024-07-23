@@ -31,11 +31,13 @@ export async function DropdownMenuDemo() {
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          {userData != null && <DropdownMenuItem>Profile</DropdownMenuItem>}
+          {userData != null && <Link href={"/profile"} ><DropdownMenuItem className="cursor-pointer">Profile</DropdownMenuItem></Link>}
           {userData != null && userData.payload.role !== "USER" && (
-            <DropdownMenuItem>
-              <Link href={"/admin/dashboard"} target="new">Dashboard</Link>
-            </DropdownMenuItem>
+            <Link href={"/admin/dashboard"} target="new">
+              <DropdownMenuItem className="cursor-pointer">
+                Dashboard
+              </DropdownMenuItem>
+            </Link>
           )}
           {userData == null && (
             <Link href={"/login"} >
