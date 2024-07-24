@@ -56,17 +56,7 @@ function ShopInfo({ shopData }) {
             {...register("logo")}
             defaultValue={logo}
             type="text"
-            className="border border-black py-2 px-2 w-full"
-          />
-        </div>
-        <div className="flex items-center w-full">
-          <div className="w-[20rem] font-semibold">Shop ID</div>
-          <input
-            disabled
-            {...register("shopId")}
-            defaultValue={shopId}
-            type="text"
-            className="border border-black py-2 px-2 w-full"
+            className="block w-full border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
           />
         </div>
         <div className="flex items-center w-full">
@@ -75,7 +65,7 @@ function ShopInfo({ shopData }) {
             {...register("shopName")}
             defaultValue={shopName}
             type="text"
-            className="border border-black py-2 px-2 w-full"
+            className="block w-full border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
           />
         </div>
         <div className="flex items-center w-full">
@@ -84,7 +74,7 @@ function ShopInfo({ shopData }) {
             {...register("shopAddress")}
             defaultValue={shopAddress}
             type="text"
-            className="border border-black py-2 px-2 w-full"
+            className="block w-full border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
           />
         </div>
         <div className="flex items-center w-full">
@@ -93,7 +83,7 @@ function ShopInfo({ shopData }) {
             {...register("phone")}
             defaultValue={phone}
             type="text"
-            className="border w-full border-black py-2 px-2 "
+            className="block w-full border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 "
           />
         </div>
         <div className="flex items-center w-full">
@@ -102,7 +92,7 @@ function ShopInfo({ shopData }) {
             {...register("email")}
             defaultValue={email}
             type="text"
-            className="border border-black py-2 px-2 w-full"
+            className="block w-full border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
           />
         </div>
         <div className="flex items-center w-full">
@@ -111,7 +101,7 @@ function ShopInfo({ shopData }) {
             {...register("facebookLink")}
             defaultValue={facebookLink}
             type="text"
-            className="border w-full border-black py-2 px-2 "
+            className="block w-full border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
           />
         </div>
         <div className="flex items-center w-full">
@@ -120,7 +110,7 @@ function ShopInfo({ shopData }) {
             {...register("telegramLink")}
             defaultValue={telegramLink}
             type="text"
-            className="border border-black py-2 px-2 w-full"
+            className="block w-full border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
           />
         </div>
         <div className="self-end">
