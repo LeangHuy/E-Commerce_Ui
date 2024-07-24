@@ -18,3 +18,19 @@ export const getUserData = async () => {
 
   return data;
 };
+
+export const updateUserInfoService = async (data) => {
+  const session = await getServerSession(authOption);
+  if (!session) return null;
+  const res = await fetch(`${process.env.BASE_URL}/users/edit/profile`, {
+    method: "PUT",
+    headers: {
+      "CONTENT-TYPE": "application/json",
+      Authorization: `Bearer ${session.user.payload.token}`,
+    },
+    body: JSON.stringify(data),
+  });
+  const data = await res.json();
+  console.log("data : ", data);
+  return data;
+};
