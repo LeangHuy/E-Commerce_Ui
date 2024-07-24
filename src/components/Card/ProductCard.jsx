@@ -16,10 +16,10 @@ const ProductCard = ({
       searchParams == "All" || undefined
         ? products
         : products.filter((p) =>
-          p.categoryName
-            .toLocaleLowerCase()
-            .includes(searchParams.toLocaleLowerCase())
-        );
+            p?.category?.categoryName
+              .toLocaleLowerCase()
+              .includes(searchParams?.toLocaleLowerCase())
+          );
   } else {
     filterProducts = products?.filter((p) => p.discount > 0);
   }
@@ -39,8 +39,8 @@ const ProductCard = ({
                 alt="pic 1"
                 src={getPhoto(
                   item &&
-                  item?.imageProductList &&
-                  item?.imageProductList[0]?.fileName
+                    item?.imageProductList &&
+                    item?.imageProductList[0]?.fileName
                 )}
                 className="object-cover w-full h-full  rounded-xl"
               />
@@ -65,17 +65,22 @@ const ProductCard = ({
             </h3>
 
             <div className=" text-[18px flex justify-end">
-              {item?.discount == 0 ?
-                <span className="text-white font-medium bg-sky-300 py-0 px-2 rounded-md">{item?.unitPrice}$</span> :
+              {item?.discount == 0 ? (
+                <span className="text-white font-medium bg-sky-300 py-0 px-2 rounded-md">
+                  {item?.unitPrice}$
+                </span>
+              ) : (
                 <div className="flex gap-2 items-center">
-                  <div className="line-through text-sm text-red-500">{item?.unitPrice}$</div>
-                  <div className="text-white font-medium bg-sky-300 py-0 px-2 rounded-md">{item?.priceAfterDiscount}$</div>
+                  <div className="line-through text-sm text-red-500">
+                    {item?.unitPrice}$
+                  </div>
+                  <div className="text-white font-medium bg-sky-300 py-0 px-2 rounded-md">
+                    {item?.priceAfterDiscount}$
+                  </div>
                 </div>
-
-              }
+              )}
             </div>
           </Link>
-
         </div>
       ))}
     </main>

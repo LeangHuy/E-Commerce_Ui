@@ -1,8 +1,8 @@
-"user server";
+"use server";
 
-import { updateShopInfoService } from "@/service/shop.service";
+import { updateUserInfoService } from "@/service/user.service";
 
-export const updateUserInfoAction = async (date) => {
-  const res = updateShopInfoService(date);
+export const updateUserInfoAction = async (data) => {
+  const res = await updateUserInfoService(data);
   return res;
 };

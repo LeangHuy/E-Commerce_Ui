@@ -76,12 +76,14 @@ const EditCategoryPage = ({ cate }) => {
                 </div>
               </div>
             </div>
-            <DialogFooter>
+            <DialogTrigger>
               <Button>
-                {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                {isSubmitting && (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                )}
                 Save changes
               </Button>
-            </DialogFooter>
+            </DialogTrigger>
           </form>
         </DialogContent>
       </Dialog>
