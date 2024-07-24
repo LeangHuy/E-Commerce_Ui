@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import Header from "../../../components/Header";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import { editSlideByIdAction, getSlideByIdAction } from "@/acitons/slideAction";
 import toast from "react-hot-toast";
 import { revalidateWhere } from "@/acitons/revalidateAction";
@@ -20,7 +20,7 @@ const AdminDashboardPage = ({
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm();
 
   const router = useRouter();
@@ -83,7 +83,7 @@ const AdminDashboardPage = ({
                     <div class="mt-2">
                       <div class="flex rounded-md shadow-sm ring-inset ring-gray-300  sm:max-w-md">
                         <input
-                          {...register("title", { required: true })}
+                          {...register("title", { required: false })}
                           type="text"
                           defaultValue={currentSlide?.title}
                           class="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
@@ -102,7 +102,7 @@ const AdminDashboardPage = ({
                     </label>
                     <div class="mt-2">
                       <textarea
-                        {...register("description", { required: true })}
+                        {...register("description", { required: false })}
                         placeholder="describe about your images slideshow"
                         rows="3"
                         defaultValue={currentSlide?.description}
@@ -187,7 +187,10 @@ const AdminDashboardPage = ({
               >
                 Cancel
               </Link>
-              <Button>Save</Button>
+              <Button>
+                {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                Save
+              </Button>
             </div>
           </form>
         </div>

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ImagePlusIcon } from "lucide-react";
+import { ImagePlusIcon, Loader2 } from "lucide-react";
 import Header from "../../components/Header";
 import { useForm } from "react-hook-form";
 import { createSlideAction } from "@/acitons/slideAction";
@@ -18,7 +18,7 @@ const AdminDashboardPage = ({ searchParams: { tab = "Overview" } }) => {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm();
 
   const router = useRouter();
@@ -178,7 +178,10 @@ const AdminDashboardPage = ({ searchParams: { tab = "Overview" } }) => {
               >
                 Cancel
               </Link>
-              <Button>Save</Button>
+              <Button>
+                {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                Save
+              </Button>
             </div>
           </form>
         </div>

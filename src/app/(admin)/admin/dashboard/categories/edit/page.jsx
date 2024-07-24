@@ -16,7 +16,7 @@ import {
   editCategoryAction,
   postCategoryAction,
 } from "@/acitons/categoryAction";
-import { Pencil } from "lucide-react";
+import { Loader2, Pencil } from "lucide-react";
 import { Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
@@ -32,7 +32,7 @@ const EditCategoryPage = ({ cate }) => {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm();
 
   return (
@@ -77,7 +77,10 @@ const EditCategoryPage = ({ cate }) => {
               </div>
             </div>
             <DialogFooter>
-              <Button>Save changes</Button>
+              <Button>
+                {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                Save changes
+              </Button>
             </DialogFooter>
           </form>
         </DialogContent>

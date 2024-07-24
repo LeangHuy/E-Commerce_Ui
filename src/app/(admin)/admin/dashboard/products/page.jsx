@@ -1,4 +1,3 @@
-import React from "react";
 import Header from "../components/Header";
 import { Button } from "@/components/ui/button";
 
@@ -16,7 +15,7 @@ import Link from "next/link";
 import { getPhoto } from "@/lib/utils";
 import SwitchToggle from "../components/SwtichToggle";
 import { getAllProductService } from "@/service/product.service";
-import { Package } from "lucide-react";
+import { Loader2, Package } from "lucide-react";
 import { Eye } from "lucide-react";
 import { MoreHorizontal } from "lucide-react";
 import {
@@ -32,6 +31,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -181,7 +181,7 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
                                           </div>
                                         </div> */}
                                       </div>
-                                      <DropdownMenuItem>
+                                      <DialogFooter>
                                         <div>
                                           <ButtonDelete
                                             productId={product?.productId}
@@ -190,19 +190,15 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
                                             Delete Product
                                           </ButtonDelete>
                                         </div>
-                                      </DropdownMenuItem>
+                                      </DialogFooter>
                                     </form>
                                   </DialogContent>
                                 </Dialog>
                               </div>
                             </div>
                           </DropdownMenuGroup>
-                          {/* <DropdownMenuSeparator /> */}
-                          {/* <DropdownMenuItem>Log out</DropdownMenuItem> */}
                         </DropdownMenuContent>
                       </DropdownMenu>
-                      {/* <Pencil className="size-[18px] p-2 box-content bg-gray-100 rounded-lg group-hover:bg-white transition-all hover:stroke-red-500 cursor-pointer" />
-                      <Eye className="size-[18px] p-2 box-content bg-gray-100 rounded-lg group-hover:bg-white transition-all hover:stroke-red-500 cursor-pointer" /> */}
                     </div>
                   </TableCell>
                 </TableRow>
