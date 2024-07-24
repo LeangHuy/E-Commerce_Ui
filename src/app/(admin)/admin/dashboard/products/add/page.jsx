@@ -6,7 +6,7 @@ import Header from "../../components/Header";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
 import { postImgAction } from "@/acitons/uploadImgAction";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import { getAllCategoriesAction } from "@/acitons/categoryAction";
 import { postProductAction } from "@/acitons/productAction";
 import { X } from "lucide-react";
@@ -18,7 +18,7 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm();
 
   const router = useRouter();
@@ -171,7 +171,7 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
                       </div>
                     </div>
                   </div>
-                  <div className="">
+                  <div className="w-full">
                     <label
                       for="username"
                       className="block text-sm font-medium leading-6 text-gray-900"
@@ -179,8 +179,8 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
                       Product Category
                     </label>
                     <div className="mt-2">
-                      <div className="flex rounded-md shadow-sm ring-inset ring-gray-300 ">
-                        <select {...register("categoryId", { required: true })}>
+                      <div className="flex rounded-md shadow-sm ring-inset ring-gray-300 h-10 ">
+                        <select className="w-full rounded-md shadow-sm " {...register("categoryId", { required: true })}>
                           <option value={null}>Select</option>
                           {cate?.map((c) => (
                             <option value={c.categoryId}>
@@ -200,8 +200,8 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
                       Product Warranty Time
                     </label>
                     <div className="mt-2">
-                      <div className="flex w-full rounded-md shadow-sm ring-inset ring-gray-300 ">
-                        <select onChange={(e) => setWarranty(e.target.value)}>
+                      <div className="flex rounded-md shadow-sm ring-inset ring-gray-300 h-10 ">
+                        <select className="w-full rounded-md shadow-sm " onChange={(e) => setWarranty(e.target.value)}>
                           <option value={null}>Select</option>
 
                           <option value={"DAY"}>DAY</option>
@@ -322,7 +322,7 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
                             onClick={() =>
                               setImg(
                                 img.filter(
-                                  (pre) => pre.imgPreview !== i?.imgPreview
+                                  (pre) => pre?.imgPreview !== i?.imgPreview
                                 )
                               )
                             }
@@ -344,7 +344,10 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
               >
                 Cancel
               </Link>
-              <Button>Save</Button>
+              <Button>
+                {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                Save
+              </Button>
             </div>
           </form>
         </div>

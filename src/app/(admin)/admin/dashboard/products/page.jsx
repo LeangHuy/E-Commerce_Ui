@@ -76,14 +76,24 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
                 <TableRow key={idx} className="group">
                   <TableCell className="font-medium">{idx + 1}</TableCell>
                   <TableCell>
-                    <Image
-                      src={getPhoto(product?.imageProductList[0]?.fileName)}
-                      priority
-                      width={1000}
-                      height={1000}
-                      alt="profile"
-                      className="size-[3.5rem] object-cover rounded-sm"
-                    />
+                    {product?.imageProductList[0]?.fileName ?
+                      <Image
+                        src={getPhoto(product?.imageProductList[0]?.fileName)}
+                        priority
+                        width={1000}
+                        height={1000}
+                        alt="profile"
+                        className="size-[3.5rem] object-cover rounded-sm"
+                      /> : null
+                    }
+                    {/* // <Image
+                    //   src={getPhoto(product?.imageProductList[0]?.fileName)}
+                    //   priority
+                    //   width={1000}
+                    //   height={1000}
+                    //   alt="profile"
+                    //   className="size-[3.5rem] object-cover rounded-sm"
+                    // /> */}
                   </TableCell>
                   <TableCell>{product?.productName}</TableCell>
                   <TableCell>{product?.productStock}</TableCell>
