@@ -9,7 +9,6 @@ import { tags } from "@/data/tags";
 import { getPhoto } from "@/lib/utils";
 import { getProductById } from "@/service/product.service";
 import { getUserData } from "@/service/user.service";
-import clsx from "clsx";
 import { Check } from "lucide-react";
 import { DollarSign } from "lucide-react";
 import Image from "next/image";
@@ -140,7 +139,7 @@ const page = async ({ params: { pro_id } }) => {
               <p className="font-semibold">Tags</p>
               <div className="flex  gap-2">
                 <Tag
-                  title={"#" + product?.categoryName}
+                  title={"#" + product?.category?.categoryName}
                   className={
                     " hover:-translate-y-1 transition-all cursor-pointer hover:bg-sky-400 hover:text-white hover:border-transparent"
                   }

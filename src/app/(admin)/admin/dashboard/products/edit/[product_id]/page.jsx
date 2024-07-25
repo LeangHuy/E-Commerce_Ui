@@ -384,7 +384,7 @@ const EditProductPage = ({
                         i?.imgPreview ? (
                           <div key={idx} className="relative">
                             <Image
-                              src={i?.imgPreview ?? "http://34.143.196.56:9090/api/v1/files?fileName=25271d84-3549-4b2e-9f6f-9269d6cddc57.png"}
+                              src={i?.imgPreview ?? "http://localhost:9090/api/v1/files?fileName=25271d84-3549-4b2e-9f6f-9269d6cddc57.png"}
                               width={1000}
                               height={1000}
                               alt="preview"
@@ -406,10 +406,10 @@ const EditProductPage = ({
                         ) : null
                       )} */}
 
-                    <div  className="relative">
+                    <div className="relative">
                       <Image
                         src={
-                          "http://34.143.196.56:9090/api/v1/files?fileName=25271d84-3549-4b2e-9f6f-9269d6cddc57.png"
+                          "http://localhost:9090/api/v1/files?fileName=25271d84-3549-4b2e-9f6f-9269d6cddc57.png"
                         }
                         width={1000}
                         height={1000}

@@ -131,11 +131,72 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
                                 </div>
                               </DropdownMenuItem>
                             </Link>
+                            <div  >
+                              <div className="flex items-center gap-3 group">
+                                <Dialog>
+                                  <DialogTrigger asChild>
+                                    <div className="flex w-full rounded-sm gap-3 items-center px-2 py-1.5 hover:bg-accent cursor-pointer ">
+                                      <Eye className="size-[18px] group-hover:stroke-green-400  transition-all hover:stroke-red-500 cursor-pointer" />
+                                      <p className="group-hover:text-green-400">View</p>
+                                    </div>
+                                  </DialogTrigger>
+                                  <DialogContent className="sm:max-w-[425px]">
+                                    <DialogHeader>
+                                      <DialogTitle className="text-sky-500">
+                                        View Detail
+                                      </DialogTitle>
 
-                            <DropdownMenuItem className="flex items-center gap-3 group cursor-pointer">
-                              <Eye className="size-[18px] group-hover:stroke-green-400  transition-all hover:stroke-red-500 cursor-pointer" />
-                              <p className="group-hover:text-green-400">View</p>
-                            </DropdownMenuItem>
+                                    </DialogHeader>
+                                    <div class="">
+                                      <label
+                                        class="block text-sm capitalize font-medium leading-6 text-gray-900"
+                                      >
+                                        Product Name : <span className="font-bold">{product?.productName}</span>
+                                      </label>
+                                      <label
+                                        class="block text-sm capitalize font-medium leading-6 text-gray-900"
+                                      >
+                                        Product Stock : <span className="font-bold">{product?.productStock}</span>
+                                      </label>
+                                      <label
+                                        class="block text-sm capitalize font-medium leading-6 text-gray-900 "
+                                      >
+                                        Product Price : <span className="font-bold after:content-['$']">{product?.unitPrice}</span>
+                                      </label>
+                                      <label
+                                        class="block text-sm capitalize font-medium leading-6 text-gray-900 "
+                                      >
+                                        Discount : <span className="font-bold after:content-['%']">{product?.discount}</span>
+                                      </label>
+                                      <label
+                                        class="block text-sm capitalize font-medium leading-6 text-gray-900 "
+                                      >
+                                        After Discount : <span className="font-bold after:content-['$'] border p-1 rounded-md border-sky-500">{product?.priceAfterDiscount}</span>
+                                      </label>
+
+                                      <label
+                                        class="block text-sm capitalize font-medium leading-6 text-gray-900 "
+                                      >
+                                        Category : <span className="font-bold ">{product?.category?.categoryName}</span>
+                                      </label>
+                                      <label
+                                        class="block text-sm capitalize font-medium leading-6 text-gray-900 "
+                                      >
+                                        Warranty : <span className="font-bold">{product?.warranty?.warrantyDate} {product?.warranty?.warrantyTime}</span>
+                                      </label>
+                                      <label
+                                        class="block text-sm capitalize font-medium leading-6 text-gray-900 "
+                                      >
+                                        Image :
+                                      </label>
+                                      {/* {product?.imageProductList.map((image, index) => (
+                                        <Image key={index} src={getPhoto(image)} className="w-full" alt="alt" width={10} height={10} />
+                                      ))} */}
+                                    </div>
+                                  </DialogContent>
+                                </Dialog>
+                              </div>
+                            </div>
                             <div  >
                               <div className="flex items-center gap-3 group">
                                 <Dialog>
@@ -167,19 +228,7 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
                                         >
                                           {product?.productName}
                                         </label>
-                                        {/* <div class="mt-2">
-                                          <div class="flex rounded-md shadow-sm ring-inset ring-gray-300  sm:max-w-md">
-                                            <input
-                                              autoComplete="off"
-                                              {...register("categoryName", {
-                                                required: true,
-                                              })}
-                                              type="text"
-                                              class="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                              placeholder="Category name"
-                                            />
-                                          </div>
-                                        </div> */}
+
                                       </div>
                                       <DialogFooter>
                                         <div>
