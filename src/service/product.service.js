@@ -111,3 +111,23 @@ export const changeStatusProduct = async (productId, statusProduct) => {
   const data = await res.json();
   return data;
 };
+
+export const getAllProductActiveService = async () => {
+  try {
+    const res = await fetch(
+      `${process.env.BASE_URL}/products/active`,
+      {
+        headers: {
+          "Content-Type": "*/*",
+        },
+        cache: "no-store",
+      },
+      {
+        next: {
+          tag: ["getAllProductActiveService"],
+        },
+      }
+    ).then((data) => data.json());
+    return res?.payload;
+  } catch (error) {}
+};

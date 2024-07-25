@@ -9,10 +9,11 @@ import { getAllCategories } from "@/service/category.service";
 import { ImagesSliderDemo } from "@/components/Slider/ImageSlider";
 import { getAllSlideActive } from "@/service/slide.service";
 import MyPagination from "../(admin)/admin/dashboard/components/MyPagination";
+import { getAllProductActiveAction } from "@/acitons/productAction";
 
 
 async function Home({ searchParams: { q = "All" } }) {
-  const products = await getAllProductService();
+  const products = await getAllProductActiveAction();
   const categories = await getAllCategories();
   const getCate = categories?.map((cate) => cate?.categoryName);
   const activeSlides = await getAllSlideActive();

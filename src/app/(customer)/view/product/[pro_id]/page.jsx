@@ -106,31 +106,6 @@ const page = async ({ params: { pro_id } }) => {
 
               }
             </div>
-            {/* <div className="flex gap-2 items-center text-xl text-red-500 font-medium">
-
-              <div className=" text-[18px] text-[#ff540a]">
-                {product?.discount == 0 ?
-                  <div className="flex gap-4">
-                    <p className="font-semibold">Discount</p>
-                    <div className="flex  gap-2">
-                      <Tag
-                        className={
-                          "w-16 cursor-pointer bg-sky-400 text-white font-medium"
-                        }
-                        title={`${product?.discount} %`}
-                      />
-                      <span className="text-sky-400 font-bold">{product?.unitPrice}$</span>
-                    </div>
-                  </div>
-                  :
-                  <div>
-                    <span className="line-through text-sm">{product?.unitPrice}$</span>
-                    <span className="text-sky-400 font-bold">  {product?.priceAfterDiscount}$</span>
-                  </div>
-
-                }
-              </div>
-            </div> */}
             <div className="flex flex-col gap-4">
               <p className="font-semibold">Description</p>
               <p className="w-[70%] text-slate-600">{product?.productDesc}</p>

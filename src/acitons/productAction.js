@@ -3,6 +3,7 @@
 import {
   changeStatusProduct,
   deleteProductService,
+  getAllProductActiveService,
   getAllProductService,
   getProductById,
   postProduct,
@@ -12,6 +13,11 @@ import { revalidatePath, revalidateTag } from "next/cache";
 
 export const getAllProduct = async () => {
   const res = await getAllProductService();
+  return res;
+};
+
+export const getAllProductActiveAction = async () => {
+  const res = await getAllProductActiveService();
   return res;
 };
 
