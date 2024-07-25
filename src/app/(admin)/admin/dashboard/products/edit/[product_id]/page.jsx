@@ -34,7 +34,7 @@ const EditProductPage = ({
   const [img, setImg] = useState([]);
   const [cate, setCate] = useState([]);
   const [warranty, setWarranty] = useState([null]);
-  const [storeFile, setStoreFile] = useState([]);
+  const [storeFile, setStoreFile] = useState(null);
   const [currentPro, setCurrentPro] = useState(null);
 
   const onSubmit = async (data) => {
@@ -52,35 +52,71 @@ const EditProductPage = ({
     setStoreFile([...storeFile, ...uploadedFiles]);
 
     // Proceed with submitting the product data
-    const result = await updateProductByIdAction(
+    // const result = await updateProductByIdAction(
+    //   {
+    //     ...data,
+    //     productImages: [...storeFile, ...uploadedFiles],
+    //   },
+    //   warranty,
+    //   product_id
+    // );
+
+    const updatedProduct = await updateProductByIdAction(
       {
-        ...data,
+        productName:
+          data?.productName == "" ? currentPro?.productName : data?.productName,
+        productStock: isNaN(data?.productStock)
+          ? currentPro?.productStock
+          : data?.productStock,
+        unitPrice: isNaN(data?.unitPrice)
+          ? currentPro?.unitPrice
+          : data?.unitPrice,
+        productDesc:
+          data?.productDesc == "" ? currentPro?.productDesc : data?.productDesc,
+        discount: isNaN(data?.discount) ? currentPro?.discount : data?.discount,
+        categoryId:
+          data?.categoryId == ""
+            ? currentPro?.category?.categoryId
+            : data?.categoryId,
+        warrantyDate: isNaN(data?.warrantyDate)
+          ? currentPro?.warranty?.warrantyDate
+          : data?.warrantyDate,
         productImages: [...storeFile, ...uploadedFiles],
       },
       warranty,
       product_id
     );
 
-
     reset();
-    if (result?.productId) {
+
+    if (updatedProduct?.statusCode == 200) {
       setImg([{ imgFile: null, imgPreview: null }]);
       toast.success("Updated product successfully");
       router.push("/admin/dashboard/products?tab=Products");
     } else {
       toast.error("Updated product was not success");
     }
+
+    // if (result?.productId) {
+    //   setImg([{ imgFile: null, imgPreview: null }]);
+    //   toast.success("Updated product successfully");
+    //   router.push("/admin/dashboard/products?tab=Products");
+    // } else {
+    //   toast.error("Updated product was not success");
+    // }
   };
 
   useEffect(() => {
     getAllCategoriesAction(1, 999).then((data) => setCate(data));
     getProductByIdAction(product_id).then((data) => {
       setCurrentPro(data);
-      setWarranty(data?.warranty?.warrantyTime)
+      setWarranty(data?.warranty?.warrantyTime);
+      setStoreFile(data?.discount);
+      console.log("Store files : ", currentPro);
     });
-  }, []);
+  }, [img]);
 
-  useEffect(() => { }, [img]);
+  // useEffect(() => {}, [img]);
   return (
     <div className="w-full">
       <Header tab={tab}>
@@ -194,10 +230,18 @@ const EditProductPage = ({
                     </label>
                     <div className="mt-2">
                       <div className="flex rounded-md shadow-sm ring-inset ring-gray-300 h-10 ">
-                        <select className="w-full rounded-md shadow-sm" {...register("categoryId")}>
-                          <option value={currentPro?.category?.categoryId}>{currentPro?.category?.categoryName}</option>
+                        <select
+                          className="w-full rounded-md shadow-sm"
+                          {...register("categoryId")}
+                        >
+                          <option value={currentPro?.category?.categoryId}>
+                            {currentPro?.category?.categoryName}
+                          </option>
                           {cate
-                            ?.filter((c) => c?.categoryName !== currentPro?.categoryName)
+                            ?.filter(
+                              (c) =>
+                                c?.categoryName !== currentPro?.categoryName
+                            )
                             .map((c) => (
                               <option value={c?.categoryId} key={c?.categoryId}>
                                 {c?.categoryName}
@@ -217,10 +261,18 @@ const EditProductPage = ({
                     </label>
                     <div className="mt-2">
                       <div className="flex w-full rounded-md shadow-sm ring-inset ring-gray-300 h-10">
-                        <select className="w-full rounded-md shadow-sm " onChange={(e) => setWarranty(e.target.value)}>
-                          <option value={currentPro?.warranty?.warrantyTime}>{currentPro?.warranty?.warrantyTime}</option>
+                        <select
+                          className="w-full rounded-md shadow-sm "
+                          onChange={(e) => setWarranty(e?.target?.value)}
+                        >
+                          <option value={currentPro?.warranty?.warrantyTime}>
+                            {currentPro?.warranty?.warrantyTime}
+                          </option>
                           {["DAY", "MONTH", "YEAR"]
-                            .filter((time) => time !== currentPro?.warranty?.warrantyTime)
+                            .filter(
+                              (time) =>
+                                time !== currentPro?.warranty?.warrantyTime
+                            )
                             .map((time) => (
                               <option key={time} value={time}>
                                 {time}
@@ -327,30 +379,56 @@ const EditProductPage = ({
                     )}
                   </div>
                   <div className="grid grid-cols-3 gap-10 col-span-4">
-                    {img?.length >= 1 &&
-                      img?.map((i, idx) => (
-                        <div key={idx} className="relative">
-                          <Image
-                            src={i?.imgPreview}
-                            width={1000}
-                            height={1000}
-                            alt="preview"
-                            className="h-[230px] object-cover rounded-lg"
-                          />
-                          <div
-                            onClick={() =>
-                              setImg(
-                                img.filter(
-                                  (pre) => pre.imgPreview !== i?.imgPreview
+                    {/* {img?.length >= 1 &&
+                      img?.map((i, idx) =>
+                        i?.imgPreview ? (
+                          <div key={idx} className="relative">
+                            <Image
+                              src={i?.imgPreview ?? "http://34.143.196.56:9090/api/v1/files?fileName=25271d84-3549-4b2e-9f6f-9269d6cddc57.png"}
+                              width={1000}
+                              height={1000}
+                              alt="preview"
+                              className="h-[230px] object-cover rounded-lg"
+                            />
+                            <div
+                              onClick={() =>
+                                setImg(
+                                  img?.filter(
+                                    (pre) => pre.imgPreview !== i?.imgPreview
+                                  )
                                 )
-                              )
-                            }
-                            className="absolute cursor-pointer transition-all hover:scale-105 group top-2 right-2 size-[1.5rem] rounded-full p-1 flex items-center justify-center bg-white"
-                          >
-                            <X className="group-hover:stroke-red-500" />
+                              }
+                              className="absolute cursor-pointer transition-all hover:scale-105 group top-2 right-2 size-[1.5rem] rounded-full p-1 flex items-center justify-center bg-white"
+                            >
+                              <X className="group-hover:stroke-red-500" />
+                            </div>
                           </div>
-                        </div>
-                      ))}
+                        ) : null
+                      )} */}
+
+                    <div  className="relative">
+                      <Image
+                        src={
+                          "http://34.143.196.56:9090/api/v1/files?fileName=25271d84-3549-4b2e-9f6f-9269d6cddc57.png"
+                        }
+                        width={1000}
+                        height={1000}
+                        alt="preview"
+                        className="h-[230px] object-cover rounded-lg"
+                      />
+                      <div
+                        onClick={() =>
+                          setImg(
+                            img?.filter(
+                              (pre) => pre.imgPreview !== i?.imgPreview
+                            )
+                          )
+                        }
+                        className="absolute cursor-pointer transition-all hover:scale-105 group top-2 right-2 size-[1.5rem] rounded-full p-1 flex items-center justify-center bg-white"
+                      >
+                        <X className="group-hover:stroke-red-500" />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -364,7 +442,9 @@ const EditProductPage = ({
                 Cancel
               </Link>
               <Button>
-                {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                {isSubmitting && (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                )}
                 Save
               </Button>
             </div>

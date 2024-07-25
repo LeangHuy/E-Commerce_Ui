@@ -23,7 +23,7 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
 
   const router = useRouter();
 
-  const [img, setImg] = useState([]);
+  const [images, setImg] = useState([]);
   const [cate, setCate] = useState([]);
   const [warranty, setWarranty] = useState([null]);
   const [storeFile, setStoreFile] = useState([]);
@@ -32,7 +32,7 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
 
     // Wait for all images to be uploaded
     const uploadedFiles = await Promise.all(
-      img.map(async (i) => {
+      images.map(async (i) => {
         const formData = new FormData();
         formData.append("file", i.imgFile);
         const response = await postImgAction(formData);
@@ -41,6 +41,7 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
     );
 
     // Set storeFile state
+    console.log("Upload Files : ", uploadedFiles);
     setStoreFile([...storeFile, ...uploadedFiles]);
 
     // Proceed with submitting the product data
@@ -58,14 +59,20 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
       toast.success("Added new product");
       router.push("/admin/dashboard/products?tab=Products");
     }
+
+    console.log("Result : ", result);
+    console.log("Image Files : ", images);
   };
 
   useEffect(() => {
-    getAllCategoriesAction(1, 999).then((data) => setCate(data));
-  }, []);
+    getAllCategoriesAction(1, 999).then((data) => {
+      setCate(data)
+    });
+   
+  }, [images]);
 
-  useEffect(() => {
-  }, [img]);
+  // useEffect(() => {
+  // }, [img]);
 
   return (
     <div className="w-full">
@@ -183,7 +190,7 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
                         <select className="w-full rounded-md shadow-sm " {...register("categoryId", { required: true })}>
                           <option value={null}>Select</option>
                           {cate?.map((c) => (
-                            <option value={c.categoryId}>
+                            <option value={c.categoryId} key={c?.categoryId}>
                               {c.categoryName}
                             </option>
                           ))}
@@ -258,7 +265,7 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
                     >
                       Product photos <span className="text-red-500">(1-3)*</span>
                     </label>
-                    {img?.length <= 2 && (
+                    {images?.length <= 2 && (
                       <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                         <div className="text-center">
                           <svg
@@ -282,7 +289,7 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
                               <input
                                 onChange={(e) =>
                                   setImg([
-                                    ...img,
+                                    ...images,
                                     {
                                       imgPreview: URL.createObjectURL(
                                         e.target.files[0]
@@ -308,9 +315,11 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
                     )}
                   </div>
                   <div className="grid grid-cols-3 gap-10 col-span-4">
-                    {img?.length >= 1 &&
-                      img?.map((i, idx) => (
+                    {images?.length >= 1 &&
+                      images?.map((i, idx) => (
+                        i?.imgPreview ? 
                         <div key={idx} className="relative">
+                          
                           <Image
                             src={i?.imgPreview}
                             width={1000}
@@ -318,10 +327,11 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
                             alt="preview"
                             className="h-[230px] object-cover rounded-lg"
                           />
+
                           <div
                             onClick={() =>
                               setImg(
-                                img.filter(
+                                images.filter(
                                   (pre) => pre?.imgPreview !== i?.imgPreview
                                 )
                               )
@@ -330,7 +340,7 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
                           >
                             <X className="group-hover:stroke-red-500" />
                           </div>
-                        </div>
+                        </div> : null
                       ))}
                   </div>
                 </div>

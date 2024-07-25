@@ -76,15 +76,18 @@ export const updateProductById = async (data, warranty, productId) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        //   Authorization: `Bearer ${session?.user?.token}`,
         Authorization: `Bearer ${session.user.payload.token}`,
       },
       body: JSON.stringify(data),
     }
   );
+  console.log("res: ", res)
+  const product = await res.json();
+  console.log('product after update: ', product)
+  return product
 
-  const { payload } = await res.json();
-  return payload;
+  // const { payload } = await res.json();
+  // return payload;
 };
 
 export const changeStatusProduct = async (productId, statusProduct) => {
