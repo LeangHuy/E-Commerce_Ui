@@ -69,6 +69,8 @@ export const deleteProductService = async (productId) => {
 };
 
 export const updateProductById = async (data, warranty, productId) => {
+  console.log("data ", data, "warranty", warranty, "pId", productId);
+
   const session = await getServerSession(authOption);
   const res = await fetch(
     `${process.env.BASE_URL}/products/${productId}?warrantyTime=${warranty}`,
@@ -81,10 +83,9 @@ export const updateProductById = async (data, warranty, productId) => {
       body: JSON.stringify(data),
     }
   );
-  console.log("res: ", res)
   const product = await res.json();
-  console.log('product after update: ', product)
-  return product
+  console.log("product after update: ", product);
+  return product;
 
   // const { payload } = await res.json();
   // return payload;
