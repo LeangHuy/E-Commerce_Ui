@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 
 export const orderService = async (proList) => {
   const session = await getServerSession(authOption);
-  const res = await fetch(`http://localhost:9090/api/v1/orders`, {
+  const res = await fetch(`http://34.143.196.56:9090/api/v1/orders`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
