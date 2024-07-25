@@ -17,6 +17,7 @@ import { X } from "lucide-react";
 import Image from "next/image";
 import { postImgAction } from "@/acitons/uploadImgAction";
 import toast from "react-hot-toast";
+import { getPhoto } from "@/lib/utils";
 
 const EditProductPage = ({
   searchParams: { tab = "Overview" },
@@ -48,49 +49,61 @@ const EditProductPage = ({
       })
     );
 
+    console.log("upload ", uploadedFiles);
+
     // Set storeFile state
-    setStoreFile([...storeFile, ...uploadedFiles]);
+    // setStoreFile([
+    //   ...currentPro?.imageProductList.map((file) => file.fileName),
+    //   ...uploadedFiles,
+    // ]);
+
+    console.log("imgggggg", storeFile);
 
     // Proceed with submitting the product data
-    // const result = await updateProductByIdAction(
-    //   {
-    //     ...data,
-    //     productImages: [...storeFile, ...uploadedFiles],
-    //   },
-    //   warranty,
-    //   product_id
-    // );
-
-    const updatedProduct = await updateProductByIdAction(
+    const result = await updateProductByIdAction(
       {
-        productName:
-          data?.productName == "" ? currentPro?.productName : data?.productName,
-        productStock: isNaN(data?.productStock)
-          ? currentPro?.productStock
-          : data?.productStock,
-        unitPrice: isNaN(data?.unitPrice)
-          ? currentPro?.unitPrice
-          : data?.unitPrice,
-        productDesc:
-          data?.productDesc == "" ? currentPro?.productDesc : data?.productDesc,
-        discount: isNaN(data?.discount) ? currentPro?.discount : data?.discount,
-        categoryId:
-          data?.categoryId == ""
-            ? currentPro?.category?.categoryId
-            : data?.categoryId,
-        warrantyDate: isNaN(data?.warrantyDate)
-          ? currentPro?.warranty?.warrantyDate
-          : data?.warrantyDate,
-        productImages: [...storeFile, ...uploadedFiles],
+        ...data,
+        productImages: [
+          ...currentPro?.imageProductList.map((file) => file.fileName),
+          ...uploadedFiles,
+        ],
       },
       warranty,
       product_id
     );
 
-    reset();
+    console.log("result", result);
 
-    if (updatedProduct?.statusCode == 200) {
-      setImg([{ imgFile: null, imgPreview: null }]);
+    // const updatedProduct = await updateProductByIdAction(
+    //   {
+    //     productName:
+    //       data?.productName == "" ? currentPro?.productName : data?.productName,
+    //     productStock: isNaN(data?.productStock)
+    //       ? currentPro?.productStock
+    //       : data?.productStock,
+    //     unitPrice: isNaN(data?.unitPrice)
+    //       ? currentPro?.unitPrice
+    //       : data?.unitPrice,
+    //     productDesc:
+    //       data?.productDesc == "" ? currentPro?.productDesc : data?.productDesc,
+    //     discount: isNaN(data?.discount) ? currentPro?.discount : data?.discount,
+    //     categoryId:
+    //       data?.categoryId == ""
+    //         ? currentPro?.category?.categoryId
+    //         : data?.categoryId,
+    //     warrantyDate: isNaN(data?.warrantyDate)
+    //       ? currentPro?.warranty?.warrantyDate
+    //       : data?.warrantyDate,
+    //     productImages: [...storeFile],
+    //   },
+    //   warranty,
+    //   product_id
+    // );
+
+    // reset();
+
+    if (result?.statusCode == 200) {
+      // setImg([{ imgFile: null, imgPreview: null }]);
       toast.success("Updated product successfully");
       router.push("/admin/dashboard/products?tab=Products");
     } else {
@@ -111,12 +124,14 @@ const EditProductPage = ({
     getProductByIdAction(product_id).then((data) => {
       setCurrentPro(data);
       setWarranty(data?.warranty?.warrantyTime);
-      setStoreFile(data?.discount);
-      console.log("Store files : ", currentPro);
+      setStoreFile([...data?.imageProductList]);
+      console.log("data : ", data);
     });
-  }, [img]);
+  }, []);
 
-  // useEffect(() => {}, [img]);
+  useEffect(() => {
+    console.log("current change pro", currentPro);
+  }, [currentPro]);
   return (
     <div className="w-full">
       <Header tab={tab}>
@@ -379,12 +394,12 @@ const EditProductPage = ({
                     )}
                   </div>
                   <div className="grid grid-cols-3 gap-10 col-span-4">
-                    {/* {img?.length >= 1 &&
-                      img?.map((i, idx) =>
-                        i?.imgPreview ? (
+                    {currentPro?.imageProductList?.length > 0 &&
+                      currentPro?.imageProductList?.map((i, idx) =>
+                        i ? (
                           <div key={idx} className="relative">
                             <Image
-                              src={i?.imgPreview ?? "http://localhost:9090/api/v1/files?fileName=25271d84-3549-4b2e-9f6f-9269d6cddc57.png"}
+                              src={getPhoto(i?.fileName)}
                               width={1000}
                               height={1000}
                               alt="preview"
@@ -392,11 +407,13 @@ const EditProductPage = ({
                             />
                             <div
                               onClick={() =>
-                                setImg(
-                                  img?.filter(
-                                    (pre) => pre.imgPreview !== i?.imgPreview
-                                  )
-                                )
+                                setCurrentPro({
+                                  ...currentPro,
+                                  imageProductList:
+                                    currentPro?.imageProductList?.filter(
+                                      (p) => p.fileName !== i.fileName
+                                    ),
+                                })
                               }
                               className="absolute cursor-pointer transition-all hover:scale-105 group top-2 right-2 size-[1.5rem] rounded-full p-1 flex items-center justify-center bg-white"
                             >
@@ -404,9 +421,34 @@ const EditProductPage = ({
                             </div>
                           </div>
                         ) : null
-                      )} */}
+                      )}
+                    {img.map((i, idx) => (
+                      <div key={idx} className="relative">
+                        <Image
+                          src={i.imgPreview}
+                          width={1000}
+                          height={1000}
+                          alt="preview"
+                          className="h-[230px] object-cover rounded-lg"
+                        />
+                        <div
+                          onClick={() =>
+                            setCurrentPro({
+                              ...currentPro,
+                              imageProductList:
+                                currentPro?.imageProductList?.filter(
+                                  (p) => p.fileName !== i.fileName
+                                ),
+                            })
+                          }
+                          className="absolute cursor-pointer transition-all hover:scale-105 group top-2 right-2 size-[1.5rem] rounded-full p-1 flex items-center justify-center bg-white"
+                        >
+                          <X className="group-hover:stroke-red-500" />
+                        </div>
+                      </div>
+                    ))}
 
-                    <div className="relative">
+                    {/* <div  className="relative">
                       <Image
                         src={
                           "http://localhost:9090/api/v1/files?fileName=25271d84-3549-4b2e-9f6f-9269d6cddc57.png"
@@ -428,7 +470,7 @@ const EditProductPage = ({
                       >
                         <X className="group-hover:stroke-red-500" />
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

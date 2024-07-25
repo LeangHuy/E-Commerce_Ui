@@ -33,6 +33,8 @@ export const getProductByIdAction = async (productId) => {
 };
 
 export const updateProductByIdAction = async (data, warranty, productId) => {
+  console.log("data action", data);
+
   const result = await updateProductById(data, warranty, productId);
   revalidateTag("getAllProductService");
   return result;
