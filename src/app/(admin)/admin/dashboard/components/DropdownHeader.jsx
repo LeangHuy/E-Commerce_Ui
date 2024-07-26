@@ -15,17 +15,21 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
 import SignOutButton from "@/components/Dropdown/SignOutButton";
+import { getPhoto } from "@/lib/utils";
+import { getUserData } from "@/service/user.service";
+import Link from "next/link";
 
-const DropdownHeader = () => {
+const DropdownHeader = async () => {
+  const userInfo = await getUserData();
+  const user = userInfo?.payload?.user;
+  console.log(userInfo)
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <div className="pf flex items-center gap-4 cursor-pointer">
           <div>
             <Image
-              src={
-                "https://images.unsplash.com/photo-1614644147798-f8c0fc9da7f6?q=80&w=2504&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              }
+              src={getPhoto(user?.profile)}
               priority
               width={1000}
               height={1000}
@@ -34,8 +38,8 @@ const DropdownHeader = () => {
             />
           </div>
           <div className="">
-            <p className="font-medium">Scalet Witch</p>
-            <p className="text-sm">me@gmail.com</p>
+            <p className="font-medium">{user?.firstName} {user?.lastName}</p>
+            <p className="text-sm">{user?.email}</p>
           </div>
         </div>
       </DropdownMenuTrigger>
@@ -43,19 +47,22 @@ const DropdownHeader = () => {
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            Home
-            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            Settings
-            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-          </DropdownMenuItem>
+          <Link href="/admin/dashboard">
+            <DropdownMenuItem className="cursor-pointer">
+              Home
+            </DropdownMenuItem>
+          </Link>
+
+          <Link href="/admin/dashboard/profile">
+            <DropdownMenuItem className="cursor-pointer">
+              Settings
+            </DropdownMenuItem>
+          </Link>
+
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem className="cursor-pointer">
           <SignOutButton />
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

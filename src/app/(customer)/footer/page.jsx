@@ -1,21 +1,25 @@
 import { footer_data } from "@/data/footer";
+import { getPhoto } from "@/lib/utils";
+import { getShopInfoService } from "@/service/shop.service";
 import { InstagramLogoIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
 import { CopyrightIcon } from "lucide-react";
 import Image from "next/image";
 
 import React from "react";
 
-export default function Footer() {
+export default async function Footer() {
+  const shopInfo = await getShopInfoService();
+
   return (
     <div id="footer" className="py-24  relative overflow-hidden  isolate bg-sky-300 bg-opacity-20">
       <div className="w-[1330px] mx-auto grid grid-cols-[200px_1fr_auto] gap-[8rem]">
         <div className="flex flex-col gap-3">
           <Image
-            src="/images/logo.png"
+            src={getPhoto(shopInfo?.payload?.logo)}
             alt="alt"
             width={1000}
             height={1000}
-            className="size-[6rem] rounded-full"
+            className="size-[6rem] rounded-full object-cover"
           />
           {/* <h3 className="text-2xl font-bold">Game of the game</h3> */}
         </div>
