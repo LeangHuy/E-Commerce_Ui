@@ -93,11 +93,8 @@ export const updateProductById = async (data, warranty, productId) => {
 
 export const changeStatusProduct = async (productId, statusProduct) => {
   const session = await getServerSession(authOption);
-
   const res = await fetch(
-    `${
-      process.env.BASE_URL
-    }/products/status/${productId}?isStatus=${!statusProduct}`,
+    `${process.env.BASE_URL}/products/status/${productId}?newStatus=${statusProduct}`,
 
     {
       method: "PUT",

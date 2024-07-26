@@ -48,6 +48,6 @@ export const updateProductByIdAction = async (data, warranty, productId) => {
 
 export const changeStatusProductAction = async (productId, statusProduct) => {
   const result = await changeStatusProduct(productId, statusProduct);
-  revalidatePath("/admin/dashboard/product");
+  revalidateTag("getAllProductService");
   return result;
 };
