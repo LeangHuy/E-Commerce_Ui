@@ -17,6 +17,7 @@ import { X } from "lucide-react";
 import Image from "next/image";
 import { postImgAction } from "@/acitons/uploadImgAction";
 import toast from "react-hot-toast";
+import { getPhoto } from "@/lib/utils";
 
 const EditProductPage = ({
   searchParams: { tab = "Overview" },
@@ -34,22 +35,29 @@ const EditProductPage = ({
   const [img, setImg] = useState([]);
   const [cate, setCate] = useState([]);
   const [warranty, setWarranty] = useState([null]);
-  const [storeFile, setStoreFile] = useState(null);
+  const [storeFile, setStoreFile] = useState([]);
   const [currentPro, setCurrentPro] = useState(null);
+  const [files, setFiles] = useState(null);
+  const [chosenFile, setChosenFile] = useState(false);
+  const [removeFile, setRemoveFile] = useState(false);
 
   const onSubmit = async (data) => {
-    // Wait for all images to be uploaded
-    const uploadedFiles = await Promise.all(
-      img.map(async (i) => {
-        const formData = new FormData();
-        formData.append("file", i.imgFile);
-        const response = await postImgAction(formData);
-        return response;
-      })
-    );
+    let uploadedFiles;
+    if (chosenFile) {
+      uploadedFiles = await Promise.all(
+        img.map(async (i) => {
+          const formData = new FormData();
+          formData.append("file", i.imgFile);
+          const response = await postImgAction(formData);
+          return response;
+        })
+      );
 
-    // Set storeFile state
-    setStoreFile([...storeFile, ...uploadedFiles]);
+      // Set storeFile state
+      setStoreFile([...storeFile, ...uploadedFiles]);
+    }
+
+    // Wait for all images to be uploaded
 
     // Proceed with submitting the product data
     // const result = await updateProductByIdAction(
@@ -81,7 +89,11 @@ const EditProductPage = ({
         warrantyDate: isNaN(data?.warrantyDate)
           ? currentPro?.warranty?.warrantyDate
           : data?.warrantyDate,
-        productImages: [...storeFile, ...uploadedFiles],
+        productImages: chosenFile
+          ? [...storeFile, ...uploadedFiles]
+          : removeFile
+          ? files?.map((file) => file?.fileName)
+          : currentPro?.imageProductList?.map((image) => image?.fileName),
       },
       warranty,
       product_id
@@ -111,12 +123,17 @@ const EditProductPage = ({
     getProductByIdAction(product_id).then((data) => {
       setCurrentPro(data);
       setWarranty(data?.warranty?.warrantyTime);
-      setStoreFile(data?.discount);
-      console.log("Store files : ", currentPro);
+      setFiles(data?.imageProductList);
     });
+  }, []);
+
+  useEffect(() => {
+    console.log("Product : ", currentPro);
+    console.log("Images : ", img);
+    console.log("Files : ", storeFile);
+    console.log("Choose file : ", chosenFile);
   }, [img]);
 
-  // useEffect(() => {}, [img]);
   return (
     <div className="w-full">
       <Header tab={tab}>
@@ -351,7 +368,7 @@ const EditProductPage = ({
                             >
                               <span>Upload a file</span>
                               <input
-                                onChange={(e) =>
+                                onChange={(e) => {
                                   setImg([
                                     ...img,
                                     {
@@ -360,8 +377,10 @@ const EditProductPage = ({
                                       ),
                                       imgFile: e.target.files[0],
                                     },
-                                  ])
-                                }
+                                  ]);
+
+                                  setChosenFile(true);
+                                }}
                                 id="file-upload"
                                 name="file-upload"
                                 multiple
@@ -379,37 +398,64 @@ const EditProductPage = ({
                     )}
                   </div>
                   <div className="grid grid-cols-3 gap-10 col-span-4">
-                    {/* {img?.length >= 1 &&
-                      img?.map((i, idx) =>
-                        i?.imgPreview ? (
-                          <div key={idx} className="relative">
+                    {img?.length >= 1
+                      ? img?.map((i, idx) =>
+                          i?.imgPreview ? (
+                            <div key={idx} className="relative">
+                              <Image
+                                src={i?.imgPreview}
+                                width={1000}
+                                height={1000}
+                                alt="preview"
+                                className="h-[230px] object-cover rounded-lg"
+                              />
+                              <div
+                                onClick={() => {
+                                  setImg(
+                                    img?.filter(
+                                      (pre) => pre.imgPreview !== i?.imgPreview
+                                    )
+                                  );
+                                }}
+                                className="absolute cursor-pointer transition-all hover:scale-105 group top-2 right-2 size-[1.5rem] rounded-full p-1 flex items-center justify-center bg-white"
+                              >
+                                <X className="group-hover:stroke-red-500" />
+                              </div>
+                            </div>
+                          ) : null
+                        )
+                      : files !== null && files?.length >= 1
+                      ? files?.map((file, idx) => (
+                          <div className="relative" key={idx}>
                             <Image
-                              src={i?.imgPreview ?? "http://34.143.196.56:9090/api/v1/files?fileName=25271d84-3549-4b2e-9f6f-9269d6cddc57.png"}
+                              src={getPhoto(file?.fileName)}
                               width={1000}
                               height={1000}
                               alt="preview"
                               className="h-[230px] object-cover rounded-lg"
                             />
                             <div
-                              onClick={() =>
-                                setImg(
-                                  img?.filter(
-                                    (pre) => pre.imgPreview !== i?.imgPreview
+                              onClick={() => {
+                                setFiles(
+                                  files?.filter(
+                                    (pre) => pre.fileName !== file?.fileName
                                   )
-                                )
-                              }
+                                );
+                                setRemoveFile(true);
+                              }}
                               className="absolute cursor-pointer transition-all hover:scale-105 group top-2 right-2 size-[1.5rem] rounded-full p-1 flex items-center justify-center bg-white"
                             >
                               <X className="group-hover:stroke-red-500" />
                             </div>
                           </div>
-                        ) : null
-                      )} */}
+                        ))
+                      : null}
 
-                    <div  className="relative">
+                    {/* 
+                    <div className="relative">
                       <Image
                         src={
-                          "http://34.143.196.56:9090/api/v1/files?fileName=25271d84-3549-4b2e-9f6f-9269d6cddc57.png"
+                          "http://34.143.196.56:9090/api/v1/files?fileName=c7682fd8-4558-4846-92a3-1d633644c5ff.jpg"
                         }
                         width={1000}
                         height={1000}
@@ -428,7 +474,7 @@ const EditProductPage = ({
                       >
                         <X className="group-hover:stroke-red-500" />
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

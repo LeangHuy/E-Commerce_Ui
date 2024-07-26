@@ -29,7 +29,6 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
   const [storeFile, setStoreFile] = useState([]);
 
   const onSubmit = async (data) => {
-
     // Wait for all images to be uploaded
     const uploadedFiles = await Promise.all(
       images.map(async (i) => {
@@ -66,9 +65,8 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
 
   useEffect(() => {
     getAllCategoriesAction(1, 999).then((data) => {
-      setCate(data)
+      setCate(data);
     });
-   
   }, [images]);
 
   // useEffect(() => {
@@ -187,7 +185,10 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
                     </label>
                     <div className="mt-2">
                       <div className="flex rounded-md shadow-sm ring-inset ring-gray-300 h-10 ">
-                        <select className="w-full rounded-md shadow-sm " {...register("categoryId", { required: true })}>
+                        <select
+                          className="w-full rounded-md shadow-sm "
+                          {...register("categoryId", { required: true })}
+                        >
                           <option value={null}>Select</option>
                           {cate?.map((c) => (
                             <option value={c.categoryId} key={c?.categoryId}>
@@ -208,7 +209,10 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
                     </label>
                     <div className="mt-2">
                       <div className="flex rounded-md shadow-sm ring-inset ring-gray-300 h-10 ">
-                        <select className="w-full rounded-md shadow-sm " onChange={(e) => setWarranty(e.target.value)}>
+                        <select
+                          className="w-full rounded-md shadow-sm "
+                          onChange={(e) => setWarranty(e.target.value)}
+                        >
                           <option value={null}>Select</option>
 
                           <option value={"DAY"}>DAY</option>
@@ -263,7 +267,8 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
                       for="cover-photo"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                      Product photos <span className="text-red-500">(1-3)*</span>
+                      Product photos{" "}
+                      <span className="text-red-500">(1-3)*</span>
                     </label>
                     {images?.length <= 2 && (
                       <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
@@ -316,32 +321,32 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
                   </div>
                   <div className="grid grid-cols-3 gap-10 col-span-4">
                     {images?.length >= 1 &&
-                      images?.map((i, idx) => (
-                        i?.imgPreview ? 
-                        <div key={idx} className="relative">
-                          
-                          <Image
-                            src={i?.imgPreview}
-                            width={1000}
-                            height={1000}
-                            alt="preview"
-                            className="h-[230px] object-cover rounded-lg"
-                          />
+                      images?.map((i, idx) =>
+                        i?.imgPreview ? (
+                          <div key={idx} className="relative">
+                            <Image
+                              src={i?.imgPreview}
+                              width={1000}
+                              height={1000}
+                              alt="preview"
+                              className="h-[230px] object-cover rounded-lg"
+                            />
 
-                          <div
-                            onClick={() =>
-                              setImg(
-                                images.filter(
-                                  (pre) => pre?.imgPreview !== i?.imgPreview
+                            <div
+                              onClick={() =>
+                                setImg(
+                                  images.filter(
+                                    (pre) => pre?.imgPreview !== i?.imgPreview
+                                  )
                                 )
-                              )
-                            }
-                            className="absolute cursor-pointer transition-all hover:scale-105 group top-2 right-2 size-[1.5rem] rounded-full p-1 flex items-center justify-center bg-white"
-                          >
-                            <X className="group-hover:stroke-red-500" />
+                              }
+                              className="absolute cursor-pointer transition-all hover:scale-105 group top-2 right-2 size-[1.5rem] rounded-full p-1 flex items-center justify-center bg-white"
+                            >
+                              <X className="group-hover:stroke-red-500" />
+                            </div>
                           </div>
-                        </div> : null
-                      ))}
+                        ) : null
+                      )}
                   </div>
                 </div>
               </div>
@@ -355,7 +360,9 @@ const AddProductPage = ({ searchParams: { tab = "Overview" } }) => {
                 Cancel
               </Link>
               <Button>
-                {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                {isSubmitting && (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                )}
                 Save
               </Button>
             </div>
