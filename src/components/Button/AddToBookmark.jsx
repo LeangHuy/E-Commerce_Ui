@@ -7,7 +7,6 @@ import toast from "react-hot-toast";
 function AddToBookmark({ item }) {
   async function postBookmarkfunc(productId) {
     const result = await postBookmark(productId);
-    console.log("result", result);
     if (result.statusCode == 201) toast.success("Added to bookmark");
   }
   return (

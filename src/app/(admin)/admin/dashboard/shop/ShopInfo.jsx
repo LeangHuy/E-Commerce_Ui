@@ -41,7 +41,6 @@ function ShopInfo({ shopData }) {
   });
 
   async function onSubmit(reqdata) {
-    console.log("req : ", reqdata);
     const formData = new FormData();
     formData.append("file", img.imgFile);
     let logo = !img.imgFile
@@ -65,7 +64,6 @@ function ShopInfo({ shopData }) {
   const [img, setImg] = useState({ imgFile: null, imgPreview: null });
 
   useEffect(() => {
-    console.log("shop", shopData);
   }, []);
 
   return (

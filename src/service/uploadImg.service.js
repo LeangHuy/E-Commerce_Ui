@@ -38,17 +38,12 @@ export const uploadImgProduct = async (fileImg, productId) => {
     }
   );
 
-  // if (!res.ok) {
-  //   console.log("res", res);
-  // }
-
   const { payload } = await res.json();
 
   return payload;
 };
 
 export const postImg = async (fileImg) => {
-  // console.log("file", fileImg);
   // return;
   const res = await fetch(`${process.env.BASE_URL}/files`, {
     method: "POST",

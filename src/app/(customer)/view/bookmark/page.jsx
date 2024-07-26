@@ -9,7 +9,6 @@ import React from "react";
 
 async function BookmarkPage() {
   const bookmarkData = await getBookmarks();
-  console.log(bookmarkData);
   return (
     <div className="w-[1330px] mx-auto min-h-[50vh]  my-10  gap-10">
       <div className="font-semibold text-[1.6rem]">Bookmarks</div>
@@ -32,8 +31,8 @@ async function BookmarkPage() {
                     alt="pic 1"
                     src={getPhoto(
                       item &&
-                        item?.product.imageProductList &&
-                        item?.product.imageProductList[0]?.fileName
+                      item?.product.imageProductList &&
+                      item?.product.imageProductList[0]?.fileName
                     )}
                     className="object-cover w-full h-full  rounded-xl"
                   />

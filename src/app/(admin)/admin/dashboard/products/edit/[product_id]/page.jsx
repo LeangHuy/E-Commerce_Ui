@@ -49,7 +49,6 @@ const EditProductPage = ({
       })
     );
 
-    console.log("upload ", uploadedFiles);
 
     // Set storeFile state
     // setStoreFile([
@@ -57,7 +56,6 @@ const EditProductPage = ({
     //   ...uploadedFiles,
     // ]);
 
-    console.log("imgggggg", storeFile);
 
     // Proceed with submitting the product data
     const result = await updateProductByIdAction(
@@ -72,7 +70,6 @@ const EditProductPage = ({
       product_id
     );
 
-    console.log("result", result);
 
     // const updatedProduct = await updateProductByIdAction(
     //   {
@@ -125,12 +122,10 @@ const EditProductPage = ({
       setCurrentPro(data);
       setWarranty(data?.warranty?.warrantyTime);
       setStoreFile([...data?.imageProductList]);
-      console.log("data : ", data);
     });
   }, []);
 
   useEffect(() => {
-    console.log("current change pro", currentPro);
   }, [currentPro]);
   return (
     <div className="w-full">

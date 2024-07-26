@@ -13,7 +13,6 @@ import { postBookmark } from "@/service/bookmark";
 
 async function Home({ searchParams: { q = "All" } }) {
   const products = await getAllProductService();
-  console.log("productlol", products);
   const categories = await getAllCategories();
   const getCate = categories?.map((cate) => cate?.categoryName);
   const activeSlides = await getAllSlideActive();

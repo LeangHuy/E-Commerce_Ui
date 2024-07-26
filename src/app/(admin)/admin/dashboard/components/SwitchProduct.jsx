@@ -6,13 +6,10 @@ import toast from "react-hot-toast";
 
 const SwitchProduct = ({ isActive, productId, product }) => {
   const onChange = async (productId, isActive) => {
-    console.log("clicked");
     const result = await changeStatusProductAction(productId, isActive);
-    console.log("result", result);
     if (result.status == "OK")
       toast.success(
-        `Product "${product?.productName}" is ${
-          isActive ? "Active" : "Disable"
+        `Product "${product?.productName}" is ${isActive ? "Active" : "Disable"
         }`
       );
   };

@@ -40,7 +40,6 @@ const AddProductPage = ({ searchParams: { tab = "Products" } }) => {
     );
 
     // Set storeFile state
-    console.log("Upload Files : ", uploadedFiles);
     setStoreFile([...storeFile, ...uploadedFiles]);
 
     // Proceed with submitting the product data
@@ -53,8 +52,6 @@ const AddProductPage = ({ searchParams: { tab = "Products" } }) => {
     );
 
     if (result?.productId) {
-      console.log("Result : ", result);
-      console.log("Image Files : ", images);
       reset();
       setImg([{ imgFile: null, imgPreview: null }]);
       toast.success("Added new product");

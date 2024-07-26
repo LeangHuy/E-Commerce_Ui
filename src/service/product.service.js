@@ -82,7 +82,6 @@ export const updateProductById = async (data, warranty, productId) => {
     }
   );
   const product = await res.json();
-  console.log("product after update: ", product);
   return product;
 
   // const { payload } = await res.json();

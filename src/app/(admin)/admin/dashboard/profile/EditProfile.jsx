@@ -22,7 +22,6 @@ const EditProfile = ({ user }) => {
   });
 
   useEffect(() => {
-    console.log("File change ", img);
   }, [img]);
 
   const [gender, setGender] = useState(user?.gender);
@@ -41,7 +40,6 @@ const EditProfile = ({ user }) => {
       profile: pf ? pf : user?.profile,
       gender: gender,
     });
-    console.log("new user ", newInfo);
     if (newInfo?.status == "OK") {
       toast.success("Update information successfully");
       router.push("/");

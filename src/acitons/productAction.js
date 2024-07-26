@@ -25,7 +25,7 @@ export const getAllProductActiveAction = async () => {
 export const postProductAction = async (data, warranty) => {
   const result = await postProduct(data, warranty);
   revalidateTag("getAllProductService");
-  console.log("Result action : ", result);
+
   return result;
 };
 
