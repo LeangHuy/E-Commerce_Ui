@@ -4,12 +4,16 @@ import React from "react";
 import Link from "next/link";
 import { getPhoto } from "@/lib/utils";
 import { BadgePercent } from "lucide-react";
+import { postBookmark } from "@/service/bookmark";
+import AddToBookmark from "../Button/AddToBookmark";
 
 const ProductCard = ({
   products = [{ categoryName: "" }],
   searchParams = "All",
   isPromotion = false,
 }) => {
+  // const activeSlides = await getAllSlideActive();
+
   let filterProducts;
   if (!isPromotion) {
     filterProducts =
@@ -45,10 +49,7 @@ const ProductCard = ({
                 className="object-cover w-full h-full  rounded-xl"
               />
             </Link>
-            <Heart
-              // onClick={() => setIsActive(idx)}
-              className={`absolute top-3 right-3 size-[35px] stroke-red-500 p-2 bg-white  rounded-full stroke-[2] cursor-pointer `}
-            />
+            <AddToBookmark item={item}/>
             {item?.discount > 0 && (
               <p className="absolute top-3 left-3 stroke-red-500 py-1 px-4 text-sm bg-white  rounded-full stroke-[2] flex gap-1 items-center cursor-pointer">
                 <span className="text-red-500 font-medium">

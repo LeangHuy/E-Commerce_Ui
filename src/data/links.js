@@ -8,6 +8,10 @@ export const my_links = [
     path: "/view/action",
   },
   {
+    link: "Bookmark",
+    path: "/view/bookmark",
+  },
+  {
     link: "History",
     path: "/view/history",
   },
@@ -19,4 +23,5 @@ export const my_links = [
     link: "About",
     path: "about",
   },
+
 ];
