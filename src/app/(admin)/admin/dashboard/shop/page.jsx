@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "../components/Header";
 import ShopInfo from "./ShopInfo";
-import { getShopInfoAction } from "@/acitons/shopAction";
 import { getShopInfoService } from "@/service/shop.service";
 
 async function ShopPage({ searchParams: { tab = "Shop" } }) {

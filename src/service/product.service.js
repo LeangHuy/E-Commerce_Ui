@@ -69,8 +69,6 @@ export const deleteProductService = async (productId) => {
 };
 
 export const updateProductById = async (data, warranty, productId) => {
-  console.log("data ", data, "warranty", warranty, "pId", productId);
-
   const session = await getServerSession(authOption);
   const res = await fetch(
     `${process.env.BASE_URL}/products/${productId}?warrantyTime=${warranty}`,
@@ -127,4 +125,22 @@ export const getAllProductActiveService = async () => {
     ).then((data) => data.json());
     return res?.payload;
   } catch (error) {}
+};
+
+export const restockProductService = async (productId, newStock) => {
+  const session = await getServerSession(authOption);
+  const res = await fetch(
+    `${process.env.BASE_URL}/products/restock/${productId}?newStock=${newStock}`,
+
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        //   Authorization: `Bearer ${session?.user?.token}`,
+        Authorization: `Bearer ${session.user.payload.token}`,
+      },
+    }
+  );
+  const data = await res.json();
+  return data;
 };

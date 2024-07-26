@@ -15,7 +15,7 @@ import Link from "next/link";
 import { getPhoto } from "@/lib/utils";
 import SwitchToggle from "../components/SwtichToggle";
 import { getAllProductService } from "@/service/product.service";
-import { Loader2, Package } from "lucide-react";
+import { ArchiveRestore, Loader2, Package } from "lucide-react";
 import { Eye } from "lucide-react";
 import { MoreHorizontal } from "lucide-react";
 import {
@@ -39,6 +39,7 @@ import {
 import ButtonDelete from "./ButtonDeleteProduct";
 import { deleteProductAction } from "@/acitons/productAction";
 import SwitchProduct from "../components/SwitchProduct";
+import RestockProduct from "./Restock/page";
 
 const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
   const products = await getAllProductService();
@@ -119,6 +120,7 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="w-50">
                           <DropdownMenuGroup>
+                            {/* Edit */}
                             <Link
                               href={`/admin/dashboard/products/edit/${product?.productId}?tab=Products`}
                             >
@@ -131,6 +133,17 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
                                 </div>
                               </DropdownMenuItem>
                             </Link>
+
+                            {/* Restock */}
+                            <div>
+                              <div className="flex items-center gap-3 group">
+                                <div class="w-full">
+                                  <RestockProduct product={product} />
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* view */}
                             <div>
                               <div className="flex items-center gap-3 group">
                                 <Dialog>
@@ -215,6 +228,10 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
                                 </Dialog>
                               </div>
                             </div>
+
+
+
+                            {/* Delete */}
                             <div>
                               <div className="flex items-center gap-3 group">
                                 <Dialog>

@@ -451,7 +451,7 @@ const EditProductPage = ({
                     {/* <div  className="relative">
                       <Image
                         src={
-                          "http://34.143.196.56:9090/api/v1/files?fileName=25271d84-3549-4b2e-9f6f-9269d6cddc57.png"
+                          "http://localhost:9090/api/v1/files?fileName=25271d84-3549-4b2e-9f6f-9269d6cddc57.png"
                         }
                         width={1000}
                         height={1000}

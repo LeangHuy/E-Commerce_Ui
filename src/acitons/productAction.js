@@ -7,6 +7,7 @@ import {
   getAllProductService,
   getProductById,
   postProduct,
+  restockProductService,
   updateProductById,
 } from "@/service/product.service";
 import { revalidatePath, revalidateTag } from "next/cache";
@@ -39,8 +40,6 @@ export const getProductByIdAction = async (productId) => {
 };
 
 export const updateProductByIdAction = async (data, warranty, productId) => {
-  console.log("data action", data);
-
   const result = await updateProductById(data, warranty, productId);
   revalidateTag("getAllProductService");
   return result;
@@ -48,6 +47,12 @@ export const updateProductByIdAction = async (data, warranty, productId) => {
 
 export const changeStatusProductAction = async (productId, statusProduct) => {
   const result = await changeStatusProduct(productId, statusProduct);
+  revalidateTag("getAllProductService");
+  return result;
+};
+
+export const restockProductAction = async (productId, newStock) => {
+  const result = await restockProductService(productId, newStock);
   revalidateTag("getAllProductService");
   return result;
 };
