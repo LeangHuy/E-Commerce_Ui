@@ -7,11 +7,11 @@ import { getShopInfoService } from "@/service/shop.service";
 async function ShopPage({ searchParams: { tab = "Shop" } }) {
   const shopData = await getShopInfoService();
   return (
-    <div className="w-full h-screen overflow-y-hidden">
+    <div className="w-full ">
       <Header tab={tab} />
-      <div className="content p-5 bg-gray-100 w-full h-full">
-        <div className=" bg-white rounded-2xl p-10 w-full h-full">
-          <ShopInfo shopData={shopData}/>
+      <div className="conten p-5 bg-gray-100 w-full min-h-screen">
+        <div className=" bg-white rounded-2xl  w-full min-h-full">
+          <ShopInfo shopData={shopData} />
         </div>
       </div>
     </div>

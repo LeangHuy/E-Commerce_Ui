@@ -5,18 +5,18 @@ export const my_links = [
   },
   {
     link: "Action",
-    path: "#",
+    path: "/view/action",
   },
   {
     link: "History",
-    path: "#",
+    path: "/view/history",
   },
   {
     link: "Contact",
-    path: "#",
+    path: "contact",
   },
   {
     link: "About",
-    path: "#",
+    path: "about",
   },
 ];
