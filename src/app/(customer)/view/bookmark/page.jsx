@@ -39,7 +39,7 @@ async function BookmarkPage() {
                   />
                 </Link>
                 <div
-                  className={`absolute top-3 right-3 size-[35px] stroke-red-500 p-2 bg-white  rounded-full stroke-[2] cursor-pointer `}
+                  className={`absolute top-3 right-3 size-[35px] stroke-red-500 p-2 bg-white  rounded-full stroke-[2] cursor-pointer flex items-center justify-center `}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
