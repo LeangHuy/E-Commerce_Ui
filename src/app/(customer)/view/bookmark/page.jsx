@@ -1,8 +1,6 @@
 import { getPhoto } from "@/lib/utils";
 import { getBookmarks } from "@/service/bookmark";
 import { BadgePercent } from "lucide-react";
-import { HeartCrack } from "lucide-react";
-import { Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -15,7 +13,7 @@ async function BookmarkPage() {
       <div className="font-semibold text-[1.6rem]">Bookmarks</div>
       {bookmarkData.title ? (
         <div className="flex justify-center items-center h-full font-semibold text-[1.6rem]">
-          You dont have any bookmark at the moment
+          You don't have any bookmark at the moment
         </div>
       ) : (
         <main className="w-full grid grid-cols-4 gap-6 my-8 max-[1400px]:grid-cols-3 max-[950px]:grid-cols-2 max-[600px]:grid-cols-1">
@@ -32,8 +30,8 @@ async function BookmarkPage() {
                     alt="pic 1"
                     src={getPhoto(
                       item &&
-                        item?.product.imageProductList &&
-                        item?.product.imageProductList[0]?.fileName
+                      item?.product.imageProductList &&
+                      item?.product.imageProductList[0]?.fileName
                     )}
                     className="object-cover w-full h-full  rounded-xl"
                   />
@@ -47,7 +45,7 @@ async function BookmarkPage() {
                     height="24"
                     viewBox="0 0 24 24"
                     fill="red"
-                    stroke="currentColor"
+                    stroke="white"
                     stroke-width="1"
                     stroke-linecap="round"
                     stroke-linejoin="round"
@@ -57,10 +55,10 @@ async function BookmarkPage() {
                   </svg>
                 </div>
 
-                {item?.product.discount > 0 && (
+                {item?.product?.discount > 0 && (
                   <p className="absolute top-3 left-3 stroke-red-500 py-1 px-4 text-sm bg-white  rounded-full stroke-[2] flex gap-1 items-center cursor-pointer">
                     <span className="text-red-500 font-medium">
-                      {item?.product.discount}
+                      {item?.product?.discount}
                     </span>
                     <BadgePercent className="size-[1rem] stroke-red-500" />
                   </p>
@@ -74,19 +72,21 @@ async function BookmarkPage() {
                 <h3 className="font-medium text-xl text-[#1d1d1d] line-clamp-1">
                   {item?.product.productName}
                 </h3>
-
+                <p className="line-clamp-2 text-sm mb-3">
+                  {item?.product?.productDesc}
+                </p>
                 <div className=" text-[18px flex justify-end">
-                  {item?.product.discount == 0 ? (
+                  {item?.product?.discount == 0 ? (
                     <span className="text-white font-medium bg-sky-300 py-0 px-2 rounded-md">
-                      {item?.unitPrice}$
+                      {item?.product?.unitPrice}$
                     </span>
                   ) : (
                     <div className="flex gap-2 items-center">
                       <div className="line-through text-sm text-red-500">
-                        {item?.product.unitPrice}$
+                        {item?.product?.unitPrice}$
                       </div>
                       <div className="text-white font-medium bg-sky-300 py-0 px-2 rounded-md">
-                        {item?.product.priceAfterDiscount}$
+                        {item?.product?.priceAfterDiscount}$
                       </div>
                     </div>
                   )}

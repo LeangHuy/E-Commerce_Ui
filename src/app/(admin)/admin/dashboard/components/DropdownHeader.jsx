@@ -5,18 +5,18 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
 import SignOutButton from "@/components/Dropdown/SignOutButton";
+import { getUserData } from "@/service/user.service";
 
-const DropdownHeader = () => {
+const DropdownHeader = async () => {
+  // const userInfo = await getUserData();
+  // const user = userInfo?.payload?.user
+  // console.log(userInfo)
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

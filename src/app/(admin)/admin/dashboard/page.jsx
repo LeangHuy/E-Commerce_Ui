@@ -2,12 +2,15 @@ import React from "react";
 import Header from "./components/Header";
 import { redirect } from "next/navigation";
 import { getUserData } from "@/service/user.service";
+import { countTotalOrderPerDayService } from "@/service/order.service";
 
 const AdminDashboardPage = async ({ searchParams: { tab = "Overview" } }) => {
   const userData = await getUserData();
   if (userData.payload.role === "USER") {
     redirect("/");
   }
+  const countTotalOrderPerDay = await countTotalOrderPerDayService();
+  console.log(countTotalOrderPerDay)
 
   return (
     <div className="w-full">
