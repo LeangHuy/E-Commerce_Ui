@@ -6,6 +6,7 @@ import { getPhoto } from "@/lib/utils";
 import { BadgePercent } from "lucide-react";
 import { postBookmark } from "@/service/bookmark";
 import AddToBookmark from "../Button/AddToBookmark";
+import Tag from "../Tag/Tag";
 
 const ProductCard = ({
   products = [{ categoryName: "" }],
@@ -59,29 +60,39 @@ const ProductCard = ({
               </p>
             )}
           </div>
-          <section className="flex-grow border-t border-primary opacity-20"></section>
-          <Link href={`/view/product/${item?.productId}`} className="">
-            <h3 className="font-medium text-xl text-[#1d1d1d] line-clamp-1">
-              {item?.productName}
-            </h3>
 
-            <div className=" text-[18px flex justify-end">
-              {item?.discount == 0 ? (
-                <span className="text-white font-medium bg-sky-300 py-0 px-2 rounded-md">
-                  {item?.unitPrice}$
-                </span>
-              ) : (
-                <div className="flex gap-2 items-center">
-                  <div className="line-through text-sm text-red-500">
+          <section className="flex-grow border-t border-primary opacity-20"></section>
+            <Link href={`/view/product/${item?.productId}`} className="flex justify-between">
+              <h3 className="font-medium text-xl text-[#1d1d1d] line-clamp-1">
+                {item?.productName}
+              </h3>
+
+              <div className=" text-[18px flex justify-end">
+                {item?.discount == 0 ? (
+                  <span className="text-white font-medium bg-sky-300 py-0 px-2 rounded-md">
                     {item?.unitPrice}$
+                  </span>
+                ) : (
+                  <div className="flex gap-2 items-center">
+                    <div className="line-through text-sm text-red-500">
+                      {item?.unitPrice}$
+                    </div>
+                    <div className="text-white font-medium bg-sky-300 py-0 px-2 rounded-md">
+                      {item?.priceAfterDiscount}$
+                    </div>
                   </div>
-                  <div className="text-white font-medium bg-sky-300 py-0 px-2 rounded-md">
-                    {item?.priceAfterDiscount}$
-                  </div>
-                </div>
-              )}
+                )}
+              </div>
+            </Link>
+            <div className="flex gap-4 justify-end">
+              {/* <p className="font-semibold">Tags</p> */}
+              <Tag
+                title={"#" + item?.category.categoryName}
+                className={
+                  "bg-blue-400 font-semibold text-white hover:-translate-y-1 transition-all cursor-pointer hover:bg-sky-400 hover:text-white hover:border-transparent"
+                }
+              />
             </div>
-          </Link>
         </div>
       ))}
     </main>
