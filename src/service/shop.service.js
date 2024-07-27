@@ -2,6 +2,7 @@ import { authOption } from "@/app/api/auth/[...nextauth]/route";
 import { shopUrl } from "@/utils/constants";
 import { getServerSession } from "next-auth";
 import { getSession } from "next-auth/react";
+import { revalidateTag } from "next/cache";
 
 // export const getShopInfoService = async () => {
 //   try {
@@ -22,7 +23,9 @@ export const getShopInfoService = async () => {
     method: "GET",
     headers: {
       "CONTENT-TYPE": "application/json",
-      Authorization: `Bearer ${session.user.payload.token}`,
+    },
+    next: {
+      tag: ["getShopInfoService"],
     },
   });
   const data = await res.json();

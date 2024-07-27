@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 import { Minus, Plus } from "lucide-react";
 
@@ -15,14 +16,30 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { X } from "lucide-react";
+import { useAddToCart } from "@/store/useAddToCart";
+import toast from "react-hot-toast";
+import { orderAction } from "@/acitons/orderAction";
 
-export function DrawerCheckout() {
+export function DrawerCheckout({ price }) {
+  const { cartList, removeAllCart } = useAddToCart();
+
+  const onOrder = async (pro) => {
+    try {
+      console.log("pros", pro);
+      const result = await orderAction(pro);
+      console.log("result order", result);
+      removeAllCart();
+      toast.success("We will delivery products to you soon");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
   return (
     <Drawer>
       <DrawerTrigger asChild>
         <Button className="block w-full">Checkout now</Button>
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className="">
         <div className="mx-auto w-full max-w-sm ">
           {/* <DrawerHeader>
             <DrawerTitle className="text-center">
@@ -33,12 +50,12 @@ export function DrawerCheckout() {
             </DrawerDescription>
           </DrawerHeader> */}
           <DrawerClose asChild className="absolute top-4 right-4">
-            <div className="flex cursor-pointer items-center justify-center rounded-full">
+            <div className="flex cursor-pointer items-center justify-center rounded-full mt-8">
               <X />
             </div>
           </DrawerClose>
-          <div className="p-4 pb-0">
-            {/* <div className="mt-3 h-[120px]">
+          {/* <div className="p-4 pb-0">
+            <div className="mt-3 h-[120px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={data}>
                   <Bar
@@ -50,8 +67,8 @@ export function DrawerCheckout() {
                   />
                 </BarChart>
               </ResponsiveContainer>
-            </div> */}
-          </div>
+            </div>
+          </div> */}
         </div>
         <div className="w-[80%] mx-auto p-10 grid grid-cols-3 gap-10">
           <div className="flex flex-col gap-5">
@@ -59,9 +76,15 @@ export function DrawerCheckout() {
             <div>
               <p>
                 បងប្អូនអាចធ្វើការទូទាត់ប្រាក់តាមរយៈ ABA របស់ពួកយើងបាន
-                ដោយគ្រាន់តែចុចតំណរ Link ABA ឬ Scan QR Code ដែលពួកយើងបានដាក់
+                ដោយគ្រាន់តែ Scan QR Code ដែលពួកយើងបានដាក់
                 រាល់ការទូទាត់ប្រាក់របស់បងប្អូនវានឹងធ្វើការលោត Alert Notification
                 មកកាន់ Telegram របស់ពួកយើងដោយស្វ័យប្រវត្តិ!
+              </p>
+              <p>
+                ទឺកប្រាក់ដែលលោកអ្នកត្រូវទូទាត់ :{" "}
+                <span className="border px-3 py-0 rounded-md font-medium bg-sky-400 text-white after:content-['$']">
+                  {price}
+                </span>
               </p>
             </div>
           </div>
@@ -99,7 +122,18 @@ export function DrawerCheckout() {
           </div>
           <div className="col-start-2 col-end-3">
             {/* <DrawerClose asChild> */}
-            <Button variant="outline" className="block w-full">
+            <Button
+              onClick={() => {
+                onOrder(
+                  cartList.map((pro) => ({
+                    qty: pro?.qty,
+                    productId: pro?.productId,
+                  }))
+                );
+              }}
+              variant="outline"
+              className="block w-full"
+            >
               Done
             </Button>
             {/* </DrawerClose> */}

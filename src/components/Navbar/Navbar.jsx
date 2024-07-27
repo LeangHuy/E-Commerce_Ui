@@ -1,4 +1,3 @@
-// "use client";
 import Link from "next/link";
 import React from "react";
 import MyLink from "../Link/Link";
@@ -10,7 +9,11 @@ import { CustomSheet } from "../Sheet/CustomSheet";
 import Image from "next/image";
 import { DropdownMenuDemo, MenuDropdown } from "../Dropdown/Menu";
 import NavBadge from "./NavBadge";
-const Navbar = () => {
+import { getShopInfoService } from "@/service/shop.service";
+import { getPhoto } from "@/lib/utils";
+const Navbar = async () => {
+  const shopInfo = await getShopInfoService();
+
   return (
     <header className="py-6  shadow-sm bg-white">
       <div className="w-[1330px] max-[1400px]:w-[90%] mx-auto flex items-center justify-between">
@@ -19,11 +22,11 @@ const Navbar = () => {
             {/* <span>Cam</span>
             <span className="text-sky-500">Game</span> */}
             <Image
-              src="/images/logo.png"
+              src={getPhoto(shopInfo?.payload?.logo)}
               alt="alt"
               width={1000}
               height={1000}
-              className="w-10 h-10 rounded-full"
+              className="w-10 h-10 rounded-full object-cover"
             />
           </Link>
           <MyLink />

@@ -76,24 +76,61 @@ export const updateProductById = async (data, warranty, productId) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        //   Authorization: `Bearer ${session?.user?.token}`,
         Authorization: `Bearer ${session.user.payload.token}`,
       },
       body: JSON.stringify(data),
     }
   );
+  const product = await res.json();
+  console.log("product after update: ", product);
+  return product;
 
-  const { payload } = await res.json();
-  return payload;
+  // const { payload } = await res.json();
+  // return payload;
 };
 
 export const changeStatusProduct = async (productId, statusProduct) => {
   const session = await getServerSession(authOption);
-
   const res = await fetch(
-    `${
-      process.env.BASE_URL
-    }/products/status/${productId}?isStatus=${!statusProduct}`,
+    `${process.env.BASE_URL}/products/status/${productId}?newStatus=${statusProduct}`,
+
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        //   Authorization: `Bearer ${session?.user?.token}`,
+        Authorization: `Bearer ${session.user.payload.token}`,
+      },
+    }
+  );
+  const data = await res.json();
+  return data;
+};
+
+export const getAllProductActiveService = async () => {
+  try {
+    const res = await fetch(
+      `${process.env.BASE_URL}/products/active`,
+      {
+        headers: {
+          "Content-Type": "*/*",
+        },
+        cache: "no-store",
+      },
+      {
+        next: {
+          tag: ["getAllProductActiveService"],
+        },
+      }
+    ).then((data) => data.json());
+    return res?.payload;
+  } catch (error) {}
+};
+
+export const restockProductService = async (productId, newStock) => {
+  const session = await getServerSession(authOption);
+  const res = await fetch(
+    `${process.env.BASE_URL}/products/restock/${productId}?newStock=${newStock}`,
 
     {
       method: "PUT",

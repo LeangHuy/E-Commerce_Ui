@@ -14,7 +14,11 @@ const ButtonDelete = ({ productId, fnDelete, children }) => {
     }
   };
 
-  return <Button onClick={onDelete}>{children}</Button>;
+  return (
+    <Button className="ml-auto" onClick={onDelete}>
+      {children}
+    </Button>
+  );
 };
 
 export default ButtonDelete;

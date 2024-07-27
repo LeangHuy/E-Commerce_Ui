@@ -11,15 +11,12 @@ import { getAllSlideActive } from "@/service/slide.service";
 import MyPagination from "../(admin)/admin/dashboard/components/MyPagination";
 import { postBookmark } from "@/service/bookmark";
 
-
 async function Home({ searchParams: { q = "All" } }) {
   const products = await getAllProductService();
-  console.log("productlol",products)
+
   const categories = await getAllCategories();
   const getCate = categories?.map((cate) => cate?.categoryName);
   const activeSlides = await getAllSlideActive();
-
-
 
   return (
     <main className="w-[1330px] mx-auto max-[1400px]:w-[90%] ">
@@ -45,7 +42,7 @@ async function Home({ searchParams: { q = "All" } }) {
       <div id="product" className="scroll-mt-10">
         <ProductCard
           searchParams={q}
-          products={products?.filter((p) => p.discount <= 0)}
+          products={products?.filter((p) => p)}
           isPromotion={false}
         />
       </div>

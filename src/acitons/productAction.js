@@ -3,15 +3,22 @@
 import {
   changeStatusProduct,
   deleteProductService,
+  getAllProductActiveService,
   getAllProductService,
   getProductById,
   postProduct,
+  restockProductService,
   updateProductById,
 } from "@/service/product.service";
 import { revalidatePath, revalidateTag } from "next/cache";
 
 export const getAllProduct = async () => {
   const res = await getAllProductService();
+  return res;
+};
+
+export const getAllProductActiveAction = async () => {
+  const res = await getAllProductActiveService();
   return res;
 };
 
@@ -39,6 +46,12 @@ export const updateProductByIdAction = async (data, warranty, productId) => {
 
 export const changeStatusProductAction = async (productId, statusProduct) => {
   const result = await changeStatusProduct(productId, statusProduct);
-  revalidatePath("/admin/dashboard/product");
+  revalidateTag("getAllProductService");
+  return result;
+};
+
+export const restockProductAction = async (productId, newStock) => {
+  const result = await restockProductService(productId, newStock);
+  revalidateTag("getAllProductService");
   return result;
 };

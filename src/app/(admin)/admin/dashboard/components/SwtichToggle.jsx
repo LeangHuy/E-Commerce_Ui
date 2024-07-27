@@ -4,11 +4,9 @@ import { Switch } from "@/components/ui/switch";
 import { changeStatusSlideAction } from "@/acitons/slideAction";
 
 const SwitchToggle = ({ isActive, slideId, slide }) => {
-
   const onChange = async (slideId) => {
     await changeStatusSlideAction(slideId, isActive);
   };
-
 
   return (
     <Switch
