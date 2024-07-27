@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   DropdownMenu,
@@ -12,11 +13,27 @@ import {
 import Image from "next/image";
 import SignOutButton from "@/components/Dropdown/SignOutButton";
 import { getUserData } from "@/service/user.service";
+import { useEffect } from "react";
+import { useState } from "react";
+import { getPhoto } from "@/lib/utils";
+import { getUserAction } from "@/acitons/userAction";
+import Link from "next/link";
 
-const DropdownHeader = async () => {
+const DropdownHeader = () => {
   // const userInfo = await getUserData();
   // const user = userInfo?.payload?.user
   // console.log(userInfo)
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    getUserAction().then((data) => {
+      setUser(data.payload);
+      setLoading(false);
+    });
+  }, []);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -24,7 +41,9 @@ const DropdownHeader = async () => {
           <div>
             <Image
               src={
-                "https://images.unsplash.com/photo-1614644147798-f8c0fc9da7f6?q=80&w=2504&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                loading
+                  ? "https://images.unsplash.com/photo-1614644147798-f8c0fc9da7f6?q=80&w=2504&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  : getPhoto(user?.user?.profile)
               }
               priority
               width={1000}
@@ -34,8 +53,11 @@ const DropdownHeader = async () => {
             />
           </div>
           <div className="">
-            <p className="font-medium">Scalet Witch</p>
-            <p className="text-sm">me@gmail.com</p>
+            <p className="font-medium flex gap-2">
+              <span>{user?.user?.firstName}</span>
+              <span>{user?.user?.lastName}</span>
+            </p>
+            <p className="text-sm">{user?.user?.email}</p>
           </div>
         </div>
       </DropdownMenuTrigger>
@@ -44,7 +66,7 @@ const DropdownHeader = async () => {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            Home
+            <Link href={"/admin/dashboard?tab=Overview"}>Home</Link>
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>

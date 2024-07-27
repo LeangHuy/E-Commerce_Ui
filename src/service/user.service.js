@@ -10,7 +10,7 @@ export const getUserData = async () => {
   const res = await fetch(`${process.env.BASE_URL}/users`, {
     method: "GET",
     headers: {
-      "CONTENT-TYPE": "application/json",
+      // "CONTENT-TYPE": "application/json",
       Authorization: `Bearer ${session.user.payload.token}`,
     },
   });
