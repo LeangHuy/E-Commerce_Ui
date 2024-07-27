@@ -18,11 +18,11 @@ import { X } from "lucide-react";
 
 export function DrawerCheckout() {
   return (
-    <Drawer>
+    <Drawer >
       <DrawerTrigger asChild>
         <Button className="block w-full">Checkout now</Button>
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className="">
         <div className="mx-auto w-full max-w-sm ">
           {/* <DrawerHeader>
             <DrawerTitle className="text-center">
@@ -33,12 +33,12 @@ export function DrawerCheckout() {
             </DrawerDescription>
           </DrawerHeader> */}
           <DrawerClose asChild className="absolute top-4 right-4">
-            <div className="flex cursor-pointer items-center justify-center rounded-full">
+            <div className="flex cursor-pointer items-center justify-center rounded-full mt-8">
               <X />
             </div>
           </DrawerClose>
-          <div className="p-4 pb-0">
-            {/* <div className="mt-3 h-[120px]">
+          {/* <div className="p-4 pb-0">
+            <div className="mt-3 h-[120px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={data}>
                   <Bar
@@ -50,8 +50,8 @@ export function DrawerCheckout() {
                   />
                 </BarChart>
               </ResponsiveContainer>
-            </div> */}
-          </div>
+            </div>
+          </div> */}
         </div>
         <div className="w-[80%] mx-auto p-10 grid grid-cols-3 gap-10">
           <div className="flex flex-col gap-5">
@@ -59,10 +59,11 @@ export function DrawerCheckout() {
             <div>
               <p>
                 បងប្អូនអាចធ្វើការទូទាត់ប្រាក់តាមរយៈ ABA របស់ពួកយើងបាន
-                ដោយគ្រាន់តែចុចតំណរ Link ABA ឬ Scan QR Code ដែលពួកយើងបានដាក់
+                ដោយគ្រាន់តែ Scan QR Code ដែលពួកយើងបានដាក់
                 រាល់ការទូទាត់ប្រាក់របស់បងប្អូនវានឹងធ្វើការលោត Alert Notification
                 មកកាន់ Telegram របស់ពួកយើងដោយស្វ័យប្រវត្តិ!
               </p>
+              <p>ទឺកប្រាក់ដែលលោកអ្នកត្រូវទូទាត់ : <span className="border px-3 py-0 rounded-md font-medium bg-sky-400 text-white after:content-['$']">999</span></p>
             </div>
           </div>
           <div className="flex flex-col gap-5">

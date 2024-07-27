@@ -23,7 +23,6 @@ export const getShopInfoService = async () => {
     method: "GET",
     headers: {
       "CONTENT-TYPE": "application/json",
-      Authorization: `Bearer ${session.user.payload.token}`,
     },
     next: {
       tag: ["getShopInfoService"],
