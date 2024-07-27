@@ -162,6 +162,13 @@ const ProductTableComponent = ({ products }) => {
                                     </span>
                                   </label>
                                   <label class="block text-sm capitalize font-medium leading-6 text-gray-900 ">
+                                    Product Quality :{" "}
+                                    <span className={`font-bold ${product?.quality !== 'original' ? "after:content-['%']" : ''
+                                      }`}>
+                                      {product?.quality}
+                                    </span>
+                                  </label>
+                                  <label class="block text-sm capitalize font-medium leading-6 text-gray-900 ">
                                     Product Price :{" "}
                                     <span className="font-bold after:content-['$']">
                                       {product?.unitPrice}
@@ -268,7 +275,7 @@ const ProductTableComponent = ({ products }) => {
             </TableRow>
           ))}
         </TableBody>
-      </Table>
+      </Table >
       <div className="flex w-full justify-center">
         <Pagination
           isCompact
