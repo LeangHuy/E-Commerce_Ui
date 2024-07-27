@@ -25,7 +25,7 @@ const ProductCard = ({
               .includes(searchParams?.toLocaleLowerCase())
           );
   } else {
-    filterProducts = products?.filter((p) => p.discount > 0);
+    filterProducts = products?.filter((p) => p.discount > 5);
   }
 
   return (
@@ -49,7 +49,7 @@ const ProductCard = ({
                 className="object-cover w-full h-full  rounded-xl"
               />
             </Link>
-            <AddToBookmark item={item}/>
+            <AddToBookmark item={item} />
             {item?.discount > 0 && (
               <p className="absolute top-3 left-3 stroke-red-500 py-1 px-4 text-sm bg-white  rounded-full stroke-[2] flex gap-1 items-center cursor-pointer">
                 <span className="text-red-500 font-medium">

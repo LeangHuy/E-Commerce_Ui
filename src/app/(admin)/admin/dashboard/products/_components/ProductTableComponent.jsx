@@ -55,7 +55,7 @@ const ProductTableComponent = ({ products }) => {
   return (
     <>
       <Table>
-        <TableCaption>List of Products Show</TableCaption>
+        {/* <TableCaption>List of Products Show</TableCaption> */}
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]">No</TableHead>

@@ -49,15 +49,11 @@ const EditProductPage = ({
       })
     );
 
-    console.log("upload ", uploadedFiles);
-
     // Set storeFile state
     // setStoreFile([
     //   ...currentPro?.imageProductList.map((file) => file.fileName),
     //   ...uploadedFiles,
     // ]);
-
-    console.log("imgggggg", storeFile);
 
     // Proceed with submitting the product data
     const result = await updateProductByIdAction(
@@ -71,8 +67,6 @@ const EditProductPage = ({
       warranty,
       product_id
     );
-
-    console.log("result", result);
 
     // const updatedProduct = await updateProductByIdAction(
     //   {

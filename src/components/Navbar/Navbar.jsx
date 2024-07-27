@@ -13,7 +13,7 @@ import { getShopInfoService } from "@/service/shop.service";
 import { getPhoto } from "@/lib/utils";
 const Navbar = async () => {
   const shopInfo = await getShopInfoService();
-  console.log(shopInfo);
+
   return (
     <header className="py-6  shadow-sm bg-white">
       <div className="w-[1330px] max-[1400px]:w-[90%] mx-auto flex items-center justify-between">

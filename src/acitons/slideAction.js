@@ -8,8 +8,8 @@ import {
 } from "@/service/slide.service";
 import { revalidatePath, revalidateTag } from "next/cache";
 
-export const createSlideAction = async ({ title, description }) => {
-  const data = await createSlideShow({ title, description });
+export const createSlideAction = async ({ title, description, image }) => {
+  const data = await createSlideShow({ title, description, image });
   revalidateTag("getAllSlideShows");
   return data;
 };

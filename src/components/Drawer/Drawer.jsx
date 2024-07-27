@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 import { Minus, Plus } from "lucide-react";
 
@@ -15,10 +16,26 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { X } from "lucide-react";
+import { useAddToCart } from "@/store/useAddToCart";
+import toast from "react-hot-toast";
+import { orderAction } from "@/acitons/orderAction";
 
-export function DrawerCheckout() {
+export function DrawerCheckout({ price }) {
+  const { cartList, removeAllCart } = useAddToCart();
+
+  const onOrder = async (pro) => {
+    try {
+      console.log("pros", pro);
+      const result = await orderAction(pro);
+      console.log("result order", result);
+      removeAllCart();
+      toast.success("We will delivery products to you soon");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
   return (
-    <Drawer >
+    <Drawer>
       <DrawerTrigger asChild>
         <Button className="block w-full">Checkout now</Button>
       </DrawerTrigger>
@@ -63,7 +80,12 @@ export function DrawerCheckout() {
                 រាល់ការទូទាត់ប្រាក់របស់បងប្អូនវានឹងធ្វើការលោត Alert Notification
                 មកកាន់ Telegram របស់ពួកយើងដោយស្វ័យប្រវត្តិ!
               </p>
-              <p>ទឺកប្រាក់ដែលលោកអ្នកត្រូវទូទាត់ : <span className="border px-3 py-0 rounded-md font-medium bg-sky-400 text-white after:content-['$']">999</span></p>
+              <p>
+                ទឺកប្រាក់ដែលលោកអ្នកត្រូវទូទាត់ :{" "}
+                <span className="border px-3 py-0 rounded-md font-medium bg-sky-400 text-white after:content-['$']">
+                  {price}
+                </span>
+              </p>
             </div>
           </div>
           <div className="flex flex-col gap-5">
@@ -100,7 +122,18 @@ export function DrawerCheckout() {
           </div>
           <div className="col-start-2 col-end-3">
             {/* <DrawerClose asChild> */}
-            <Button variant="outline" className="block w-full">
+            <Button
+              onClick={() => {
+                onOrder(
+                  cartList.map((pro) => ({
+                    qty: pro?.qty,
+                    productId: pro?.productId,
+                  }))
+                );
+              }}
+              variant="outline"
+              className="block w-full"
+            >
               Done
             </Button>
             {/* </DrawerClose> */}

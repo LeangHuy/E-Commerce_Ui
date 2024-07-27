@@ -22,7 +22,6 @@ function MyPagination({ products }) {
       .toLocaleLowerCase()
       .includes(value.toLocaleLowerCase().trim());
   });
-  console.log("page ", page);
   return (
     <div className={` ${searchProduct?.length === 0 ? "hidden" : ""}`}>
       <Pagination

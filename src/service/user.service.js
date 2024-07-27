@@ -31,6 +31,5 @@ export const updateUserInfoService = async (data) => {
     body: JSON.stringify(data),
   });
   const result = await res.json();
-  console.log("data : ", result);
   return result;
 };
