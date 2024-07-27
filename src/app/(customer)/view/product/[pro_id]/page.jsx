@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { specs } from "@/data/spec";
 import { tags } from "@/data/tags";
 import { getPhoto } from "@/lib/utils";
-import { getProductById } from "@/service/product.service";
+import { getCategoryById, getProductById } from "@/service/product.service";
 import { getUserData } from "@/service/user.service";
 import clsx from "clsx";
 import { Check } from "lucide-react";
@@ -19,7 +19,7 @@ import React from "react";
 const page = async ({ params: { pro_id } }) => {
   if (pro_id == "undefined") notFound();
   const product = await getProductById(pro_id);
-
+  const category = await getCategoryById(product.category.categoryId)
   const user = await getUserData();
 
   return (
@@ -140,7 +140,7 @@ const page = async ({ params: { pro_id } }) => {
               <p className="font-semibold">Tags</p>
               <div className="flex  gap-2">
                 <Tag
-                  title={"#" + product?.categoryName}
+                  title={"#" + product?.category.categoryName}
                   className={
                     " hover:-translate-y-1 transition-all cursor-pointer hover:bg-sky-400 hover:text-white hover:border-transparent"
                   }
@@ -187,7 +187,7 @@ const page = async ({ params: { pro_id } }) => {
       </section>
       <section className="my-10">
         <h3 className="text-2xl font-semibold mb-6">Related </h3>
-        {/* <ProductCard /> */}
+         <ProductCard products={category} /> 
       </section>
     </div>
   );

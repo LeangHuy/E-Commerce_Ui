@@ -107,3 +107,20 @@ export const changeStatusProduct = async (productId, statusProduct) => {
   const data = await res.json();
   return data;
 };
+
+
+
+export const getCategoryById = async (categoryId) => {
+  try {
+    const res = await fetch(`${process.env.BASE_URL}/products/categories/${categoryId}`, {
+      headers: {
+        "Content-Type": "*/*",
+      },
+    }).then((data) => data.json());
+    return res?.payload;
+  } catch (error) {}
+};
+
+
+
+

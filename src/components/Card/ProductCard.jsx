@@ -6,6 +6,7 @@ import { getPhoto } from "@/lib/utils";
 import { BadgePercent } from "lucide-react";
 import { postBookmark } from "@/service/bookmark";
 import AddToBookmark from "../Button/AddToBookmark";
+import Tag from "../Tag/Tag";
 
 const ProductCard = ({
   products = [{ categoryName: "" }],
@@ -49,7 +50,7 @@ const ProductCard = ({
                 className="object-cover w-full h-full  rounded-xl"
               />
             </Link>
-            <AddToBookmark item={item}/>
+            <AddToBookmark item={item} />
             {item?.discount > 0 && (
               <p className="absolute top-3 left-3 stroke-red-500 py-1 px-4 text-sm bg-white  rounded-full stroke-[2] flex gap-1 items-center cursor-pointer">
                 <span className="text-red-500 font-medium">
@@ -58,6 +59,15 @@ const ProductCard = ({
                 <BadgePercent className="size-[1rem] stroke-red-500" />
               </p>
             )}
+          </div>
+          <div className="flex gap-4 justify-end">
+            {/* <p className="font-semibold">Tags</p> */}
+            <Tag
+              title={item?.category.categoryName}
+              className={
+                "bg-blue-400 font-semibold text-white hover:-translate-y-1 transition-all cursor-pointer hover:bg-sky-400 hover:text-white hover:border-transparent"
+              }
+            />
           </div>
           <section className="flex-grow border-t border-primary opacity-20"></section>
           <Link href={`/view/product/${item?.productId}`} className="">
