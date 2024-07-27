@@ -130,6 +130,28 @@ const AddProductPage = ({ searchParams: { tab = "Products" } }) => {
                       </div>
                     </div>
                   </div>
+
+                  <div className="">
+                    <label
+                      for="username"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Product Quality
+                    </label>
+                    <div className="mt-2">
+                      <div className="flex rounded-md shadow-sm ring-inset ring-gray-300  sm:max-w-md">
+                        <input
+                          {...register("quality", {
+                            required: true,
+                            valueAsNumber: true,
+                          })}
+                          type="number"
+                          className="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                          placeholder="original or 99%"
+                        />
+                      </div>
+                    </div>
+                  </div>
                   <div className="">
                     <label
                       for="username"
