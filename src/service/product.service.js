@@ -69,6 +69,7 @@ export const deleteProductService = async (productId) => {
 };
 
 export const updateProductById = async (data, warranty, productId) => {
+  console.log("data in service ", data);
   const session = await getServerSession(authOption);
   const res = await fetch(
     `${process.env.BASE_URL}/products/${productId}?warrantyTime=${warranty}`,
@@ -128,7 +129,7 @@ export const getAllProductActiveService = async () => {
 };
 
 export const restockProductService = async (productId, newStock) => {
-  console.log("productid",productId, newStock)
+  console.log("productid", productId, newStock);
   const session = await getServerSession(authOption);
   const res = await fetch(
     `${process.env.BASE_URL}/products/restock/${productId}?newStock=${newStock}`,
@@ -146,19 +147,16 @@ export const restockProductService = async (productId, newStock) => {
   return data;
 };
 
-
-
 export const getCategoryById = async (categoryId) => {
   try {
-    const res = await fetch(`${process.env.BASE_URL}/products/categories/${categoryId}`, {
-      headers: {
-        "Content-Type": "*/*",
-      },
-    }).then((data) => data.json());
+    const res = await fetch(
+      `${process.env.BASE_URL}/products/categories/${categoryId}`,
+      {
+        headers: {
+          "Content-Type": "*/*",
+        },
+      }
+    ).then((data) => data.json());
     return res?.payload;
   } catch (error) {}
 };
-
-
-
-

@@ -39,6 +39,22 @@ const EditProductPage = ({
   const [currentPro, setCurrentPro] = useState(null);
 
   const onSubmit = async (data) => {
+    console.log("data submit", {
+      // ...data,
+      productName: data.productName || currentPro?.productName,
+      productStock: data.productStock || currentPro?.productStock,
+      unitPrice: data?.unitPrice || currentPro.unitPrice,
+      productDesc: data.productDesc || currentPro.productDesc,
+      discount: data.discount || currentPro.discount,
+      categoryId: data.categoryId || currentPro.category.categoryId,
+      warrantyDate: data.warrantyDate || currentPro.warranty.warrantyDate,
+      // productImages: [
+      //   ...currentPro?.imageProductList.map((file) => file.fileName),
+      //   ...uploadedFiles,
+      // ],
+    });
+
+    // return;
     // Wait for all images to be uploaded
     const uploadedFiles = await Promise.all(
       img.map(async (i) => {
@@ -58,14 +74,22 @@ const EditProductPage = ({
     // Proceed with submitting the product data
     const result = await updateProductByIdAction(
       {
-        ...data,
+        // ...data,
+        productName: data.productName || currentPro?.productName,
+        productStock: data.productStock || currentPro?.productStock,
+        unitPrice: data?.unitPrice || currentPro.unitPrice,
+        productDesc: data.productDesc || currentPro.productDesc,
+        discount: data.discount || currentPro.discount,
+        categoryId: data.categoryId || currentPro.category.categoryId,
+        warrantyDate: data.warrantyDate || currentPro.warranty.warrantyDate,
+        quality: data.quality || currentPro.quality,
         productImages: [
           ...currentPro?.imageProductList.map((file) => file.fileName),
           ...uploadedFiles,
         ],
       },
-      warranty,
-      product_id
+      warranty || currentPro?.warranty.warrantyDate,
+      product_id || currentPro.product_id
     );
 
     // const updatedProduct = await updateProductByIdAction(
@@ -200,7 +224,7 @@ const EditProductPage = ({
                       <div className="flex rounded-md shadow-sm ring-inset ring-gray-300  sm:max-w-md">
                         <input
                           {...register("quality", {
-                            required: true,
+                            required: false,
                           })}
                           type="text"
                           defaultValue={currentPro?.quality}

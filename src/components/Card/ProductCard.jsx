@@ -21,10 +21,10 @@ const ProductCard = ({
       searchParams == "All" || undefined
         ? products
         : products.filter((p) =>
-          p?.category?.categoryName
-            .toLocaleLowerCase()
-            .includes(searchParams?.toLocaleLowerCase())
-        );
+            p?.category?.categoryName
+              .toLocaleLowerCase()
+              .includes(searchParams?.toLocaleLowerCase())
+          );
   } else {
     filterProducts = products?.filter((p) => p.discount > 5);
   }
@@ -44,8 +44,8 @@ const ProductCard = ({
                 alt="pic 1"
                 src={getPhoto(
                   item &&
-                  item?.imageProductList &&
-                  item?.imageProductList[0]?.fileName
+                    item?.imageProductList &&
+                    item?.imageProductList[0]?.fileName
                 )}
                 className="object-cover w-full h-full  rounded-xl"
               />
@@ -62,16 +62,11 @@ const ProductCard = ({
           </div>
 
           <section className="flex-grow border-t border-primary opacity-20"></section>
-          <Link
-            href={`/view/product/${item?.productId}`}
-            className=""
-          >
+          <Link href={`/view/product/${item?.productId}`} className="">
             <h3 className="font-medium text-xl text-[#1d1d1d] line-clamp-1">
               {item?.productName}
             </h3>
-            <p className="line-clamp-2 text-sm mb-3">
-              {item?.productDesc}
-            </p>
+            <p className="line-clamp-2 text-sm mb-3">{item?.productDesc}</p>
             <div className=" text-[18px flex justify-end">
               {item?.discount == 0 ? (
                 <span className="text-white font-medium bg-sky-300 py-0 px-2 rounded-md">
@@ -83,7 +78,7 @@ const ProductCard = ({
                     {item?.unitPrice}$
                   </div>
                   <div className="text-white font-medium bg-sky-300 py-0 px-2 rounded-md">
-                    {item?.priceAfterDiscount}$
+                    {parseFloat(item?.priceAfterDiscount).toFixed(2)}$
                   </div>
                 </div>
               )}
