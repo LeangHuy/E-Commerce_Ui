@@ -128,6 +128,7 @@ export const getAllProductActiveService = async () => {
 };
 
 export const restockProductService = async (productId, newStock) => {
+  console.log("productid",productId, newStock)
   const session = await getServerSession(authOption);
   const res = await fetch(
     `${process.env.BASE_URL}/products/restock/${productId}?newStock=${newStock}`,
