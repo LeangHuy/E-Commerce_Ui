@@ -18,7 +18,7 @@ import React from "react";
 const page = async ({ params: { pro_id } }) => {
   if (pro_id == "undefined") notFound();
   const product = await getProductById(pro_id);
-  const category = await getCategoryById(product.category.categoryId)
+  const category = await getCategoryById(product?.category?.categoryId)
   const user = await getUserData();
 
   return (
@@ -60,17 +60,18 @@ const page = async ({ params: { pro_id } }) => {
             <div className="flex items-center gap-6">
               <h3 className="text-2xl font-bold">{product?.productName}</h3>
               <Tag
-                className={" !rounded-full text-sky-500"}
-                title={"Original"}
+                className={`font-bold !rounded-full text-center text-sky-500 ${product?.quality !== 'original' ? "after:content-['%']" : ''
+                  }`}
+                title={`${product?.quality} `}
               />
             </div>
-            {product.discount !== 0 &&
+            {product?.discount !== 0 &&
               <div className="flex gap-4">
                 <p className="font-semibold">Discount</p>
                 <div className="flex  gap-2">
                   <Tag
                     className={
-                      "w-16 cursor-pointer bg-sky-400 text-white font-medium"
+                      "w-16 cursor-pointer bg-sky-400 text-white font-medium text-center"
                     }
                     title={`${product?.discount} %`}
                   />
@@ -161,7 +162,7 @@ const page = async ({ params: { pro_id } }) => {
       </section>
       <section className="my-10">
         <h3 className="text-2xl font-semibold mb-6">Related </h3>
-         <ProductCard products={category} /> 
+        <ProductCard products={category} />
       </section>
     </div>
   );
