@@ -126,6 +126,7 @@ const EditProductPage = ({
   useEffect(() => {
     console.log("current change pro", currentPro);
   }, [currentPro]);
+
   return (
     <div className="w-full">
       <Header tab={tab}>
@@ -183,6 +184,26 @@ const EditProductPage = ({
                           })}
                           type="number"
                           defaultValue={currentPro?.productStock}
+                          className="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="">
+                    <label
+                      htmlFor="username"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Product Quality
+                    </label>
+                    <div className="mt-2">
+                      <div className="flex rounded-md shadow-sm ring-inset ring-gray-300  sm:max-w-md">
+                        <input
+                          {...register("quality", {
+                            required: true,
+                          })}
+                          type="text"
+                          defaultValue={currentPro?.quality}
                           className="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                         />
                       </div>
@@ -445,7 +466,7 @@ const EditProductPage = ({
                     {/* <div  className="relative">
                       <Image
                         src={
-                          "http://34.143.196.56:9090/api/v1/files?fileName=25271d84-3549-4b2e-9f6f-9269d6cddc57.png"
+                          "http://localhost:9090/api/v1/files?fileName=25271d84-3549-4b2e-9f6f-9269d6cddc57.png"
                         }
                         width={1000}
                         height={1000}
