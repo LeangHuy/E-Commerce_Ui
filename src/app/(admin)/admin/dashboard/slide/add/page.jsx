@@ -7,7 +7,7 @@ import Header from "../../components/Header";
 import { useForm } from "react-hook-form";
 import { createSlideAction } from "@/acitons/slideAction";
 import Image from "next/image";
-import { uploadImgAction } from "@/acitons/uploadImgAction";
+import { postImgAction, uploadImgAction } from "@/acitons/uploadImgAction";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { revalidateWhere } from "@/acitons/revalidateAction";
@@ -28,20 +28,19 @@ const AdminDashboardPage = ({ searchParams: { tab = "Overview" } }) => {
   const [img, setImg] = useState({ imgPreview: null, imgFile: null });
 
   const onSubmit = async (data) => {
-    const result = await createSlideAction(data);
     const formData = new FormData();
     formData.append("file", img.imgFile);
-    const imgResult = await uploadImgAction(formData, result.slideId);
+    const imgResult = await postImgAction(formData);
+    const result = await createSlideAction({ ...data, image: imgResult });
     reset();
     setImg({ imgFile: null, imgPreview: null });
     await revalidateWhere("getAllSlideShows");
-    if (result?.slideId && imgResult?.fileName) {
+    if (result?.slideId) {
       router.push("/admin/dashboard/slide?tab=Slide");
     }
   };
 
-  useEffect(() => {
-  }, [img]);
+  useEffect(() => {}, [img]);
 
   return (
     <div className="w-full">
@@ -179,7 +178,9 @@ const AdminDashboardPage = ({ searchParams: { tab = "Overview" } }) => {
                 Cancel
               </Link>
               <Button>
-                {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                {isSubmitting && (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                )}
                 Save
               </Button>
             </div>

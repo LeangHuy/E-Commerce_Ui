@@ -13,7 +13,7 @@ import { postBookmark } from "@/service/bookmark";
 
 async function Home({ searchParams: { q = "All" } }) {
   const products = await getAllProductService();
-  console.log("productlol", products);
+
   const categories = await getAllCategories();
   const getCate = categories?.map((cate) => cate?.categoryName);
   const activeSlides = await getAllSlideActive();
@@ -42,7 +42,7 @@ async function Home({ searchParams: { q = "All" } }) {
       <div id="product" className="scroll-mt-10">
         <ProductCard
           searchParams={q}
-          products={products?.filter((p) => p.discount <= 0)}
+          products={products?.filter((p) => p)}
           isPromotion={false}
         />
       </div>

@@ -1,7 +1,7 @@
 import { authOption } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 
-export const createSlideShow = async ({ title, description }) => {
+export const createSlideShow = async ({ title, description, image }) => {
   const session = await getServerSession(authOption);
 
   const res = await fetch(`${process.env.BASE_URL}/slideshows`, {
@@ -14,6 +14,7 @@ export const createSlideShow = async ({ title, description }) => {
     body: JSON.stringify({
       title,
       description,
+      image,
     }),
   });
 
