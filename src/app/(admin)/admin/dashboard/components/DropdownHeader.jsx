@@ -29,7 +29,6 @@ const DropdownHeader = () => {
   useEffect(() => {
     setLoading(true);
     getUserAction().then((data) => {
-      console.log("data", data.payload);
       setUser(data.payload);
       setLoading(false);
     });
