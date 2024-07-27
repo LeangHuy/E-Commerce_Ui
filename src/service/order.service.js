@@ -28,7 +28,7 @@ export const orderService = async (proList) => {
 export const countTotalOrderPerDayService = async () => {
   const session = await getServerSession(authOption);
   try {
-    const res = await fetch(`${process.env.BASE_URL}/products/${productId}`, {
+    const res = await fetch(`${process.env.BASE_URL}/orders/total/per/day`, {
       headers: {
         "Content-Type": "*/*",
         Authorization: `Bearer ${session.user.payload.token}`,
