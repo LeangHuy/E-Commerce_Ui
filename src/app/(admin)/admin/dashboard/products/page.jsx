@@ -1,45 +1,9 @@
 import Header from "../components/Header";
 import { Button } from "@/components/ui/button";
-
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import Image from "next/image";
 import Link from "next/link";
-import { getPhoto } from "@/lib/utils";
-import SwitchToggle from "../components/SwtichToggle";
 import { getAllProductService } from "@/service/product.service";
-import { ArchiveRestore, Loader2, Package } from "lucide-react";
-import { Eye } from "lucide-react";
-import { MoreHorizontal } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Pen } from "lucide-react";
-import { Trash } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import ButtonDelete from "./ButtonDeleteProduct";
-import { deleteProductAction } from "@/acitons/productAction";
-import SwitchProduct from "../components/SwitchProduct";
-import RestockProduct from "./Restock/page";
+import { Package } from "lucide-react";
+import ProductTableComponent from "./_components/ProductTableComponent";
 
 const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
   const products = await getAllProductService();
@@ -56,7 +20,8 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
       </Header>
       <div className="content p-5 bg-gray-100">
         <div className=" bg-white min-h-screen rounded-2xl p-10">
-          <Table>
+          <ProductTableComponent products={products} />
+          {/* <Table>
             <TableCaption>List of Products Show</TableCaption>
             <TableHeader>
               <TableRow>
@@ -73,6 +38,7 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
               </TableRow>
             </TableHeader>
             <TableBody>
+
               {products?.map((product, idx) => (
                 <TableRow key={idx} className="group">
                   <TableCell className="font-medium">{idx + 1}</TableCell>
@@ -87,14 +53,6 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
                         className="size-[3.5rem] object-cover rounded-sm"
                       />
                     ) : null}
-                    {/* // <Image
-                    //   src={getPhoto(product?.imageProductList[0]?.fileName)}
-                    //   priority
-                    //   width={1000}
-                    //   height={1000}
-                    //   alt="profile"
-                    //   className="size-[3.5rem] object-cover rounded-sm"
-                    // /> */}
                   </TableCell>
                   <TableCell>{product?.productName}</TableCell>
                   <TableCell>{product?.productStock}</TableCell>
@@ -120,7 +78,7 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="w-50">
                           <DropdownMenuGroup>
-                            {/* Edit */}
+                     
                             <Link
                               href={`/admin/dashboard/products/edit/${product?.productId}?tab=Products`}
                             >
@@ -134,7 +92,7 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
                               </DropdownMenuItem>
                             </Link>
 
-                            {/* Restock */}
+                          
                             <div>
                               <div className="flex items-center gap-3 group">
                                 <div class="w-full">
@@ -143,7 +101,7 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
                               </div>
                             </div>
 
-                            {/* view */}
+                          
                             <div>
                               <div className="flex items-center gap-3 group">
                                 <Dialog>
@@ -231,7 +189,7 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
 
 
 
-                            {/* Delete */}
+                       
                             <div>
                               <div className="flex items-center gap-3 group">
                                 <Dialog>
@@ -253,7 +211,7 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
                                       </DialogDescription>
                                     </DialogHeader>
                                     <form
-                                      // onSubmit={handleSubmit(onSubmit)}
+                                 
                                       className="grid gap-4 py-4"
                                     >
                                       <div class="">
@@ -286,8 +244,9 @@ const ShopPage = async ({ searchParams: { tab = "Products" } }) => {
                   </TableCell>
                 </TableRow>
               ))}
+
             </TableBody>
-          </Table>
+          </Table> */}
         </div>
       </div>
     </div>
