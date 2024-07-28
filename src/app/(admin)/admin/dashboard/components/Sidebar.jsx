@@ -140,4 +140,16 @@ const menu_links = [
     ),
     tab: "/admin/dashboard/categories?tab=Categories",
   },
+  {
+    title: "Order",
+    icon: (active) => (
+      <PackagePlus
+        className={clsx(
+          "size-[18px] ",
+          active ? "stroke-white" : "stroke-black"
+        )}
+      />
+    ),
+    tab: "/admin/dashboard/order?tab=Order",
+  },
 ];

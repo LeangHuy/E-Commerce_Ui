@@ -1,5 +1,6 @@
 "use server";
 import {
+  changeStatusOrder,
   countTotalOrderPerDayService,
   orderService,
 } from "@/service/order.service";
@@ -13,5 +14,11 @@ export const orderAction = async (proList) => {
 
 export const countTotalOrderPerDayAction = async () => {
   const data = await countTotalOrderPerDayService();
+  return data;
+};
+
+export const changeStatusOrderAction = async (orderId, status) => {
+  const data = await changeStatusOrder(orderId, status);
+  revalidateTag("getAllOrders");
   return data;
 };

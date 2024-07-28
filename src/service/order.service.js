@@ -58,3 +58,49 @@ export const getAllOrders = async () => {
     };
   }
 };
+
+export const getAllOrdersAdmin = async () => {
+  const session = await getServerSession(authOption);
+
+  try {
+    const res = await fetch(`${process.env.BASE_URL}/orders/admin`, {
+      headers: {
+        "Content-Type": "*/*",
+        Authorization: `Bearer ${session.user.payload.token}`,
+      },
+      next: {
+        tags: ["getAllOrdersAdmin"],
+      },
+    }).then((data) => data.json());
+    return res?.payload;
+  } catch (error) {
+    return {
+      error: error.message,
+    };
+  }
+};
+
+export const changeStatusOrder = async (orderId, status) => {
+  const session = await getServerSession(authOption);
+
+  try {
+    const res = await fetch(
+      `${process.env.BASE_URL}/orders/${orderId}?status=${status}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "*/*",
+          Authorization: `Bearer ${session.user.payload.token}`,
+        },
+        next: {
+          tags: ["changeStatusOrder"],
+        },
+      }
+    ).then((data) => data.json());
+    return res?.payload;
+  } catch (error) {
+    return {
+      error: error.message,
+    };
+  }
+};
