@@ -22,7 +22,7 @@ const ActionPage = async () => {
               ))}
           </div>
         </div>
-        <div className="shadow-sm h-fit align-top hover:shadow-md duration-250 sticky top-6 overflow-hidden rounded-small grid grid-rows-[12rem_1fr]">
+        <div className="shadow-sm h-fit align-top hover:shadow-md duration-250 sticky top-6 overflow-hidden rounded-lg grid grid-rows-[12rem_1fr]">
           <div className=" relative bg-[url('https://images.unsplash.com/photo-1436335231969-f3271f28670d?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-center bg-cover">
             <Image
               width={1000}
