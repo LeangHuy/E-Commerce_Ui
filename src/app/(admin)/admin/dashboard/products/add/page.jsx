@@ -143,9 +143,9 @@ const AddProductPage = ({ searchParams: { tab = "Products" } }) => {
                         <input
                           {...register("quality", {
                             required: true,
-                            valueAsNumber: true,
+                            // valueAsNumber: true,
                           })}
-                          type="number"
+                          type="text"
                           className="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                           placeholder="original or 99%"
                         />
