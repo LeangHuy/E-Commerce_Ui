@@ -25,17 +25,32 @@ const CustomerProductComponent = ({ products, q }) => {
           isPromotion={false}
         />
       </div>
-      <div className="flex w-full justify-center">
+      {pages != 1 &&
+        <div className="flex w-full justify-center">
+          <Pagination
+            isCompact
+            showShadow
+            color="secondary "
+            classNames={{
+              item: "bg-sky-400 rounded-md text-white font-medium m-1",
+            }}
+            className="bg-none"
+            page={page}
+            total={pages}
+            onChange={(page) => setPage(page)}
+          />
+        </div>
+      }
+      {/* <div className="flex w-full justify-center mb-3">
         <Pagination
           isCompact
-          showControls
           showShadow
           color="secondary"
           page={page}
           total={pages}
           onChange={(page) => setPage(page)}
         />
-      </div>
+      </div> */}
     </div>
   );
 };

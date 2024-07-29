@@ -8,7 +8,7 @@ import { revalidateTag } from "next/cache";
 
 export const orderAction = async (proList) => {
   const data = await orderService(proList);
-  revalidateTag("getAllOrders");
+  // revalidateTag("getAllOrders");
   return data;
 };
 
