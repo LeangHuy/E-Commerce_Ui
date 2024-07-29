@@ -160,3 +160,48 @@ export const getCategoryById = async (categoryId) => {
     return res?.payload;
   } catch (error) {}
 };
+
+export const allProductInShop = async () => {
+  const session = await getServerSession(authOption);
+  try {
+    const res = await fetch(`${process.env.BASE_URL}/products/product/all`, {
+      headers: {
+        "Content-Type": "*/*",
+        Authorization: `Bearer ${session.user.payload.token}`,
+      },
+    }).then((data) => data.json());
+    return res?.payload;
+  } catch (error) {}
+};
+
+export const allProductInStock = async () => {
+  const session = await getServerSession(authOption);
+  try {
+    const res = await fetch(
+      `${process.env.BASE_URL}/products/product/in-stock`,
+      {
+        headers: {
+          "Content-Type": "*/*",
+          Authorization: `Bearer ${session.user.payload.token}`,
+        },
+      }
+    ).then((data) => data.json());
+    return res?.payload;
+  } catch (error) {}
+};
+
+export const allProductOutStock = async () => {
+  const session = await getServerSession(authOption);
+  try {
+    const res = await fetch(
+      `${process.env.BASE_URL}/products/product/out-stock`,
+      {
+        headers: {
+          "Content-Type": "*/*",
+          Authorization: `Bearer ${session.user.payload.token}`,
+        },
+      }
+    ).then((data) => data.json());
+    return res?.payload;
+  } catch (error) {}
+};

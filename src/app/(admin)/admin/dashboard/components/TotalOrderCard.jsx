@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/card";
 import { ChartContainer } from "@/components/ui/chart";
 
-export function TotalOrder({ orderCount, data: { title, description, subtitle } }) {
+export function TotalOrder({ orderCount, data: { title, description, subtitle, color } }) {
   const chartData = [
     { browser: "safari", visitors: orderCount, fill: "var(--color-safari)" },
   ];
@@ -30,7 +30,7 @@ export function TotalOrder({ orderCount, data: { title, description, subtitle } 
     },
     safari: {
       label: "Safari",
-      color: "hsl(var(--chart-1))",
+      color: `hsl(var(--chart-${color}))`,
     },
   };
   return (

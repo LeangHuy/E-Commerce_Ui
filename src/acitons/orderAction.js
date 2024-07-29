@@ -23,6 +23,11 @@ export const countTotalOrderAction = async () => {
   return data;
 };
 
+export const totalPriceOrderAction = async () => {
+  const data = await countTotalOrderService();
+  return data;
+};
+
 export const changeStatusOrderAction = async (orderId, status) => {
   const data = await changeStatusOrder(orderId, status);
   revalidateTag("getAllOrders");
