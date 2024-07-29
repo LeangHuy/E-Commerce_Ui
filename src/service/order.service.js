@@ -38,6 +38,19 @@ export const countTotalOrderPerDayService = async () => {
   } catch (error) {}
 };
 
+export const countTotalOrderService = async () => {
+  const session = await getServerSession(authOption);
+  try {
+    const res = await fetch(`${process.env.BASE_URL}/orders/total/all`, {
+      headers: {
+        "Content-Type": "*/*",
+        Authorization: `Bearer ${session.user.payload.token}`,
+      },
+    }).then((data) => data.json());
+    return res?.payload;
+  } catch (error) {}
+};
+
 export const getAllOrders = async () => {
   const session = await getServerSession(authOption);
 

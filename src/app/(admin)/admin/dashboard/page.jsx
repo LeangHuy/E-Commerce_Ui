@@ -2,7 +2,7 @@ import React from "react";
 import Header from "./components/Header";
 import { redirect } from "next/navigation";
 import { getUserData } from "@/service/user.service";
-import { countTotalOrderPerDayService } from "@/service/order.service";
+import { countTotalOrderPerDayService, countTotalOrderService } from "@/service/order.service";
 import CardOverview from "./CardOverview";
 import { ShoppingBag } from "lucide-react";
 import { TotalOrder } from "./components/TotalOrderCard";
@@ -13,7 +13,7 @@ const AdminDashboardPage = async ({ searchParams: { tab = "Overview" } }) => {
     redirect("/");
   }
   const countTotalOrderPerDay = await countTotalOrderPerDayService();
-  console.log(countTotalOrderPerDay);
+  const countAllDayOrder = await countTotalOrderService();
 
   return (
     <div className="w-full">
@@ -31,7 +31,8 @@ const AdminDashboardPage = async ({ searchParams: { tab = "Overview" } }) => {
                 des: "Orders today",
               }}
             /> */}
-            <TotalOrder orderCount={countTotalOrderPerDay} />
+            <TotalOrder orderCount={countTotalOrderPerDay} data={{ title: "Orders", description: "Showing total orders for the today.", subtitle: "Total order today" }} />
+            <TotalOrder orderCount={countAllDayOrder} data={{ title: "Orders", description: "Showing total orders for the everyday.", subtitle: "Total order everyday" }} />
           </div>
         </div>
       </div>

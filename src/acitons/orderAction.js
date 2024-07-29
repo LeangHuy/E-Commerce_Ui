@@ -2,6 +2,7 @@
 import {
   changeStatusOrder,
   countTotalOrderPerDayService,
+  countTotalOrderService,
   orderService,
 } from "@/service/order.service";
 import { revalidateTag } from "next/cache";
@@ -14,6 +15,11 @@ export const orderAction = async (proList) => {
 
 export const countTotalOrderPerDayAction = async () => {
   const data = await countTotalOrderPerDayService();
+  return data;
+};
+
+export const countTotalOrderAction = async () => {
+  const data = await countTotalOrderService();
   return data;
 };
 
