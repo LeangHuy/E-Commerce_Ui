@@ -26,11 +26,10 @@ const RestockProduct = ({ product }) => {
   } = useForm();
   async function onSubmit(data) {
     const result = await restockProductAction(product?.productId, data.newStock);
-    console.log("result", result);
-    if (result?.statusCode === 200 ) {
-        toast.success("Product has been restocsk");
-    }else{
-        toast.error(result.detail);
+    if (result?.statusCode === 200) {
+      toast.success("Product has been restocsk");
+    } else {
+      toast.error(result.detail);
     }
   }
 

@@ -7,7 +7,6 @@ import React from "react";
 
 async function BookmarkPage() {
   const bookmarkData = await getBookmarks();
-  console.log(bookmarkData);
   return (
     <div className="w-[1330px] mx-auto min-h-[50vh]  my-10  gap-10">
       <div className="font-semibold text-[1.6rem]">Bookmarks</div>

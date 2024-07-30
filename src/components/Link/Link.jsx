@@ -7,7 +7,6 @@ import React from "react";
 
 const MyLink = () => {
   const path = usePathname();
-  console.log(path, "k".endsWith("k"));
   return (
     <nav>
       <ul className="flex items-center gap-6">
@@ -21,8 +20,8 @@ const MyLink = () => {
                 path.endsWith("/") == "/"
                   ? "text-sky-500"
                   : path == link.path
-                  ? "text-sky-500"
-                  : ""
+                    ? "text-sky-500"
+                    : ""
               )}
             >
               {link.link}

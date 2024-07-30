@@ -69,7 +69,6 @@ export const deleteProductService = async (productId) => {
 };
 
 export const updateProductById = async (data, warranty, productId) => {
-  console.log("data in service ", data);
   const session = await getServerSession(authOption);
   const res = await fetch(
     `${process.env.BASE_URL}/products/${productId}?warrantyTime=${warranty}`,
@@ -83,7 +82,6 @@ export const updateProductById = async (data, warranty, productId) => {
     }
   );
   const product = await res.json();
-  console.log("product after update: ", product);
   return product;
 
   // const { payload } = await res.json();
@@ -129,7 +127,6 @@ export const getAllProductActiveService = async () => {
 };
 
 export const restockProductService = async (productId, newStock) => {
-  console.log("productid", productId, newStock);
   const session = await getServerSession(authOption);
   const res = await fetch(
     `${process.env.BASE_URL}/products/restock/${productId}?newStock=${newStock}`,

@@ -17,7 +17,6 @@ import { ChevronDown } from "lucide-react";
 export function Action({ data }) {
   const handleStatus = async (orderId, status) => {
     const res = await changeStatusOrderAction(orderId, status);
-    console.log("Res status", res?.status)
     if (res?.status == "DELIVERY") {
       toast.success(`The orders is on delivery.`);
     } else if (res?.status == "DONE") {

@@ -15,7 +15,6 @@ export const orderService = async (proList) => {
     });
 
     const result = await res.json();
-    console.log("result", result);
     if (result.status == 400) throw new Error("Product out of stock");
 
     const { payload } = result;

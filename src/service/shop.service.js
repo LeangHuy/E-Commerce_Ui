@@ -4,19 +4,6 @@ import { getServerSession } from "next-auth";
 import { getSession } from "next-auth/react";
 import { revalidateTag } from "next/cache";
 
-// export const getShopInfoService = async () => {
-//   try {
-//     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/shops`, {
-//       next: { tags: ["shop"] },
-//     })
-//       .then((data) => data.json())
-//       .catch((e) => console.log(e));
-//     return res;
-//   } catch (e) {
-//     console.log("Error: ", e);
-//   }
-// };
-
 export const getShopInfoService = async () => {
   const session = await getServerSession(authOption);
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/shops`, {
