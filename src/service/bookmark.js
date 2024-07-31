@@ -9,7 +9,6 @@ export const getBookmarks = async () => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      //   Authorization: `Bearer ${session?.user?.token}`,
       Authorization: `Bearer ${session.user.payload.token}`,
     },
   });
@@ -25,7 +24,6 @@ export const postBookmark = async (product_id) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        //   Authorization: `Bearer ${session?.user?.token}`,
         Authorization: `Bearer ${session.user.payload.token}`,
       },
       // body: JSON.stringify()

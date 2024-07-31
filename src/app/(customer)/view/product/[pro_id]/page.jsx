@@ -1,16 +1,11 @@
 import BreadCrumb from "@/components/BreadCrumb/BreadCrumb";
-import AddToCartButton from "@/components/Button/AddToCartButton";
 import ProductCard from "@/components/Card/ProductCard";
 import Tag from "@/components/Tag/Tag";
 import { AddToCart, MyToast } from "@/components/Toast/MyToast";
-import { Button } from "@/components/ui/button";
-import { specs } from "@/data/spec";
-import { tags } from "@/data/tags";
 import { getPhoto } from "@/lib/utils";
 import { getCategoryById, getProductById } from "@/service/product.service";
 import { getUserData } from "@/service/user.service";
 import { Check } from "lucide-react";
-import { DollarSign } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import React from "react";
@@ -65,6 +60,14 @@ const page = async ({ params: { pro_id } }) => {
                 title={`${product?.quality} `}
               />
             </div>
+            {
+              product?.warranty?.warrantyDate != 0 &&
+              <div className="flex gap-2">
+                <span>Warranty : </span>
+                <p className="border border-gray-300 px-2 rounded-md font-medium">{product?.warranty?.warrantyDate} {product?.warranty?.warrantyTime}</p>
+              </div>
+
+            }
             {product?.discount !== 0 &&
               <div className="flex gap-4">
                 <p className="font-semibold">Discount</p>
@@ -79,10 +82,10 @@ const page = async ({ params: { pro_id } }) => {
               </div>
             }
 
-            <div className=" text-[18px] text-[#ff540a]">
+            <div className=" text-[18px]">
               {product?.discount == 0 ?
                 <div className="flex gap-2">
-                  <p className="font-semibold">Original price :</p>
+                  <p className="font-semibold">Price :</p>
                   <div className="flex text-sky-400 font-bold">
                     {product?.unitPrice}$
                   </div>
@@ -102,9 +105,6 @@ const page = async ({ params: { pro_id } }) => {
                     </div>
                   </div>
                 </div>
-
-
-
               }
             </div>
             <div className="flex flex-col gap-4">

@@ -3,7 +3,7 @@ import React from "react";
 import { categories } from "@/data/categories";
 import ProductCard from "@/components/Card/ProductCard";
 import CategoryButton from "@/components/Button/CategoryButton";
-import { getAllProductService } from "@/service/product.service";
+import { getAllProductActiveService, getAllProductService } from "@/service/product.service";
 import { mock_data } from "@/data/mock_data";
 import { getAllCategories } from "@/service/category.service";
 import { ImagesSliderDemo } from "@/components/Slider/ImageSlider";
@@ -13,7 +13,7 @@ import { postBookmark } from "@/service/bookmark";
 import CustomerProductComponent from "./_component/CustomerProductComponent";
 
 async function Home({ searchParams: { q = "All" } }) {
-  const products = await getAllProductService();
+  const products = await getAllProductActiveService();
 
   const categories = await getAllCategories();
   const getCate = categories?.map((cate) => cate?.categoryName);
@@ -27,7 +27,6 @@ async function Home({ searchParams: { q = "All" } }) {
       )}
       <div className="flex mt-10 justify-between">
         <div className="font-medium text-[1.5rem]">Promotion products</div>
-        {/* <CategoryButton categories={["All", ...categories]} /> */}
       </div>
       <div id="popular" className="scroll-mt-10">
         <ProductCard searchParams={q} products={products} isPromotion={true} />

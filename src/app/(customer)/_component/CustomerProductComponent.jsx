@@ -16,6 +16,10 @@ const CustomerProductComponent = ({ products, q }) => {
 
     return products.slice(start, end);
   }, [page, products]);
+
+  console.log("product data: ", productData)
+
+
   return (
     <div>
       <div id="product" className="scroll-mt-10">
@@ -41,16 +45,6 @@ const CustomerProductComponent = ({ products, q }) => {
           />
         </div>
       }
-      {/* <div className="flex w-full justify-center mb-3">
-        <Pagination
-          isCompact
-          showShadow
-          color="secondary"
-          page={page}
-          total={pages}
-          onChange={(page) => setPage(page)}
-        />
-      </div> */}
     </div>
   );
 };
