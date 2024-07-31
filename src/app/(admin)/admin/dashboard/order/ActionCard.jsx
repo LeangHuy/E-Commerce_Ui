@@ -31,7 +31,7 @@ const ActionCard = async ({ order }) => {
                 {order?.orderTotalQty}
               </p>
             </div>
-            <span className="bg-gray-200 self-start py-1 px-2 text-sm rounded-lg">
+            <span className="bg-gray-100 self-start py-1 px-2 text-sm rounded-lg">
               {new Date(order?.orderDate).toDateString()}
             </span>
           </div>
