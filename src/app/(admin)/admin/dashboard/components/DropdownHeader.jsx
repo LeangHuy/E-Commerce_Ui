@@ -20,9 +20,7 @@ import { getUserAction } from "@/acitons/userAction";
 import Link from "next/link";
 
 const DropdownHeader = () => {
-  // const userInfo = await getUserData();
-  // const user = userInfo?.payload?.user
-  // console.log(userInfo)
+
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
 

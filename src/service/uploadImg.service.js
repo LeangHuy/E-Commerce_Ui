@@ -29,18 +29,11 @@ export const uploadImgProduct = async (fileImg, productId) => {
     {
       method: "POST",
       headers: {
-        // "Content-Type": "multipart/form-data",
-        // accept: "*/*",
-        //   Authorization: `Bearer ${session?.user?.token}`,
         Authorization: `Bearer ${session.user.payload.token}`,
       },
       body: fileImg,
     }
   );
-
-  // if (!res.ok) {
-  //   console.log("res", res);
-  // }
 
   const { payload } = await res.json();
 
@@ -48,8 +41,6 @@ export const uploadImgProduct = async (fileImg, productId) => {
 };
 
 export const postImg = async (fileImg) => {
-  // console.log("file", fileImg);
-  // return;
   const res = await fetch(`${process.env.BASE_URL}/files`, {
     method: "POST",
     body: fileImg,

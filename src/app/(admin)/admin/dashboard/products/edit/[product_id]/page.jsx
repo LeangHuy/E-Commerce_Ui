@@ -39,22 +39,7 @@ const EditProductPage = ({
   const [currentPro, setCurrentPro] = useState(null);
 
   const onSubmit = async (data) => {
-    console.log("data submit", {
-      // ...data,
-      productName: data.productName || currentPro?.productName,
-      productStock: data.productStock || currentPro?.productStock,
-      unitPrice: data?.unitPrice || currentPro.unitPrice,
-      productDesc: data.productDesc || currentPro.productDesc,
-      discount: data.discount || currentPro.discount,
-      categoryId: data.categoryId || currentPro.category.categoryId,
-      warrantyDate: data.warrantyDate || currentPro.warranty.warrantyDate,
-      // productImages: [
-      //   ...currentPro?.imageProductList.map((file) => file.fileName),
-      //   ...uploadedFiles,
-      // ],
-    });
 
-    // return;
     // Wait for all images to be uploaded
     const uploadedFiles = await Promise.all(
       img.map(async (i) => {
@@ -65,11 +50,6 @@ const EditProductPage = ({
       })
     );
 
-    // Set storeFile state
-    // setStoreFile([
-    //   ...currentPro?.imageProductList.map((file) => file.fileName),
-    //   ...uploadedFiles,
-    // ]);
 
     // Proceed with submitting the product data
     const result = await updateProductByIdAction(
@@ -92,33 +72,6 @@ const EditProductPage = ({
       product_id || currentPro.product_id
     );
 
-    // const updatedProduct = await updateProductByIdAction(
-    //   {
-    //     productName:
-    //       data?.productName == "" ? currentPro?.productName : data?.productName,
-    //     productStock: isNaN(data?.productStock)
-    //       ? currentPro?.productStock
-    //       : data?.productStock,
-    //     unitPrice: isNaN(data?.unitPrice)
-    //       ? currentPro?.unitPrice
-    //       : data?.unitPrice,
-    //     productDesc:
-    //       data?.productDesc == "" ? currentPro?.productDesc : data?.productDesc,
-    //     discount: isNaN(data?.discount) ? currentPro?.discount : data?.discount,
-    //     categoryId:
-    //       data?.categoryId == ""
-    //         ? currentPro?.category?.categoryId
-    //         : data?.categoryId,
-    //     warrantyDate: isNaN(data?.warrantyDate)
-    //       ? currentPro?.warranty?.warrantyDate
-    //       : data?.warrantyDate,
-    //     productImages: [...storeFile],
-    //   },
-    //   warranty,
-    //   product_id
-    // );
-
-    // reset();
 
     if (result?.statusCode == 200) {
       // setImg([{ imgFile: null, imgPreview: null }]);
@@ -143,12 +96,10 @@ const EditProductPage = ({
       setCurrentPro(data);
       setWarranty(data?.warranty?.warrantyTime);
       setStoreFile([...data?.imageProductList]);
-      console.log("data : ", data);
     });
   }, []);
 
   useEffect(() => {
-    console.log("current change pro", currentPro);
   }, [currentPro]);
 
   return (
@@ -490,7 +441,7 @@ const EditProductPage = ({
                     {/* <div  className="relative">
                       <Image
                         src={
-                          "http://localhost:9090/api/v1/files?fileName=25271d84-3549-4b2e-9f6f-9269d6cddc57.png"
+                          "http://34.143.196.56:9090/api/v1/files?fileName=25271d84-3549-4b2e-9f6f-9269d6cddc57.png"
                         }
                         width={1000}
                         height={1000}

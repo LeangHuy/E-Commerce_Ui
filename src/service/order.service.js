@@ -15,8 +15,7 @@ export const orderService = async (proList) => {
     });
 
     const result = await res.json();
-    console.log("result", result);
-    if (result.status == 400) throw new Error("Product out of stock");
+    if (result.status == 400) throw new Error(result.detail);
 
     const { payload } = result;
     return payload;
@@ -29,6 +28,32 @@ export const countTotalOrderPerDayService = async () => {
   const session = await getServerSession(authOption);
   try {
     const res = await fetch(`${process.env.BASE_URL}/orders/total/per/day`, {
+      headers: {
+        "Content-Type": "*/*",
+        Authorization: `Bearer ${session.user.payload.token}`,
+      },
+    }).then((data) => data.json());
+    return res?.payload;
+  } catch (error) {}
+};
+
+export const countTotalOrderService = async () => {
+  const session = await getServerSession(authOption);
+  try {
+    const res = await fetch(`${process.env.BASE_URL}/orders/total/all`, {
+      headers: {
+        "Content-Type": "*/*",
+        Authorization: `Bearer ${session.user.payload.token}`,
+      },
+    }).then((data) => data.json());
+    return res?.payload;
+  } catch (error) {}
+};
+
+export const totalPriceOrderService = async () => {
+  const session = await getServerSession(authOption);
+  try {
+    const res = await fetch(`${process.env.BASE_URL}/orders/all/total/price`, {
       headers: {
         "Content-Type": "*/*",
         Authorization: `Bearer ${session.user.payload.token}`,

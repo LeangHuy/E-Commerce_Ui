@@ -5,15 +5,13 @@ import React from "react";
 import toast from "react-hot-toast";
 
 function AddToBookmark({ item }) {
-  async function postBookmarkfunc(productId) {
+  async function postBookmarkFunc(productId) {
     const result = await postBookmark(productId);
-    console.log("result", result);
     if (result.statusCode == 201) toast.success("Added to bookmark");
   }
   return (
     <Heart
-      // onClick={() => setIsActive(idx)}
-      onClick={() => postBookmarkfunc(item.productId)}
+      onClick={() => postBookmarkFunc(item.productId)}
       className={`absolute top-3 right-3 size-[35px] stroke-red-500 p-2 bg-white  rounded-full stroke-[2] cursor-pointer `}
     />
   );

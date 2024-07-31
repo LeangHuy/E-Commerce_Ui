@@ -1,6 +1,6 @@
 "use client";
 import { clsx } from "clsx";
-import { Images } from "lucide-react";
+import { Images, ShoppingCart, ShoppingCartIcon } from "lucide-react";
 import { ShoppingBag } from "lucide-react";
 import { PackagePlus } from "lucide-react";
 import { LayoutDashboardIcon } from "lucide-react";
@@ -143,7 +143,7 @@ const menu_links = [
   {
     title: "Order",
     icon: (active) => (
-      <PackagePlus
+      <ShoppingCartIcon
         className={clsx(
           "size-[18px] ",
           active ? "stroke-white" : "stroke-black"

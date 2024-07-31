@@ -69,7 +69,6 @@ export const deleteProductService = async (productId) => {
 };
 
 export const updateProductById = async (data, warranty, productId) => {
-  console.log("data in service ", data);
   const session = await getServerSession(authOption);
   const res = await fetch(
     `${process.env.BASE_URL}/products/${productId}?warrantyTime=${warranty}`,
@@ -83,7 +82,6 @@ export const updateProductById = async (data, warranty, productId) => {
     }
   );
   const product = await res.json();
-  console.log("product after update: ", product);
   return product;
 
   // const { payload } = await res.json();
@@ -129,7 +127,6 @@ export const getAllProductActiveService = async () => {
 };
 
 export const restockProductService = async (productId, newStock) => {
-  console.log("productid", productId, newStock);
   const session = await getServerSession(authOption);
   const res = await fetch(
     `${process.env.BASE_URL}/products/restock/${productId}?newStock=${newStock}`,
@@ -154,6 +151,51 @@ export const getCategoryById = async (categoryId) => {
       {
         headers: {
           "Content-Type": "*/*",
+        },
+      }
+    ).then((data) => data.json());
+    return res?.payload;
+  } catch (error) {}
+};
+
+export const allProductInShop = async () => {
+  const session = await getServerSession(authOption);
+  try {
+    const res = await fetch(`${process.env.BASE_URL}/products/product/all`, {
+      headers: {
+        "Content-Type": "*/*",
+        Authorization: `Bearer ${session.user.payload.token}`,
+      },
+    }).then((data) => data.json());
+    return res?.payload;
+  } catch (error) {}
+};
+
+export const allProductInStock = async () => {
+  const session = await getServerSession(authOption);
+  try {
+    const res = await fetch(
+      `${process.env.BASE_URL}/products/product/in-stock`,
+      {
+        headers: {
+          "Content-Type": "*/*",
+          Authorization: `Bearer ${session.user.payload.token}`,
+        },
+      }
+    ).then((data) => data.json());
+    return res?.payload;
+  } catch (error) {}
+};
+
+export const allProductOutStock = async () => {
+  const session = await getServerSession(authOption);
+  try {
+    const res = await fetch(
+      `${process.env.BASE_URL}/products/product/out-stock`,
+      {
+        headers: {
+          "Content-Type": "*/*",
+          Authorization: `Bearer ${session.user.payload.token}`,
         },
       }
     ).then((data) => data.json());

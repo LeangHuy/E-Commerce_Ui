@@ -25,9 +25,7 @@ export function DrawerCheckout({ price }) {
 
   const onOrder = async (pro) => {
     try {
-      console.log("pros", pro);
       const result = await orderAction(pro);
-      console.log("result order", result);
       removeAllCart();
       toast.success("We will delivery products to you soon");
     } catch (error) {
@@ -105,25 +103,30 @@ export function DrawerCheckout({ price }) {
             <div className="flex flex-col gap-3">
               <p>
                 ក្រោយពេលបងប្អូនធ្វើការទូទាត់ប្រាក់រួច
-                បងប្អូនអាចចុចតំណរខាងក្រោមនេះដើម្បីធ្វើការឆាតជាមួយនឹងពួកយើងតាម
+                បងប្អូនអាចចុចពាក្យ "DONE" នៅខាងក្រោមនេះដើម្បីបញ្ចាក់ពីការទូទាត់ប្រាក់រួចរាល់​និងធ្វើការឆាតជាមួយនឹងពួកយើងតាម
                 Telegram
                 ក្នុងការបញ្ចាក់ប្រាប់ពីទីតាំងនិងលេខទំនាក់ទំនងបងប្អូនដើម្បីទទួលបានឥវ៉ាន់
               </p>
-              <Button className="block w-full ">
-                <Link
-                  href={"https://t.me/Playstation_Game_cambodia"}
-                  className="font-semibold"
-                  target="_blank"
-                >
+              <Link
+                href={"https://t.me/Playstation_Game_cambodia"}
+                className="font-semibold"
+                target="_blank"
+              >
+                <Button className="block w-full ">
+
                   Contact us via Telegram
-                </Link>
-              </Button>
+                </Button>
+
+              </Link>
             </div>
           </div>
           <div className="col-start-2 col-end-3">
             {/* <DrawerClose asChild> */}
+
             <Button
-              onClick={() => {
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
                 onOrder(
                   cartList.map((pro) => ({
                     qty: pro?.qty,
@@ -134,7 +137,7 @@ export function DrawerCheckout({ price }) {
               variant="outline"
               className="block w-full"
             >
-              Done
+              Done for payment
             </Button>
             {/* </DrawerClose> */}
           </div>

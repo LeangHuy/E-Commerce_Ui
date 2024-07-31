@@ -43,7 +43,7 @@ const ActionCard = async ({ order }) => {
             <span
               className={clsx(
                 "text-sm",
-                order?.status == "PAID" ? "text-green-400" : ""
+                order?.status == "PAID" ? "text-green-400" : order?.status == "DELIVERY" ? "text-purple-400" : ""
               )}
             >
               {order?.status}

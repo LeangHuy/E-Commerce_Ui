@@ -82,7 +82,7 @@ const ProductTableComponent = ({ products }) => {
                     width={1000}
                     height={1000}
                     alt="profile"
-                    className="size-[3.5rem] object-cover rounded-sm"
+                    className="size-[3.5rem] object-cover rounded-sm border border-gray-300"
                   />
                 ) : null}
               </TableCell>
@@ -203,13 +203,13 @@ const ProductTableComponent = ({ products }) => {
                                   <label class="block text-sm capitalize font-medium leading-6 text-gray-900 ">
                                     Image :
                                   </label>
-                                  <div className="grid grid-cols-3 gap-6 pt-6">
+                                  <div className="grid grid-cols-3 gap-6 pt-6 ">
                                     {product?.imageProductList.map(
                                       (image, index) => (
                                         <Image
                                           key={index}
                                           src={getPhoto(image?.fileName)}
-                                          className="w-full h-[7rem] object-cover hover:scale-105 transition-all cursor-pointer rounded-md"
+                                          className="w-full h-[7rem] object-cover hover:scale-105 transition-all cursor-pointer rounded-md border border-gray-300"
                                           alt="alt"
                                           width={1000}
                                           height={1000}
@@ -276,17 +276,23 @@ const ProductTableComponent = ({ products }) => {
           ))}
         </TableBody>
       </Table >
-      <div className="flex w-full justify-center">
-        <Pagination
-          isCompact
-          showControls
-          showShadow
-          color="secondary"
-          page={page}
-          total={pages}
-          onChange={(page) => setPage(page)}
-        />
-      </div>
+      {pages != 1 &&
+        <div className="flex w-full justify-center">
+          <Pagination
+            isCompact
+            showShadow
+            color="secondary "
+            classNames={{
+              item: "bg-sky-400 rounded-md text-white font-medium m-1",
+            }}
+            className="bg-none"
+            page={page}
+            total={pages}
+            onChange={(page) => setPage(page)}
+          />
+        </div>
+      }
+
     </>
   );
 };

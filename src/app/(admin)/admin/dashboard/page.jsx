@@ -2,10 +2,9 @@ import React from "react";
 import Header from "./components/Header";
 import { redirect } from "next/navigation";
 import { getUserData } from "@/service/user.service";
-import { countTotalOrderPerDayService } from "@/service/order.service";
-import CardOverview from "./CardOverview";
-import { ShoppingBag } from "lucide-react";
+import { countTotalOrderPerDayService, countTotalOrderService, totalPriceOrderService } from "@/service/order.service";
 import { TotalOrder } from "./components/TotalOrderCard";
+import { allProductInShop, allProductInStock, allProductOutStock } from "@/service/product.service";
 
 const AdminDashboardPage = async ({ searchParams: { tab = "Overview" } }) => {
   const userData = await getUserData();
@@ -13,7 +12,11 @@ const AdminDashboardPage = async ({ searchParams: { tab = "Overview" } }) => {
     redirect("/");
   }
   const countTotalOrderPerDay = await countTotalOrderPerDayService();
-  console.log(countTotalOrderPerDay);
+  const countAllDayOrder = await countTotalOrderService();
+  const totalPriceAllOrder = await totalPriceOrderService();
+  const allProduct = await allProductInShop();
+  const allProductHaveStock = await allProductInStock();
+  const allProductNoStock = await allProductOutStock();
 
   return (
     <div className="w-full">
@@ -31,7 +34,12 @@ const AdminDashboardPage = async ({ searchParams: { tab = "Overview" } }) => {
                 des: "Orders today",
               }}
             /> */}
-            <TotalOrder orderCount={countTotalOrderPerDay} />
+            <TotalOrder orderCount={countTotalOrderPerDay} data={{ title: "Orders", description: "Showing total orders for the today.", subtitle: "Total order today", color: "1" }} />
+            <TotalOrder orderCount={countAllDayOrder} data={{ title: "Orders", description: "Showing total orders for the everyday.", subtitle: "Total order everyday", color: "2" }} />
+            <TotalOrder orderCount={totalPriceAllOrder} data={{ title: "$", description: "Showing total price for all orders.", subtitle: "Total price", color: "2" }} />
+            <TotalOrder orderCount={allProduct} data={{ title: "products", description: "Showing total products in shop.", subtitle: "Total products", color: "5" }} />
+            <TotalOrder orderCount={allProductHaveStock} data={{ title: "products", description: "Showing total products in stock.", subtitle: "Total products in stock", color: "5" }} />
+            <TotalOrder orderCount={allProductNoStock} data={{ title: "products", description: "Showing total products out stock.", subtitle: "Total products out stock", color: "10" }} />
           </div>
         </div>
       </div>
