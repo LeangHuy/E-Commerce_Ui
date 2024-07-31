@@ -9,15 +9,14 @@ import { useState } from "react";
 const CustomerProductComponent = ({ products, q }) => {
   const [page, setPage] = useState(1);
   const rowsPerPage = 12;
-  const pages = Math.ceil(products?.length / rowsPerPage);
+  const product = q == "All" ? products : products.filter((p)=>p?.category?.categoryName == q); 
+  const pages = Math.ceil(product.length == 0 ? products?.length / rowsPerPage : product?.length / rowsPerPage);
   const productData = useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
 
-    return products.slice(start, end);
-  }, [page, products]);
-
-  console.log("product data: ", productData)
+    return product.slice(start, end);
+  }, [page, product]);
 
 
   return (
@@ -25,11 +24,11 @@ const CustomerProductComponent = ({ products, q }) => {
       <div id="product" className="scroll-mt-10">
         <ProductCard
           searchParams={q}
-          products={productData?.filter((p) => p)}
+          products={productData}
           isPromotion={false}
         />
       </div>
-      {pages != 1 &&
+      {product.length > 12 && 
         <div className="flex w-full justify-center">
           <Pagination
             isCompact
@@ -43,7 +42,7 @@ const CustomerProductComponent = ({ products, q }) => {
             total={pages}
             onChange={(page) => setPage(page)}
           />
-        </div>
+        </div> 
       }
     </div>
   );

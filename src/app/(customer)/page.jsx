@@ -14,7 +14,7 @@ import CustomerProductComponent from "./_component/CustomerProductComponent";
 
 async function Home({ searchParams: { q = "All" } }) {
   const products = await getAllProductActiveService();
-
+  console.log('total product : ',products?.length)
   const categories = await getAllCategories();
   const getCate = categories?.map((cate) => cate?.categoryName);
   const activeSlides = await getAllSlideActive();
