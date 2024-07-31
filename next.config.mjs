@@ -19,11 +19,11 @@ const nextConfig = {
         port: "**",
       },
     ],
-    // domains: ["localhost", "localhost"],
-    domains: ["34.143.196.56"]
+    // domains: ["34.143.196.56", "34.143.196.56"],
+    domains: ["34.143.196.56"],
     // domains: ["*"]
   },
 };
 
 export default nextConfig;
-// localhost
+// 34.143.196.56

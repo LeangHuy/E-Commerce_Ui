@@ -129,3 +129,19 @@ export const changeStatusOrder = async (orderId, status) => {
     };
   }
 };
+
+export const getOrderHistory = async (useFor = "") => {
+  const session = await getServerSession(authOption);
+
+  const res = await fetch(`${process.env.BASE_URL}/orders/history${useFor}`, {
+    headers: {
+      "Content-Type": "*/*",
+      Authorization: `Bearer ${session.user.payload.token}`,
+    },
+    next: {
+      tags: ["getOrderHistory"],
+    },
+  });
+  const result = await res.json();
+  return result.payload;
+};
