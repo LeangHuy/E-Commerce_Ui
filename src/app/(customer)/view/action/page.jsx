@@ -14,24 +14,30 @@ const ActionPage = async () => {
       <div className="grid grid-cols-[1fr_400px] gap-[3rem]">
         <div>
           <h3 className="mb-6 text-3xl font-medium">Product orders</h3>
-          {orders.length >= 1 ? <div className="flex flex-col gap-6">
-            {orders
-              .filter((o) => o.orderDetail?.length > 0)
-              ?.map((order) => (
-                <ActionCard order={order} key={order?.orderId} />
-              ))}
-          </div>
-            :
+          {orders.length >= 1 ? (
+            <div className="flex flex-col gap-6">
+              {orders
+                .filter(
+                  (o) => o.orderDetail?.length > 0 && o?.status !== "DONE"
+                )
+                ?.map((order) => (
+                  <ActionCard order={order} key={order?.orderId} />
+                ))}
+            </div>
+          ) : (
             <div className="flex justify-center items-start h-full font-semibold text-[1.6rem]">
               <div className="">
-                <Image src="/images/empty-cart.png" alt="empty-image" className="w-[30rem] object-cover" width={1000} height={1000} />
+                <Image
+                  src="/images/empty-cart.png"
+                  alt="empty-image"
+                  className="w-[30rem] object-cover"
+                  width={1000}
+                  height={1000}
+                />
                 <p className="text-center">You don't have any order now.</p>
-
               </div>
             </div>
-
-          }
-
+          )}
         </div>
         <div className="shadow-sm h-fit align-top hover:shadow-md duration-250 sticky top-6 overflow-hidden rounded-lg grid grid-rows-[12rem_1fr]">
           <div className=" relative bg-[url('https://images.unsplash.com/photo-1436335231969-f3271f28670d?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-center bg-cover">

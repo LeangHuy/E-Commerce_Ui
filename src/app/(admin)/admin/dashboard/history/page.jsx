@@ -1,9 +1,9 @@
-import { getAllOrdersAdmin } from "@/service/order.service";
+import { getAllOrdersAdmin, getOrderHistory } from "@/service/order.service";
 import Header from "../components/Header";
 import ActionCard from "./ActionCard";
 
 const OrderPage = async ({ searchParams: { tab = "Overview" } }) => {
-  const orders = await getAllOrdersAdmin();
+  const orders = await getOrderHistory("/admin");
   return (
     <div className="w-full">
       <Header tab={tab} />
@@ -11,7 +11,7 @@ const OrderPage = async ({ searchParams: { tab = "Overview" } }) => {
         <div className="bg-white  rounded-2xl p-5">
           <div className="card-overview flex flex-col gap-6">
             {orders
-              .filter((o) => o.orderDetail?.length > 0 && o?.status !== "DONE")
+              .filter((o) => o.orderDetail?.length > 0)
               ?.map((order) => (
                 <ActionCard order={order} key={order?.orderId} />
               ))}

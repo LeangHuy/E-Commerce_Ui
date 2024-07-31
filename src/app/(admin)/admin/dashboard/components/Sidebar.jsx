@@ -3,6 +3,7 @@ import { clsx } from "clsx";
 import { Images, ShoppingCart, ShoppingCartIcon } from "lucide-react";
 import { ShoppingBag } from "lucide-react";
 import { PackagePlus } from "lucide-react";
+import { History } from "lucide-react";
 import { LayoutDashboardIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -151,5 +152,17 @@ const menu_links = [
       />
     ),
     tab: "/admin/dashboard/order?tab=Order",
+  },
+  {
+    title: "History",
+    icon: (active) => (
+      <History
+        className={clsx(
+          "size-[18px] ",
+          active ? "stroke-white" : "stroke-black"
+        )}
+      />
+    ),
+    tab: "/admin/dashboard/history?tab=History",
   },
 ];
