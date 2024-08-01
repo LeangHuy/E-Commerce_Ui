@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { getPhoto } from "@/lib/utils";
 import { BadgePercent } from "lucide-react";
-import { postBookmark } from "@/service/bookmark";
+import { postBookmark } from "@/service/bookmark.service";
 import AddToBookmark from "../Button/AddToBookmark";
 import Tag from "../Tag/Tag";
 

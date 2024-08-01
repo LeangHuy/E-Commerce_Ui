@@ -9,7 +9,7 @@ import { getAllCategories } from "@/service/category.service";
 import { ImagesSliderDemo } from "@/components/Slider/ImageSlider";
 import { getAllSlideActive } from "@/service/slide.service";
 import MyPagination from "../(admin)/admin/dashboard/components/MyPagination";
-import { postBookmark } from "@/service/bookmark";
+import { postBookmark } from "@/service/bookmark.service";
 import CustomerProductComponent from "./_component/CustomerProductComponent";
 
 async function Home({ searchParams: { q = "All" } }) {

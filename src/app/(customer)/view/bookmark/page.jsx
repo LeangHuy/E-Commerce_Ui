@@ -1,5 +1,5 @@
 import { getPhoto } from "@/lib/utils";
-import { getBookmarks } from "@/service/bookmark";
+import { getBookmarks } from "@/service/bookmark.service";
 import { BadgePercent } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
