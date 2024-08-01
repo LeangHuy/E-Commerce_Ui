@@ -7,7 +7,7 @@ import Image from "next/image";
 import React from "react";
 import { Action, Combobox } from "./DropDown";
 import Link from "next/link";
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -16,11 +16,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 const ActionCard = async ({ order }) => {
   const product = await getProductById(order?.orderDetail[0].productId);
   const user = order?.user?.user;
-  const userName = user?.firstName + ' ' + user?.lastName;
+  const userName = user?.firstName + " " + user?.lastName;
   return (
     <div className="grid grid-cols-[auto_1fr] gap-5 p-4 border rounded-lg">
       <Image
@@ -33,12 +33,16 @@ const ActionCard = async ({ order }) => {
       <div className="grid grid-cols-[1fr_auto_auto] gap-10">
         <div className="flex flex-col justify-between">
           <div>
-            <h3 className="font-semibold text-xl">Customer : {user?.firstName} {user?.lastName}</h3>
+            <h3 className="font-semibold text-xl">
+              Customer : {user?.firstName} {user?.lastName}
+            </h3>
           </div>
           <div className="flex gap-4">
             <p className="flex gap-2">
               <span className="text-gray-400">Total Product : </span>
-              <span className="after:content-['product']">{order?.orderDetail.length} </span>
+              <span className="after:content-['product']">
+                {order?.orderDetail.length}{" "}
+              </span>
             </p>
           </div>
 
@@ -62,7 +66,11 @@ const ActionCard = async ({ order }) => {
             <span
               className={clsx(
                 "text-sm",
-                order?.status == "PAID" ? "text-green-400" : order?.status == "DELIVERY" ? "text-purple-400" : ""
+                order?.status == "PAID"
+                  ? "text-green-400"
+                  : order?.status == "DELIVERY"
+                  ? "text-purple-400"
+                  : ""
               )}
             >
               {order?.status}
@@ -83,8 +91,13 @@ const ActionCard = async ({ order }) => {
                 <div className="grid gap-4 py-4 ">
                   <div className="flex justify-between gap-4">
                     {order?.orderDetail.map((item, index) => (
-                      <div key={index} className="mb-4 border border-gray-300 p-1 rounded-md">
-                        <div className="font-bold mb-2 ">{item.productName}</div>
+                      <div
+                        key={index}
+                        className="mb-4 border border-gray-300 p-1 rounded-md"
+                      >
+                        <div className="font-bold mb-2 ">
+                          {item.productName}
+                        </div>
                         <div className="">
                           <Image
                             src={getPhoto(item?.imageProductList[0]?.fileName)}
@@ -95,23 +108,27 @@ const ActionCard = async ({ order }) => {
                           />
                         </div>
                         <p className="flex gap-2 text-[14px] mt-2">
-                          <span className="text-gray-400">Total quantity : </span>
+                          <span className="text-gray-400">
+                            Total quantity :{" "}
+                          </span>
                           <span>{item?.orderQty} </span>
                         </p>
                       </div>
                     ))}
-                    <div ><span className="bg-purple-400 py-1 px-5 rounded-full text-[14px] text-white font-medium">{order?.status}</span></div>
+                    <div>
+                      <span className="bg-purple-400 py-1 px-5 rounded-full text-[14px] text-white font-medium">
+                        {order?.status}
+                      </span>
+                    </div>
                   </div>
-
-
                 </div>
               </DialogContent>
             </Dialog>
           </div>
         </div>
-        <div>
+        {/* <div>
           <Action data={order} />
-        </div>
+        </div> */}
       </div>
     </div>
   );

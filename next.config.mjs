@@ -26,4 +26,4 @@ const nextConfig = {
 };
 
 export default nextConfig;
-// localhost
+// 34.143.196.56

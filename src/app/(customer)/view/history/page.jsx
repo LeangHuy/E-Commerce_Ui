@@ -1,25 +1,23 @@
-import { getAllOrders } from "@/service/order.service";
+import { getAllOrders, getOrderHistory } from "@/service/order.service";
 import React from "react";
 import ActionCard from "./ActionCard";
 import { getUserData } from "@/service/user.service";
 import Image from "next/image";
 import { getPhoto } from "@/lib/utils";
 
-const ActionPage = async () => {
-  const orders = await getAllOrders();
+const ActionHistoryPage = async () => {
+  const orders = await getOrderHistory("");
   const currentUser = await getUserData();
 
   return (
     <div className="w-[1330px] mx-auto my-[6rem]">
       <div className="grid grid-cols-[1fr_400px] gap-[3rem]">
         <div>
-          <h3 className="mb-6 text-3xl font-medium">Product orders</h3>
+          <h3 className="mb-6 text-3xl font-medium">History</h3>
           {orders.length >= 1 ? (
             <div className="flex flex-col gap-6">
               {orders
-                .filter(
-                  (o) => o.orderDetail?.length > 0 && o?.status !== "DONE"
-                )
+                .filter((o) => o.orderDetail?.length > 0)
                 ?.map((order) => (
                   <ActionCard order={order} key={order?.orderId} />
                 ))}
@@ -80,4 +78,4 @@ const ActionPage = async () => {
   );
 };
 
-export default ActionPage;
+export default ActionHistoryPage;

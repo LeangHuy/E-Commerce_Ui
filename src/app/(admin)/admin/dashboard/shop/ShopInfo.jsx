@@ -2,6 +2,10 @@
 import { postImgAction } from "@/acitons/uploadImgAction";
 import { Button } from "@/components/ui/button";
 import { getPhoto } from "@/lib/utils";
+import {
+  fetchLocationByLatLon,
+  fetchLocationBySearching,
+} from "@/service/location.service";
 import { updateShopInfoService } from "@/service/shop.service";
 import clsx from "clsx";
 import { Edit } from "lucide-react";
@@ -50,6 +54,7 @@ function ShopInfo({ shopData }) {
     //  logo = await postImgAction(formData);
     const data = {
       ...reqdata,
+      shopAddress: currentLoc,
       shopId,
       logo,
     };
@@ -60,11 +65,48 @@ function ShopInfo({ shopData }) {
     }
   }
 
+  const [location, setLocationWhenGetData] = useState(null);
+  const [currentLoc, setCurrentUserLocation] = useState(null);
+
+  // getting current coords
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((pos) => {
+        const { latitude, longitude } = pos.coords;
+        console.log(latitude, longitude);
+        fetchLocationByLatLon(latitude, longitude).then((data) => {
+          console.log("data loc ", data);
+          setLocationWhenGetData(data);
+          setCurrentUserLocation(
+            data?.address?.town ||
+              data?.address?.state ||
+              data?.address?.city ||
+              data?.address?.village ||
+              "Unknown"
+          );
+        });
+      });
+    }
+  }, []);
+
   const [isEdit, setEdit] = useState(false);
   const [img, setImg] = useState({ imgFile: null, imgPreview: null });
 
+  const [searchLoc, setSearchLoc] = useState("");
+
   useEffect(() => {
-  }, []);
+    console.log("loc", location, currentLoc);
+  }, [location, currentLoc]);
+
+  const [foundLoc, setFound] = useState([]);
+
+  useEffect(() => {
+    console.log(searchLoc);
+    fetchLocationBySearching(searchLoc).then((data) => {
+      console.log("found", data);
+      setFound(data);
+    });
+  }, [searchLoc]);
 
   return (
     <div className=" grid grid-cols-1 gap-10">
@@ -190,14 +232,40 @@ function ShopInfo({ shopData }) {
                       {shopData?.payload?.shopAddress || "Unknown"}
                     </p>
                   ) : (
-                    <div className="flex rounded-md shadow-sm ring-inset ring-gray-300 ">
+                    <div className="flex relative rounded-md shadow-sm ring-inset ring-gray-300 ">
                       <input
                         {...register("shopAddress", { required: true })}
                         type="text"
-                        defaultValue={shopAddress}
+                        defaultValue={currentLoc}
                         className="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                         placeholder="shop name"
+                        onChange={(e) => setSearchLoc(e.target.value)}
                       />
+
+                      {foundLoc.length >= 1 && (
+                        <div className="absolute w-full h-[200px] overflow-hidden overflow-y-scroll top-full mt-2 rounded-sm p-2 border bg-white">
+                          <ul className="flex flex-col gap-4">
+                            {foundLoc.map((data, idx) => (
+                              <li
+                                onClick={() => {
+                                  setCurrentUserLocation(
+                                    data?.address?.town ||
+                                      data?.address?.state ||
+                                      data?.address?.city ||
+                                      data?.address?.village ||
+                                      "Unknown"
+                                  );
+                                  setSearchLoc("");
+                                }}
+                                key={idx}
+                                className=" p-1 border-b cursor-pointer hover:bg-gray-200"
+                              >
+                                {data?.name}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
