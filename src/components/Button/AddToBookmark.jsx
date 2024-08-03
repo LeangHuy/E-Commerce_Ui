@@ -1,12 +1,13 @@
 "use client";
 import { postBookmark } from "@/service/bookmark";
+import { postBookmarkAction } from "@/service/bookmarkserver";
 import { Heart } from "lucide-react";
 import React from "react";
 import toast from "react-hot-toast";
 
 function AddToBookmark({ item }) {
   async function postBookmarkFunc(productId) {
-    const result = await postBookmark(productId);
+    const result = await postBookmarkAction(productId);
     if (result.statusCode == 201) toast.success("Added to bookmark");
   }
   return (

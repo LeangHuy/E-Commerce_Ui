@@ -4,14 +4,15 @@ import React from "react";
 import Link from "next/link";
 import { getPhoto } from "@/lib/utils";
 import { BadgePercent } from "lucide-react";
-import { postBookmark } from "@/service/bookmark";
+import { getBookmarks, postBookmark } from "@/service/bookmark";
 import AddToBookmark from "../Button/AddToBookmark";
 import Tag from "../Tag/Tag";
 
-const ProductCard = ({
+const ProductCard = async  ({
   products = [{ categoryName: "" }],
   searchParams = "All",
   isPromotion = false,
+  bookmarkData
 }) => {
   let filterProducts;
   if (!isPromotion) {
@@ -29,6 +30,7 @@ const ProductCard = ({
 
 
   console.log('filter data in product card : ',filterProducts)
+
 
   return (
     <main className="w-full grid grid-cols-4 gap-6 my-8 max-[1400px]:grid-cols-3 max-[950px]:grid-cols-2 max-[600px]:grid-cols-1">
@@ -51,7 +53,7 @@ const ProductCard = ({
                 className="object-cover w-full h-full  rounded-xl"
               />
             </Link>
-            <AddToBookmark item={item} />
+            <AddToBookmark item={item} bookmarkData={bookmarkData} />
             {item?.discount > 0 && (
               <p className="absolute top-3 left-3 stroke-red-500 py-1 px-4 text-sm bg-white  rounded-full stroke-[2] flex gap-1 items-center cursor-pointer">
                 <span className="text-red-500 font-medium">
