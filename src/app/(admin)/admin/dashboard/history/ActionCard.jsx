@@ -17,10 +17,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Separator } from "@/components/ui/separator"
 const ActionCard = async ({ order }) => {
   const product = await getProductById(order?.orderDetail[0].productId);
   const user = order?.user?.user;
   const userName = user?.firstName + " " + user?.lastName;
+  console.log(userName)
   return (
     <div className="grid grid-cols-[auto_1fr] gap-5 p-4 border rounded-lg">
       <Image
@@ -34,7 +37,7 @@ const ActionCard = async ({ order }) => {
         <div className="flex flex-col justify-between">
           <div>
             <h3 className="font-semibold text-xl">
-              Customer : {user?.firstName} {user?.lastName}
+              Customer : {userName}
             </h3>
           </div>
           <div className="flex gap-4">
@@ -76,7 +79,7 @@ const ActionCard = async ({ order }) => {
               {order?.status}
             </span>
           </div>
-          <div className="">
+          <div >
             <Dialog>
               <DialogTrigger asChild>
                 <div className="flex gap-2 bg-gray-900 rounded-md cursor-pointer items-center self-start p-2 ">
@@ -84,12 +87,64 @@ const ActionCard = async ({ order }) => {
                   <ChevronRight className="stroke-white size-5" />
                 </div>
               </DialogTrigger>
-              <DialogContent className="sm:max-w-[425px]">
+              <DialogContent className="sm:max-w-[425px] h-auto">
                 <DialogHeader>
                   <DialogTitle>{userName}'s Order Detail</DialogTitle>
                 </DialogHeader>
                 <div className="grid gap-4 py-4 ">
-                  <div className="flex justify-between gap-4">
+                  <div className="flex gap-2">
+                    <div className="h-auto w-full ">
+                      <ScrollArea className=" w-full rounded-md border">
+                        <div className="p-4">
+                          <div className="flex justify-between">
+                            <h4 className="mb-4 text-lg font-medium leading-none">Item</h4>
+                            <div className="w-1/4">
+                              <span className="bg-purple-400 py-1 px-5 rounded-full text-[14px] text-white font-medium ">
+                                {order?.status}
+                              </span>
+                            </div>
+                          </div>
+
+                          {order?.orderDetail.map((item, index) => (
+                            <>
+                              <div key={index} className="text-sm">
+                                <div className="grid grid-cols-2 gap-2">
+                                  <div className="">
+                                    <Image
+                                      src={getPhoto(item?.imageProductList[0]?.fileName)}
+                                      className="object-cover border border-gray-300 rounded-md"
+                                      alt="product"
+                                      width={1000}
+                                      height={1000}
+                                    />
+                                  </div>
+                                  <div>
+                                    <p>Price : {item?.unitPrice}$</p>
+                                    <p className="font-medium">{item?.productName}</p>
+                                    {item?.discount !== 0 && <p>Discount : {item?.discount}%</p>}
+                                    <p>After discount : <span className="border border-sky-300 py-0 px-1.5 rounded-md">{item?.priceAfterDiscount}$</span> </p>
+                                    <p>Order Qty : {item?.orderQty}</p>
+                                    <p>Warranty : {item?.warranty?.warrantyDate} {item?.warranty?.warrantyTime}</p>
+                                  </div>
+
+
+                                </div>
+                              </div>
+                              <Separator className="my-2" />
+                            </>
+                          ))}
+                          <div className="">
+                            fff
+                          </div>
+                        </div>
+                      </ScrollArea>
+
+                    </div>
+
+
+                  </div>
+
+                  {/* <div className="flex justify-between gap-4">
                     {order?.orderDetail.map((item, index) => (
                       <div
                         key={index}
@@ -120,7 +175,7 @@ const ActionCard = async ({ order }) => {
                         {order?.status}
                       </span>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </DialogContent>
             </Dialog>
