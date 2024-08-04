@@ -31,7 +31,6 @@ const ProductCard = async ({
     filterProducts = products?.filter((p) => p.discount > 5);
   }
 
-  console.log("filter data in product card : ", filterProducts);
 
   return (
     <main className="w-full grid grid-cols-4 gap-6 my-8 max-[1400px]:grid-cols-3 max-[950px]:grid-cols-2 max-[600px]:grid-cols-1">

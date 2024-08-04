@@ -6,12 +6,11 @@ import React from "react";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 
-function RemoveBookmark({item}) {
+function RemoveBookmark({ item }) {
   async function rmBookmark(bookmark_id) {
     const removeBookmark = await removeBookmarkAction(bookmark_id);
 
-    console.log(removeBookmark)
-    if(removeBookmark.statusCode === 200){
+    if (removeBookmark.statusCode === 200) {
       toast.success(removeBookmark.message)
     }
     return removeBookmark;

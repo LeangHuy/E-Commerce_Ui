@@ -73,16 +73,14 @@ function ShopInfo({ shopData }) {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((pos) => {
         const { latitude, longitude } = pos.coords;
-        console.log(latitude, longitude);
         fetchLocationByLatLon(latitude, longitude).then((data) => {
-          console.log("data loc ", data);
           setLocationWhenGetData(data);
           setCurrentUserLocation(
             data?.address?.town ||
-              data?.address?.state ||
-              data?.address?.city ||
-              data?.address?.village ||
-              "Unknown"
+            data?.address?.state ||
+            data?.address?.city ||
+            data?.address?.village ||
+            "Unknown"
           );
         });
       });
@@ -95,15 +93,12 @@ function ShopInfo({ shopData }) {
   const [searchLoc, setSearchLoc] = useState("");
 
   useEffect(() => {
-    console.log("loc", location, currentLoc);
   }, [location, currentLoc]);
 
   const [foundLoc, setFound] = useState([]);
 
   useEffect(() => {
-    console.log(searchLoc);
     fetchLocationBySearching(searchLoc).then((data) => {
-      console.log("found", data);
       setFound(data);
     });
   }, [searchLoc]);
@@ -250,10 +245,10 @@ function ShopInfo({ shopData }) {
                                 onClick={() => {
                                   setCurrentUserLocation(
                                     data?.address?.town ||
-                                      data?.address?.state ||
-                                      data?.address?.city ||
-                                      data?.address?.village ||
-                                      "Unknown"
+                                    data?.address?.state ||
+                                    data?.address?.city ||
+                                    data?.address?.village ||
+                                    "Unknown"
                                   );
                                   setSearchLoc("");
                                 }}

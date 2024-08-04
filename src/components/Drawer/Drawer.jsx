@@ -105,9 +105,9 @@ export function DrawerCheckout({ price }) {
                 ក្រោយពេលបងប្អូនធ្វើការទូទាត់ប្រាក់រួច
                 បងប្អូនអាចចុចពាក្យ "DONE" នៅខាងក្រោមនេះដើម្បីបញ្ចាក់ពីការទូទាត់ប្រាក់រួចរាល់​និងធ្វើការឆាតជាមួយនឹងពួកយើងតាម
                 Telegram
-                ក្នុងការបញ្ចាក់ប្រាប់ពីទីតាំងនិងលេខទំនាក់ទំនងបងប្អូនដើម្បីទទួលបានឥវ៉ាន់
+                ក្នុងការបញ្ចាក់ប្រាប់ពីទីតាំងនិងលេខទំនាក់ទំនងបងប្អូនដើម្បីទទួលបានឥវ៉ាន់។
               </p>
-              <Link
+              {/* <Link
                 href={"https://t.me/Playstation_Game_cambodia"}
                 className="font-semibold"
                 target="_blank"
@@ -117,7 +117,7 @@ export function DrawerCheckout({ price }) {
                   Contact us via Telegram
                 </Button>
 
-              </Link>
+              </Link> */}
             </div>
           </div>
           <div className="col-start-2 col-end-3">

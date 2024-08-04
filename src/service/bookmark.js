@@ -35,8 +35,6 @@ export const postBookmark = async (product_id) => {
 };
 
 export const removeBookmarkFunc = async (bookmark_id) => {
-  console.log("bookmarkId",bookmark_id)
-
   const session = await getServerSession(authOption);
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/bookmarks/${bookmark_id}`,
@@ -51,6 +49,5 @@ export const removeBookmarkFunc = async (bookmark_id) => {
   );
 
   const data = await res.json();
-  console.log(data)
   return data;
 };

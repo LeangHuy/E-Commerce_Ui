@@ -23,7 +23,6 @@ const ActionCard = async ({ order }) => {
   const product = await getProductById(order?.orderDetail[0].productId);
   const user = order?.user?.user;
   const userName = user?.firstName + " " + user?.lastName;
-  console.log(userName)
   return (
     <div className="grid grid-cols-[auto_1fr] gap-5 p-4 border rounded-lg">
       <Image
