@@ -14,7 +14,16 @@ async function BookmarkPage() {
       <div className="font-semibold text-[1.6rem]">Bookmarks</div>
       {bookmarkData.title ? (
         <div className="flex justify-center items-center h-full font-semibold text-[1.6rem]">
-          You don't have any bookmark at the moment
+          <Image
+            src="/images/no-bookmark.png"
+            alt="empty-image"
+            className="w-[30rem] object-cover"
+            width={1000}
+            height={1000}
+          />
+          <p>
+            You don't have any bookmark at the moment
+          </p>
         </div>
       ) : (
         <main className="w-full grid grid-cols-4 gap-6 my-8 max-[1400px]:grid-cols-3 max-[950px]:grid-cols-2 max-[600px]:grid-cols-1">

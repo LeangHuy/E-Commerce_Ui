@@ -54,7 +54,7 @@ async function Home({ searchParams: { q = "All" } }) {
           categories={["All", ...getCate]}
         />
       </div>
-      <CustomerProductComponent products={products} q={q} />
+      <CustomerProductComponent session={session} products={products} q={q} />
     </main>
   );
 }
