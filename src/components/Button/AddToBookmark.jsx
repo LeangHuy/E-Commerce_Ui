@@ -1,5 +1,4 @@
 "use client";
-import { postBookmark } from "@/service/bookmark.service";
 import { Heart } from "lucide-react";
 import React from "react";
 import toast from "react-hot-toast";
