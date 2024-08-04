@@ -3,18 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { useAddToCart } from "@/store/useAddToCart";
 import { orderAction } from "@/acitons/orderAction";
-import toast from "react-hot-toast";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "../ui/dialog";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
 import { DrawerCheckout } from "../Drawer/Drawer";
 import Link from "next/link";
 

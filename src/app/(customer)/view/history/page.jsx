@@ -63,7 +63,7 @@ const ActionHistoryPage = async () => {
             </section>
             <section>
               <p className="text-mid text-gray-400">Phone Number</p>
-              <p className="text-normal font-medium">0987654321</p>
+              <p className="text-normal font-medium">{currentUser?.payload?.user?.phone}</p>
             </section>
             <section>
               <p className="text-mid text-gray-400">Address</p>

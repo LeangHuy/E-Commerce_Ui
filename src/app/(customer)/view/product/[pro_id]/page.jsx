@@ -101,7 +101,7 @@ const page = async ({ params: { pro_id } }) => {
                   <div className="flex gap-2">
                     <p className="font-semibold">Discount price:</p>
                     <div className="flex text-sky-400 font-bold">
-                      {product?.priceAfterDiscount}$
+                      {product?.priceAfterDiscount.toFixed(2)}$
                     </div>
                   </div>
                 </div>

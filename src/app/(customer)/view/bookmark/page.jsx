@@ -85,7 +85,7 @@ async function BookmarkPage() {
                         {item?.product?.unitPrice}$
                       </div>
                       <div className="text-white font-medium bg-sky-300 py-0 px-2 rounded-md">
-                        {item?.product?.priceAfterDiscount}$
+                        {item?.product?.priceAfterDiscount.toFixed(2)}$
                       </div>
                     </div>
                   )}

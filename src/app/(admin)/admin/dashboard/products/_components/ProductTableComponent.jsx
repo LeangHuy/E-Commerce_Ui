@@ -183,7 +183,7 @@ const ProductTableComponent = ({ products }) => {
                                   <label class="block text-sm capitalize font-medium leading-6 text-gray-900 ">
                                     After Discount :{" "}
                                     <span className="font-bold after:content-['$'] border p-1 rounded-md border-sky-500">
-                                      {product?.priceAfterDiscount}
+                                      {product?.priceAfterDiscount.toFixed(2)}
                                     </span>
                                   </label>
 

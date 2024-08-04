@@ -4,15 +4,16 @@ export const my_links = [
     path: "/",
     tag: "/",
   },
-  {
-    link: "Action",
-    path: "/view/action",
-    tag: "action",
-  },
+
   {
     link: "Bookmark",
     path: "/view/bookmark",
     tag: "bookmark",
+  },
+  {
+    link: "Action",
+    path: "/view/action",
+    tag: "action",
   },
   {
     link: "History",

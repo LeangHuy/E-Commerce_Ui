@@ -2,12 +2,8 @@ import { getPhoto } from "@/lib/utils";
 import { getProductById } from "@/service/product.service";
 import clsx from "clsx";
 import { ChevronRight } from "lucide-react";
-import { CircleChevronRight } from "lucide-react";
 import Image from "next/image";
 import React from "react";
-import { Action, Combobox } from "./DropDown";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -89,11 +85,12 @@ const ActionCard = async ({ order }) => {
               <DialogContent className="sm:max-w-[425px] h-auto">
                 <DialogHeader>
                   <DialogTitle>{userName}'s Order Detail</DialogTitle>
+                  <DialogDescription> {new Date(order?.orderDate).toDateString()}</DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4 ">
                   <div className="flex gap-2">
                     <div className="h-auto w-full ">
-                      <ScrollArea className=" w-full rounded-md border">
+                      <ScrollArea className="h-75 w-full rounded-md border">
                         <div className="p-4">
                           <div className="flex justify-between">
                             <h4 className="mb-4 text-lg font-medium leading-none">Item</h4>
@@ -118,10 +115,10 @@ const ActionCard = async ({ order }) => {
                                     />
                                   </div>
                                   <div>
-                                    <p>Price : {item?.unitPrice}$</p>
                                     <p className="font-medium">{item?.productName}</p>
+                                    <p>Price : {item?.unitPrice}$</p>
                                     {item?.discount !== 0 && <p>Discount : {item?.discount}%</p>}
-                                    <p>After discount : <span className="border border-sky-300 py-0 px-1.5 rounded-md">{item?.priceAfterDiscount}$</span> </p>
+                                    <p>After discount : <span>{item?.priceAfterDiscount.toFixed(2)}$</span> </p>
                                     <p>Order Qty : {item?.orderQty}</p>
                                     <p>Warranty : {item?.warranty?.warrantyDate} {item?.warranty?.warrantyTime}</p>
                                   </div>
@@ -132,59 +129,29 @@ const ActionCard = async ({ order }) => {
                               <Separator className="my-2" />
                             </>
                           ))}
-                          <div className="">
-                            fff
-                          </div>
+
                         </div>
                       </ScrollArea>
-
+                      <div className="flex justify-between px-3">
+                        <div>Total Quantity : </div>
+                        <div className="font-medium">{order?.orderTotalQty} products</div>
+                      </div>
+                      <div className="flex justify-between px-3">
+                        <div>Total Price : </div>
+                        <div className="font-medium border border-sky-300 py-0 px-1.5 rounded-md">{order?.totalPrice.toFixed(2)}$</div>
+                      </div>
                     </div>
 
 
                   </div>
 
-                  {/* <div className="flex justify-between gap-4">
-                    {order?.orderDetail.map((item, index) => (
-                      <div
-                        key={index}
-                        className="mb-4 border border-gray-300 p-1 rounded-md"
-                      >
-                        <div className="font-bold mb-2 ">
-                          {item.productName}
-                        </div>
-                        <div className="">
-                          <Image
-                            src={getPhoto(item?.imageProductList[0]?.fileName)}
-                            className="object-cover border border-gray-300 rounded-md"
-                            alt="product"
-                            width={1000}
-                            height={1000}
-                          />
-                        </div>
-                        <p className="flex gap-2 text-[14px] mt-2">
-                          <span className="text-gray-400">
-                            Total quantity :{" "}
-                          </span>
-                          <span>{item?.orderQty} </span>
-                        </p>
-                      </div>
-                    ))}
-                    <div>
-                      <span className="bg-purple-400 py-1 px-5 rounded-full text-[14px] text-white font-medium">
-                        {order?.status}
-                      </span>
-                    </div>
-                  </div> */}
                 </div>
               </DialogContent>
             </Dialog>
           </div>
-        </div>
-        {/* <div>
-          <Action data={order} />
-        </div> */}
-      </div>
-    </div>
+        </div >
+      </div >
+    </div >
   );
 };
 
