@@ -11,17 +11,14 @@ export const getBookmarks = async () => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${session.user.payload.token}`,
     },
-    next: {
-      tags: ["getAllOrderService"],
-    },
+    next: { tags: "bookmarks" },
   });
-
   const data = await res.json();
   return data;
 };
 
 export const postBookmark = async (product_id) => {
-  const session = await getSession();
+  const session = await getServerSession(authOption);
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/bookmarks/${product_id}`,
     {
@@ -34,5 +31,26 @@ export const postBookmark = async (product_id) => {
     }
   );
   const data = await res.json();
+  return data;
+};
+
+export const removeBookmarkFunc = async (bookmark_id) => {
+  console.log("bookmarkId",bookmark_id)
+
+  const session = await getServerSession(authOption);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/bookmarks/${bookmark_id}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session.user.payload.token}`,
+      },
+      // body: JSON.stringify()
+    }
+  );
+
+  const data = await res.json();
+  console.log(data)
   return data;
 };
