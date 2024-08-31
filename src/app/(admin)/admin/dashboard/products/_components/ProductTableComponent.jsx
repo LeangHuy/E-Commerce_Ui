@@ -125,7 +125,7 @@ const ProductTableComponent = ({ products }) => {
 
                         <div>
                           <div className="flex items-center gap-3 group">
-                            <div class="w-full">
+                            <div className="w-full">
                               <RestockProduct product={product} />
                             </div>
                           </div>
@@ -148,59 +148,59 @@ const ProductTableComponent = ({ products }) => {
                                     View Detail
                                   </DialogTitle>
                                 </DialogHeader>
-                                <div class="">
-                                  <label class="block text-sm capitalize font-medium leading-6 text-gray-900">
+                                <div className="">
+                                  <label className="block text-sm capitalize font-medium leading-6 text-gray-900">
                                     Product Name :{" "}
                                     <span className="font-bold">
                                       {product?.productName}
                                     </span>
                                   </label>
-                                  <label class="block text-sm capitalize font-medium leading-6 text-gray-900">
+                                  <label className="block text-sm capitalize font-medium leading-6 text-gray-900">
                                     Product Stock :{" "}
                                     <span className="font-bold">
                                       {product?.productStock}
                                     </span>
                                   </label>
-                                  <label class="block text-sm capitalize font-medium leading-6 text-gray-900 ">
+                                  <label className="block text-sm capitalize font-medium leading-6 text-gray-900 ">
                                     Product Quality :{" "}
                                     <span className={`font-bold ${product?.quality !== 'original' ? "after:content-['%']" : ''
                                       }`}>
                                       {product?.quality}
                                     </span>
                                   </label>
-                                  <label class="block text-sm capitalize font-medium leading-6 text-gray-900 ">
+                                  <label className="block text-sm capitalize font-medium leading-6 text-gray-900 ">
                                     Product Price :{" "}
                                     <span className="font-bold after:content-['$']">
                                       {product?.unitPrice}
                                     </span>
                                   </label>
-                                  <label class="block text-sm capitalize font-medium leading-6 text-gray-900 ">
+                                  <label className="block text-sm capitalize font-medium leading-6 text-gray-900 ">
                                     Discount :{" "}
                                     <span className="font-bold after:content-['%']">
                                       {product?.discount}
                                     </span>
                                   </label>
-                                  <label class="block text-sm capitalize font-medium leading-6 text-gray-900 ">
+                                  <label className="block text-sm capitalize font-medium leading-6 text-gray-900 ">
                                     After Discount :{" "}
                                     <span className="font-bold after:content-['$'] border p-1 rounded-md border-sky-500">
                                       {product?.priceAfterDiscount.toFixed(2)}
                                     </span>
                                   </label>
 
-                                  <label class="block text-sm capitalize font-medium leading-6 text-gray-900 ">
+                                  <label className="block text-sm capitalize font-medium leading-6 text-gray-900 ">
                                     Category :{" "}
                                     <span className="font-bold ">
                                       {product?.category?.categoryName}
                                     </span>
                                   </label>
-                                  <label class="block text-sm capitalize font-medium leading-6 text-gray-900 ">
+                                  <label className="block text-sm capitalize font-medium leading-6 text-gray-900 ">
                                     Warranty :{" "}
                                     <span className="font-bold">
                                       {product?.warranty?.warrantyDate}{" "}
                                       {product?.warranty?.warrantyTime}
                                     </span>
                                   </label>
-                                  <label class="block text-sm capitalize font-medium leading-6 text-gray-900 ">
+                                  <label className="block text-sm capitalize font-medium leading-6 text-gray-900 ">
                                     Image :
                                   </label>
                                   <div className="grid grid-cols-3 gap-6 pt-6 ">
@@ -244,10 +244,10 @@ const ProductTableComponent = ({ products }) => {
                                   </DialogDescription>
                                 </DialogHeader>
                                 <form className="grid gap-4 py-4">
-                                  <div class="">
+                                  <div className="">
                                     <label
                                       htmlFor="categoryName"
-                                      class="block text-sm capitalize font-medium leading-6 text-gray-900"
+                                      className="block text-sm capitalize font-medium leading-6 text-gray-900"
                                     >
                                       {product?.productName}
                                     </label>

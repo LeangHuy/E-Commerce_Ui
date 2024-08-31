@@ -5,12 +5,7 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { User } from "lucide-react";
@@ -32,8 +27,15 @@ export async function DropdownMenuDemo() {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           {userData != null && <Link href={"/profile"} ><DropdownMenuItem className="cursor-pointer">Profile</DropdownMenuItem></Link>}
-          {userData != null && userData.payload.role !== "USER" && (
+          {userData != null && userData.payload.role == "ADMIN" && (
             <Link href={"/admin/dashboard"} target="new">
+              <DropdownMenuItem className="cursor-pointer">
+                Dashboard
+              </DropdownMenuItem>
+            </Link>
+          )}
+          {userData != null && userData.payload.role == "DELIVERY" && (
+            <Link href={"/delivery/dashboard"} target="new">
               <DropdownMenuItem className="cursor-pointer">
                 Dashboard
               </DropdownMenuItem>

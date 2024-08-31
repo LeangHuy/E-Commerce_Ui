@@ -27,9 +27,9 @@ export function Action({ data }) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         {/* <div className="cursor-pointer"><span className="border font-medium border-sky-400 p-2 rounded-md hover:bg-sky-400 hover:text-white hover:font-medium">Action</span></div> */}
-        <button class="relative flex p-2 rounded-md items-center justify-center overflow-hidden bg-gray-800 text-white shadow-2xl transition-all before:absolute before:h-0 before:w-0 before:rounded-full before:bg-orange-600 before:duration-500 before:ease-out hover:shadow-orange-600 hover:before:h-56 hover:before:w-56">
-          <span class="relative z-10">Action</span>
-          <ChevronDown class="relative z-10" />
+        <button className="relative flex p-2 rounded-md items-center justify-center overflow-hidden bg-gray-800 text-white shadow-2xl transition-all before:absolute before:h-0 before:w-0 before:rounded-full before:bg-orange-600 before:duration-500 before:ease-out hover:shadow-orange-600 hover:before:h-56 hover:before:w-56">
+          <span className="relative z-10">Action</span>
+          <ChevronDown className="relative z-10" />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-50">
