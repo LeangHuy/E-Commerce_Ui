@@ -15,12 +15,32 @@ const ActionHistoryPage = async () => {
         <div>
           <h3 className="mb-6 text-3xl font-medium">History</h3>
           {orders.length >= 1 ? (
-            <div className="flex flex-col gap-6">
-              {orders
-                .filter((o) => o.orderDetail?.length > 0)
-                ?.map((order) => (
-                  <ActionCard order={order} key={order?.orderId} />
-                ))}
+            <div className="content p-5 bg-gray-100">
+              <div className="bg-white rounded-2xl p-5">
+                {Object.entries(
+                  orders
+                    .filter((o) => o?.orderResponse.orderDetail?.length > 0 && o?.orderResponse?.status !== "DONE")
+                    .reduce((acc, order) => {
+                      const date = new Date(order.orderResponse.orderDate).toLocaleDateString();
+                      if (!acc[date]) {
+                        acc[date] = [];
+                      }
+                      acc[date].push(order);
+                      return acc;
+                    }, {})
+                )
+                  .sort(([dateA], [dateB]) => new Date(dateB) - new Date(dateA)) // Sort dates in descending order
+                  .map(([date, groupedOrders]) => (
+                    <div key={date} className="mb-6">
+                      <h1 className="text-2xl font-bold mb-4">Orders on {date}</h1>
+                      <div className="card-overview flex flex-col gap-6">
+                        {groupedOrders.map((order) => (
+                          <ActionCard order={order} key={order?.orderResponse?.orderId} />
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+              </div>
             </div>
           ) : (
             <div className="flex justify-center items-start h-full font-semibold text-[1.6rem]">

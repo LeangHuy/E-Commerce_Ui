@@ -56,7 +56,7 @@ const ActionCard = async ({ order }) => {
           </div>
         </div>
         <div className="flex flex-col justify-between">
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1 items-end">
             <p className="flex gap-2">
               <span className="text-gray-400">Total</span>${order?.orderResponse?.totalPrice}
             </p>

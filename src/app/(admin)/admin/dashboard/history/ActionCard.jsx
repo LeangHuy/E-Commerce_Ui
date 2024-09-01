@@ -56,22 +56,16 @@ const ActionCard = async ({ order }) => {
           </div>
         </div>
         <div className="flex flex-col justify-between">
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1 items-end">
             <p className="flex gap-2">
               <span className="text-gray-400">Total</span>${order?.orderResponse?.totalPrice}
             </p>
             <span
               className={clsx(
                 "text-sm",
-                order?.orderResponse?.status === "PAID"
+                order?.orderResponse?.status === "DONE"
                   ? "text-green-400"
-                  : order?.orderResponse?.status === "DELIVERY"
-                    ? "text-purple-400"
-                    : order?.orderResponse?.status === "NONPAYMENT"
-                      ? "text-red-400"
-                      : order?.orderResponse?.status === "WAITING"
-                        ? "text-blue-400"
-                        : ""
+                  : ""
               )}
             >
               {order?.orderResponse?.status}
