@@ -4,6 +4,7 @@ import { Images, ShoppingCart, ShoppingCartIcon } from "lucide-react";
 import { ShoppingBag } from "lucide-react";
 import { PackagePlus } from "lucide-react";
 import { LayoutList } from "lucide-react";
+import { Landmark } from "lucide-react";
 import { History } from "lucide-react";
 import { LayoutDashboardIcon } from "lucide-react";
 import Image from "next/image";
@@ -141,6 +142,18 @@ const menu_links = [
       />
     ),
     tab: "/admin/dashboard/categories?tab=Categories",
+  },
+  {
+    title: "Bank",
+    icon: (active) => (
+      <Landmark
+        className={clsx(
+          "size-[18px] ",
+          active ? "stroke-white" : "stroke-black"
+        )}
+      />
+    ),
+    tab: "/admin/dashboard/bank?tab=Bank",
   },
   {
     title: "Order",

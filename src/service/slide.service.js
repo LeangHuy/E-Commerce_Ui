@@ -8,7 +8,6 @@ export const createSlideShow = async ({ title, description, image }) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      //   Authorization: `Bearer ${session?.user?.token}`,
       Authorization: `Bearer ${session.user.payload.token}`,
     },
     body: JSON.stringify({
