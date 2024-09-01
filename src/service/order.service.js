@@ -1,5 +1,6 @@
 import { authOption } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
+import { headers } from "next/headers";
 
 export const orderService = async (proList) => {
   try {
@@ -143,6 +144,24 @@ export const getOrderHistory = async (useFor = "") => {
       tags: ["getOrderHistory"],
     },
   });
+  const result = await res.json();
+  return result.payload;
+};
+
+export const assignDeliveryService = async (orderId, deliveryId) => {
+  const session = await getServerSession(authOption);
+  const res = await fetch(
+    `${process.env.BASE_URL}/orders/${orderId}/assign/delivery?deliveryId=${deliveryId}`,
+    {
+      headers: {
+        method: "PUT",
+        Authorization: `Bearer ${session.user.payload.token}`,
+      },
+      next: {
+        tags: ["assignDelivery"],
+      },
+    }
+  );
   const result = await res.json();
   return result.payload;
 };

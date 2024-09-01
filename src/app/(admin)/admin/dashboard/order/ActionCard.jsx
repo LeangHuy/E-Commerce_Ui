@@ -17,11 +17,13 @@ import {
 } from "@/components/ui/dialog"
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { Separator } from "@radix-ui/react-dropdown-menu";
+import { getAllDeliveries } from "@/service/user.service";
 const ActionCard = async ({ order }) => {
   const product = await getProductById(order?.orderResponse?.orderDetail[0].productId);
   const user = order?.orderResponse?.user?.user;
   const userName = user?.firstName + ' ' + user?.lastName;
-
+  const allDeliveries = await getAllDeliveries();
+  console.log("all delivery :", allDeliveries)
   return (
     <div className="grid grid-cols-[auto_1fr] gap-5 p-4 border rounded-lg">
       <Image
@@ -289,7 +291,7 @@ const ActionCard = async ({ order }) => {
 
         </div>
         <div>
-          <Action data={order} />
+          <Action data={order} deliveries={allDeliveries} />
         </div>
       </div>
     </div>

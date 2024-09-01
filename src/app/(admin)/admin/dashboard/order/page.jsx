@@ -4,7 +4,6 @@ import ActionCard from "./ActionCard";
 
 const OrderPage = async ({ searchParams: { tab = "Overview" } }) => {
   const orders = await getAllOrdersAdmin();
-  console.log("order all : ", orders)
   return (
     <div className="w-full">
       <Header tab={tab} />

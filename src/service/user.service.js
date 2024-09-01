@@ -33,3 +33,13 @@ export const updateUserInfoService = async (data) => {
   const result = await res.json();
   return result;
 };
+
+export const getAllDeliveries = async () => {
+  const session = await getServerSession(authOption);
+  if (!session) return null;
+  const res = await fetch(`${process.env.BASE_URL}/deliveries`, {
+    headers: { Authorization: `Bearer ${session.user.payload.token}` },
+  });
+  const result = await res.json();
+  return result;
+};

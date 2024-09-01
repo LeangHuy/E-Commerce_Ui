@@ -1,5 +1,6 @@
 "use server";
 import {
+  assignDeliveryService,
   changeStatusOrder,
   countTotalOrderPerDayService,
   countTotalOrderService,
@@ -31,5 +32,11 @@ export const totalPriceOrderAction = async () => {
 export const changeStatusOrderAction = async (orderId, status) => {
   const data = await changeStatusOrder(orderId, status);
   revalidateTag("getAllOrders");
+  return data;
+};
+
+export const assignDeliveryAction = async (orderId, deliveryId) => {
+  const data = await assignDeliveryService(orderId, deliveryId);
+  revalidateTag("assignDelivery");
   return data;
 };
