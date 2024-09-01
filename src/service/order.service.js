@@ -122,6 +122,7 @@ export const changeStatusOrder = async (orderId, status) => {
         },
       }
     ).then((data) => data.json());
+    console.log("res : ", res);
     return res?.payload;
   } catch (error) {
     return {

@@ -16,7 +16,9 @@ import { ChevronDown } from "lucide-react";
 
 export function Action({ data }) {
   const handleStatus = async (orderId, status) => {
+    console.log("data :", data)
     const res = await changeStatusOrderAction(orderId, status);
+    console.log("after update status :", res)
     if (res?.status == "DELIVERY") {
       toast.success(`The orders is on delivery.`);
     } else if (res?.status == "DONE") {
@@ -31,8 +33,8 @@ export function Action({ data }) {
       <DropdownMenuContent className="w-50">
         <DropdownMenuGroup >
           {status.map((s) => (
-            <DropdownMenuItem key={s} onClick={() => handleStatus(data?.orderId, s)}
-              className={cn("", data?.status == s ? "text-green-400 cursor-pointer" : " cursor-pointer")}>
+            <DropdownMenuItem key={s} onClick={() => handleStatus(data?.orderResponse?.orderId, s)}
+              className={cn("", data?.orderResponse?.status == s ? "text-green-400 cursor-pointer" : " cursor-pointer")}>
               <p>
                 {s}
               </p>
