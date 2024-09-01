@@ -11,9 +11,9 @@ const OrderPage = async ({ searchParams: { tab = "Overview" } }) => {
         <div className="bg-white  rounded-2xl p-5">
           <div className="card-overview flex flex-col gap-6">
             {orders
-              .filter((o) => o.orderDetail?.length > 0)
+              .filter((o) => o?.orderResponse?.orderDetail?.length > 0)
               ?.map((order) => (
-                <ActionCard order={order} key={order?.orderId} />
+                <ActionCard order={order} key={order?.orderResponse?.orderId} />
               ))}
           </div>
         </div>

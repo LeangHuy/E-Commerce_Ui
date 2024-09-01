@@ -19,7 +19,7 @@ import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 const ActionCard = async ({ order }) => {
   const product = await getProductById(order?.orderResponse?.orderDetail[0].productId);
-  const user = order?.user?.user;
+  const user = order?.orderResponse?.user?.user;
   const userName = user?.firstName + ' ' + user?.lastName;
 
   return (
@@ -89,7 +89,7 @@ const ActionCard = async ({ order }) => {
               <DialogContent className="sm:max-w-[425px] h-auto">
                 <DialogHeader>
                   <DialogTitle>{userName}'s Order Detail</DialogTitle>
-                  <DialogDescription> {new Date(order?.orderDate).toDateString()}</DialogDescription>
+                  <DialogDescription> {new Date(order?.orderResponse?.orderDate).toDateString()}</DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4 ">
                   <div className="flex gap-2">
