@@ -8,7 +8,7 @@ import { allProductInShop, allProductInStock, allProductOutStock } from "@/servi
 
 const AdminDashboardPage = async ({ searchParams: { tab = "Overview" } }) => {
   const userData = await getUserData();
-  if (userData.payload.role === "USER") {
+  if (userData?.payload?.role === "USER" || userData?.payload == null) {
     redirect("/");
   }
   const countTotalOrderPerDay = await countTotalOrderPerDayService();
