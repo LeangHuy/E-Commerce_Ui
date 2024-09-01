@@ -8,26 +8,28 @@ import { getPhoto } from "@/lib/utils";
 const ActionPage = async () => {
   const orders = await getAllOrders();
   const currentUser = await getUserData();
+  // Filter out orders that are DONE
+  const activeOrders = orders.filter(
+    (o) => o?.orderResponse.orderDetail?.length > 0 && o?.orderResponse?.status !== "DONE"
+  );
 
   return (
     <div className="w-[1330px] mx-auto my-[6rem]">
       <div className="grid grid-cols-[1fr_400px] gap-[3rem]">
         <div>
           <h3 className="mb-6 text-3xl font-medium">Product orders</h3>
-          {orders.length >= 1 ? (
+          {activeOrders.length >= 1 ? (
             <div className="content p-5 bg-gray-100">
               <div className="bg-white rounded-2xl p-5">
                 {Object.entries(
-                  orders
-                    .filter((o) => o?.orderResponse.orderDetail?.length > 0 && o?.orderResponse?.status !== "DONE")
-                    .reduce((acc, order) => {
-                      const date = new Date(order.orderResponse.orderDate).toLocaleDateString();
-                      if (!acc[date]) {
-                        acc[date] = [];
-                      }
-                      acc[date].push(order);
-                      return acc;
-                    }, {})
+                  activeOrders.reduce((acc, order) => {
+                    const date = new Date(order.orderResponse.orderDate).toLocaleDateString();
+                    if (!acc[date]) {
+                      acc[date] = [];
+                    }
+                    acc[date].push(order);
+                    return acc;
+                  }, {})
                 )
                   .sort(([dateA], [dateB]) => new Date(dateB) - new Date(dateA)) // Sort dates in descending order
                   .map(([date, groupedOrders]) => (
@@ -97,6 +99,50 @@ const ActionPage = async () => {
       </div>
     </div>
   );
+
+  // return filteredOrders.length >= 1 ? (
+  //   <div className="content p-5 bg-gray-100">
+  //     <div className="bg-white rounded-2xl p-5">
+  //       {Object.entries(
+  //         filteredOrders.reduce((acc, order) => {
+  //           const date = new Date(order.orderResponse.orderDate).toLocaleDateString();
+  //           if (!acc[date]) {
+  //             acc[date] = [];
+  //           }
+  //           acc[date].push(order);
+  //           return acc;
+  //         }, {})
+  //       )
+  //         .sort(([dateA], [dateB]) => new Date(dateB) - new Date(dateA)) // Sort dates in descending order
+  //         .map(([date, groupedOrders]) => (
+  //           <div key={date} className="mb-6">
+  //             <h1 className="text-2xl font-bold mb-4">Orders on {date}</h1>
+  //             <div className="card-overview flex flex-col gap-6">
+  //               {groupedOrders.map((order) => (
+  //                 <ActionCard order={order} key={order?.orderResponse?.orderId} />
+  //               ))}
+  //             </div>
+  //           </div>
+  //         ))}
+  //     </div>
+  //   </div>
+  // ) : (
+  //   <div className="flex justify-center items-start h-full font-semibold text-[1.6rem]">
+  //     <div className="">
+  //       <Image
+  //         src="/images/empty-cart.png"
+  //         alt="empty-image"
+  //         className="w-[30rem] object-cover"
+  //         width={1000}
+  //         height={1000}
+  //       />
+  //       <p className="text-center">You don't have any order now.</p>
+  //     </div>
+
+  //   </div>
+
+  // );
+
 };
 
 export default ActionPage;

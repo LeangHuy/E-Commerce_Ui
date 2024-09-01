@@ -19,7 +19,7 @@ const ActionHistoryPage = async () => {
               <div className="bg-white rounded-2xl p-5">
                 {Object.entries(
                   orders
-                    .filter((o) => o?.orderResponse.orderDetail?.length > 0 && o?.orderResponse?.status !== "DONE")
+                    .filter((o) => o?.orderResponse.orderDetail?.length > 0)
                     .reduce((acc, order) => {
                       const date = new Date(order.orderResponse.orderDate).toLocaleDateString();
                       if (!acc[date]) {
@@ -52,7 +52,7 @@ const ActionHistoryPage = async () => {
                   width={1000}
                   height={1000}
                 />
-                <p className="text-center">You don't have any order now.</p>
+                <p className="text-center">You don't have any order history now.</p>
               </div>
             </div>
           )}
