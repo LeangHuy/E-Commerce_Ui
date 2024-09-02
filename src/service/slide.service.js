@@ -87,3 +87,15 @@ export const editSlideById = async (data, slideId) => {
 
   return payload;
 };
+export const deleteSlideById = async (slideId) => {
+  const session = await getServerSession(authOption);
+
+  const res = await fetch(`${process.env.BASE_URL}/slideshows/${slideId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${session.user.payload.token}`,
+    },
+  });
+  const { payload } = await res.json();
+  return payload;
+};

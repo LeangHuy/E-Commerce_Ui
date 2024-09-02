@@ -3,6 +3,7 @@
 import {
   changeStatusSlide,
   createSlideShow,
+  deleteSlideById,
   editSlideById,
   getSlideById,
 } from "@/service/slide.service";
@@ -26,6 +27,11 @@ export const getSlideByIdAction = async (slideId) => {
 
 export const editSlideByIdAction = async (data, slideId) => {
   const result = await editSlideById(data, slideId);
+  revalidateTag("getAllSlideShows");
+  return result;
+};
+export const deleteSlideAction = async (slideId) => {
+  const result = await deleteSlideById(slideId);
   revalidateTag("getAllSlideShows");
   return result;
 };

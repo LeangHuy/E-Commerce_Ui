@@ -75,7 +75,7 @@ const AdminDashboardPage = ({
                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                   <div className="sm:col-span-4">
                     <label
-                      for="username"
+                      htmlFor="username"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Title
@@ -95,7 +95,7 @@ const AdminDashboardPage = ({
 
                   <div className="col-span-full">
                     <label
-                      for="about"
+                      htmlFor="about"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Description
@@ -116,7 +116,7 @@ const AdminDashboardPage = ({
 
                   {/* <div className="col-span-full">
                     <label
-                      for="cover-photo"
+                      htmlFor="cover-photo"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Slideshow photo
@@ -138,7 +138,7 @@ const AdminDashboardPage = ({
                           </svg>
                           <div className="mt-4 flex text-sm leading-6 text-gray-600">
                             <label
-                              for="file-upload"
+                              htmlFor="file-upload"
                               className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                             >
                               <span>Upload a file</span>
