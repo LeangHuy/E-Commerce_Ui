@@ -36,6 +36,23 @@ export const getBankById = async (bankId) => {
   const session = await getServerSession(authOption);
 
   const res = await fetch(`${process.env.BASE_URL}/banks/${bankId}`, {
+    next: {
+      tag: ["getBankById"],
+    },
+    cache: "no-store",
+    headers: {
+      Authorization: `Bearer ${session.user.payload.token}`,
+    },
+  });
+  const { payload } = await res.json();
+  return payload;
+};
+
+export const deleteBankById = async (bankId) => {
+  const session = await getServerSession(authOption);
+
+  const res = await fetch(`${process.env.BASE_URL}/banks/${bankId}`, {
+    method: "DELETE",
     headers: {
       Authorization: `Bearer ${session.user.payload.token}`,
     },
