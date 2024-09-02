@@ -50,7 +50,7 @@ const AddCategoryPage = () => {
                     <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4 py-4">
                         <div className="">
                             <label
-                                htmlFor="categoryName"
+                                htmlhtmlFor="categoryName"
                                 className="block text-sm font-medium leading-6 text-gray-900"
                             >
                                 Category Name

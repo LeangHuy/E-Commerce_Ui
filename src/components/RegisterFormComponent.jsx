@@ -50,7 +50,7 @@ const RegisterFormComponent = () => {
         className="w-full flex flex-col my-2 gap-2"
       >
         <div className="flex items-start flex-col justify-start  ">
-          <label htmlFor="firstName" className="text-sm text-gray-700 mr-2">
+          <label htmlhtmlFor="firstName" className="text-sm text-gray-700 mr-2">
             First Name:
           </label>
           <input
@@ -69,7 +69,7 @@ const RegisterFormComponent = () => {
         </div>
 
         <div className="flex items-start flex-col justify-start">
-          <label htmlFor="lastName" className="text-sm text-gray-700 mr-2">
+          <label htmlhtmlFor="lastName" className="text-sm text-gray-700 mr-2">
             Last Name:
           </label>
           <input
@@ -88,7 +88,7 @@ const RegisterFormComponent = () => {
         </div>
 
         <div className="flex items-start flex-col justify-start">
-          <label htmlFor="email" className="text-sm text-gray-700 mr-2">
+          <label htmlhtmlFor="email" className="text-sm text-gray-700 mr-2">
             Email:
           </label>
           <input
@@ -108,7 +108,7 @@ const RegisterFormComponent = () => {
         </div>
 
         <div className=" flex items-start flex-col justify-start ">
-          <label htmlFor="password" className="text-sm text-gray-700 mr-2">
+          <label htmlhtmlFor="password" className="text-sm text-gray-700 mr-2">
             Password:
           </label>
           <div className="flex relative w-full px-3 py-2 rounded-md border focus-within:border-gray-500 focus-within:border-2 justify-between items-center">
@@ -143,7 +143,7 @@ const RegisterFormComponent = () => {
 
         <div className=" flex items-start flex-col justify-start ">
           <label
-            htmlFor="confirmPassword"
+            htmlhtmlFor="confirmPassword"
             className="text-sm text-gray-700 mr-2"
           >
             Confirm Password:
@@ -180,7 +180,7 @@ const RegisterFormComponent = () => {
 
         {/* <div className="flex items-start flex-col justify-start ">
           <label
-            htmlFor="confirmPassword"
+            htmlhtmlFor="confirmPassword"
             className="text-sm text-gray-700 mr-2"
           >
             Confirm Password:

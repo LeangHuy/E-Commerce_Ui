@@ -136,7 +136,7 @@ function ShopInfo({ shopData }) {
               />
               {isEdit && (
                 <label
-                  htmlFor="pf"
+                  htmlhtmlFor="pf"
                   className="absolute bottom-2 bg-white p-2 rounded-full right-2 border"
                 >
                   <Camera />

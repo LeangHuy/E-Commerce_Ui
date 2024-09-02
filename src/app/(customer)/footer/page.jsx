@@ -40,7 +40,7 @@ export default function Footer() {
           <h3 className="font-semibold ">Contact</h3>
           {/* <div>
             <div className="mt-6 flex max-w-md gap-x-4">
-              <label for="email-address" className="sr-only">
+              <label htmlFor="email-address" className="sr-only">
                 Email address
               </label>
               <input

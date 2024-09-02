@@ -4,7 +4,6 @@ export const registerService = async (req) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auths/register`, {
     method: "POST",
     headers: {
-      // accept: "*/*",
       "Content-Type": "application/json",
     },
     body: JSON.stringify(req),
