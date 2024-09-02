@@ -87,6 +87,47 @@ function BankTableComponent({ banks }) {
                                                         <Dialog>
                                                             <DialogTrigger asChild>
                                                                 <div className="flex w-full rounded-sm gap-3 items-center px-2 py-1.5 hover:bg-accent cursor-pointer ">
+                                                                    <Eye className="size-[18px] group-hover:stroke-green-400  transition-all hover:stroke-red-500 cursor-pointer" />
+                                                                    <p className="group-hover:text-green-400">
+                                                                        View
+                                                                    </p>
+                                                                </div>
+                                                            </DialogTrigger>
+                                                            <DialogContent className="sm:max-w-[425px]">
+                                                                <DialogHeader>
+                                                                    <DialogTitle className="text-sky-500">
+                                                                        View Detail
+                                                                    </DialogTitle>
+                                                                </DialogHeader>
+                                                                <div className="">
+                                                                    <label className="block text-sm capitalize font-medium leading-6 text-gray-900">
+                                                                        Bank Name :{" "}
+                                                                        <span className="font-bold">
+                                                                            {bank?.bankName}
+                                                                        </span>
+                                                                    </label>
+                                                                    <label className="block text-sm capitalize font-medium leading-6 text-gray-900 ">
+                                                                        KHQR :
+                                                                    </label>
+                                                                    <div >
+                                                                        <Image
+                                                                            src={getPhoto(bank?.qrCode)}
+                                                                            className="w-full object-cover  cursor-pointer rounded-md border border-gray-300"
+                                                                            alt="alt"
+                                                                            width={1000}
+                                                                            height={1000}
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                            </DialogContent>
+                                                        </Dialog>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div className="flex items-center gap-3 group">
+                                                        <Dialog>
+                                                            <DialogTrigger asChild>
+                                                                <div className="flex w-full rounded-sm gap-3 items-center px-2 py-1.5 hover:bg-accent cursor-pointer ">
                                                                     <Trash className="size-[18px] group-hover:stroke-red-400  transition-all hover:stroke-red-500 cursor-pointer" />
                                                                     <p className="group-hover:text-red-400">
                                                                         Delete
