@@ -1,29 +1,6 @@
 import { authOption } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 
-// export const createBank = async ({ bankName, qrCode }) => {
-//   const session = await getServerSession(authOption);
-
-//   const res = await fetch(`${process.env.BASE_URL}/banks`, {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//       Authorization: `Bearer ${session.user.payload.token}`,
-//     },
-//     body: JSON.stringify({
-//       bankName,
-//       qrCode,
-//     }),
-//   });
-//   console.log("========== service ============");
-//   console.log("bankName: ", bankName);
-//   console.log("qrCode: ", qrCode);
-//   console.log("========== service ============");
-
-//   const { payload } = await res.json();
-//   return payload;
-// };
-
 export const createBank = async (data) => {
   const session = await getServerSession(authOption);
 
@@ -36,6 +13,33 @@ export const createBank = async (data) => {
     body: JSON.stringify(data),
   });
 
+  const { payload } = await res.json();
+  return payload;
+};
+
+export const getAllBanks = async () => {
+  const session = await getServerSession(authOption);
+  const res = await fetch(`${process.env.BASE_URL}/banks`, {
+    next: {
+      tag: ["getAllBanks"],
+    },
+    cache: "no-store",
+    headers: {
+      Authorization: `Bearer ${session.user.payload.token}`,
+    },
+  });
+  const { payload } = await res.json();
+  return payload;
+};
+
+export const getBankById = async (bankId) => {
+  const session = await getServerSession(authOption);
+
+  const res = await fetch(`${process.env.BASE_URL}/banks/${bankId}`, {
+    headers: {
+      Authorization: `Bearer ${session.user.payload.token}`,
+    },
+  });
   const { payload } = await res.json();
   return payload;
 };

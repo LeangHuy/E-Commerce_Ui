@@ -127,7 +127,7 @@ const EditProductPage = ({
                 <div className="mt-10 grid grid-cols-4 gap-x-6 gap-y-8 ">
                   <div className="">
                     <label
-                      htmlhtmlFor="username"
+                      htmlFor="username"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Product Name
@@ -145,7 +145,7 @@ const EditProductPage = ({
                   </div>
                   <div className="">
                     <label
-                      htmlhtmlFor="username"
+                      htmlFor="username"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Product Stock
@@ -166,7 +166,7 @@ const EditProductPage = ({
                   </div>
                   <div className="">
                     <label
-                      htmlhtmlFor="username"
+                      htmlFor="username"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Product Quality
@@ -186,7 +186,7 @@ const EditProductPage = ({
                   </div>
                   <div className="">
                     <label
-                      htmlhtmlFor="username"
+                      htmlFor="username"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Product Price
@@ -207,7 +207,7 @@ const EditProductPage = ({
                   </div>
                   <div className="">
                     <label
-                      htmlhtmlFor="username"
+                      htmlFor="username"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Product Discount
@@ -228,7 +228,7 @@ const EditProductPage = ({
                   </div>
                   <div className="">
                     <label
-                      htmlhtmlFor="username"
+                      htmlFor="username"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Product Category
@@ -259,7 +259,7 @@ const EditProductPage = ({
 
                   <div className="w-full">
                     <label
-                      htmlhtmlFor="username"
+                      htmlFor="username"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Product Warranty
@@ -289,7 +289,7 @@ const EditProductPage = ({
                   </div>
                   <div className="w-full">
                     <label
-                      htmlhtmlFor="username"
+                      htmlFor="username"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Product Warranty Date Count
@@ -310,7 +310,7 @@ const EditProductPage = ({
                   </div>
                   <div className="col-span-full">
                     <label
-                      htmlhtmlFor="about"
+                      htmlFor="about"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Description
@@ -329,7 +329,7 @@ const EditProductPage = ({
                   </div>
                   <div className="col-span-full">
                     <label
-                      htmlhtmlFor="cover-photo"
+                      htmlFor="cover-photo"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Product photos
@@ -351,7 +351,7 @@ const EditProductPage = ({
                           </svg>
                           <div className="mt-4 flex text-sm leading-6 text-gray-600">
                             <label
-                              htmlhtmlFor="file-upload"
+                              htmlFor="file-upload"
                               className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                             >
                               <span>Upload a file</span>
@@ -438,29 +438,6 @@ const EditProductPage = ({
                       </div>
                     ))}
 
-                    {/* <div  className="relative">
-                      <Image
-                        src={
-                          "http://localhost:9090/api/v1/files?fileName=25271d84-3549-4b2e-9f6f-9269d6cddc57.png"
-                        }
-                        width={1000}
-                        height={1000}
-                        alt="preview"
-                        className="h-[230px] object-cover rounded-lg"
-                      />
-                      <div
-                        onClick={() =>
-                          setImg(
-                            img?.filter(
-                              (pre) => pre.imgPreview !== i?.imgPreview
-                            )
-                          )
-                        }
-                        className="absolute cursor-pointer transition-all hover:scale-105 group top-2 right-2 size-[1.5rem] rounded-full p-1 flex items-center justify-center bg-white"
-                      >
-                        <X className="group-hover:stroke-red-500" />
-                      </div>
-                    </div> */}
                   </div>
                 </div>
               </div>

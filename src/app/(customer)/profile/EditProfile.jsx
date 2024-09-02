@@ -53,7 +53,7 @@ const EditProfile = ({ user }) => {
         className="container mx-auto rounded-md shadow-md border-1 p-10 px-80"
       >
         <div className="relative flex justify-center items-center">
-          <label htmlhtmlFor="pf">
+          <label htmlFor="pf">
             <Image
               width={1000}
               height={1000}
@@ -74,7 +74,7 @@ const EditProfile = ({ user }) => {
             id="pf"
           />
           <label
-            htmlhtmlFor="pf"
+            htmlFor="pf"
             className="absolute ml-20 -mb-10 bg-sky-400 rounded-full p-1.5 cursor-pointer"
           >
             <Pencil stroke="white" className="size-[1rem]" />
@@ -147,7 +147,7 @@ const EditProfile = ({ user }) => {
               id="r2"
               onClick={() => setGender("Male")}
             />
-            <Label htmlhtmlFor="r2">Male</Label>
+            <Label htmlFor="r2">Male</Label>
           </div>
           <div className="flex items-center space-x-2">
             <RadioGroupItem
@@ -156,7 +156,7 @@ const EditProfile = ({ user }) => {
               id="r3"
               onClick={() => setGender("Female")}
             />
-            <Label htmlhtmlFor="r3">Female</Label>
+            <Label htmlFor="r3">Female</Label>
           </div>
         </RadioGroup>
 

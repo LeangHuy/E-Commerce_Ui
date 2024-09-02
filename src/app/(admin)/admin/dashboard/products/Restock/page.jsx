@@ -55,7 +55,7 @@ const RestockProduct = ({ product }) => {
           <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4 py-4">
             <div className="">
               <label
-                htmlhtmlFor="newStock"
+                htmlFor="newStock"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
                 Product Stock

@@ -64,7 +64,7 @@ const NewPasswordComponent = () => {
         className="w-full flex flex-col my-2 gap-2"
       >
         <div className="flex items-start flex-col justify-start ">
-          <label htmlhtmlFor="password" className="text-sm text-gray-700 mr-2">
+          <label htmlFor="password" className="text-sm text-gray-700 mr-2">
             New Password:
           </label>
           <input
@@ -85,7 +85,7 @@ const NewPasswordComponent = () => {
 
         <div className="flex items-start flex-col justify-start ">
           <label
-            htmlhtmlFor="confirmPassword"
+            htmlFor="confirmPassword"
             className="text-sm text-gray-700 mr-2"
           >
             Confirm New Password:
