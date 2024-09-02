@@ -108,7 +108,7 @@ function BankTableComponent({ banks }) {
                                                                             htmlFor="categoryName"
                                                                             className="block text-sm capitalize font-medium leading-6 text-gray-900"
                                                                         >
-                                                                            {bank?.bankName}
+                                                                            Bank Name : <span className='font-bold text-blue-500'>{bank?.bankName}</span>
                                                                         </label>
                                                                     </div>
                                                                     <DialogHeader>

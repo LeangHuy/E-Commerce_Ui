@@ -15,9 +15,12 @@ const ButtonDelete = ({ productId, fnDelete, children }) => {
   };
 
   return (
-    <Button className="ml-auto" onClick={onDelete}>
-      {children}
-    </Button>
+    <div className="items-end flex">
+      <Button className="ml-auto  " onClick={onDelete}>
+        {children}
+      </Button>
+    </div>
+
   );
 };
 

@@ -38,7 +38,7 @@ const AdminDashboardPage = ({ searchParams: { tab = "Overview" } }) => {
     reset();
     setImg({ imgFile: null, imgPreview: null });
     await revalidateWhere("getAllBank");
-    if (result?.slideId) {
+    if (result?.id) {
       router.push("/admin/dashboard/bank?tab=Bank");
     }
   };
@@ -48,7 +48,7 @@ const AdminDashboardPage = ({ searchParams: { tab = "Overview" } }) => {
   return (
     <div className="w-full">
       <Header tab={tab}>
-        <Link href={"/admin/dashboard/slide?tab=Slide"}>
+        <Link href={"/admin/dashboard/bank?tab=Bank"}>
           <Button className="flex gap-2 items-center">
             <ArrowLeft className="size-[20px]" />
             <span className="text-sm">Back</span>

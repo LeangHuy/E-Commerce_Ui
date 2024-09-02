@@ -2,30 +2,8 @@ import React from "react";
 import Header from "../components/Header";
 import { Button } from "@/components/ui/button";
 import { ImagePlusIcon, Eye, Trash } from "lucide-react";
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import Image from "next/image";
 import Link from "next/link";
-import { getPhoto } from "@/lib/utils";
 import { getAllBanks } from "@/service/bank.service";
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@radix-ui/react-dialog";
-import { MoreHorizontal } from "lucide-react";
-import { Pen } from "lucide-react";
-import { deleteBankAction } from "@/acitons/bankAction";
 import BankTableComponent from "./_components/BankTableComponent";
 
 
