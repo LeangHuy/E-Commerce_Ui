@@ -4,6 +4,7 @@ import {
   changeStatusOrder,
   countTotalOrderPerDayService,
   countTotalOrderService,
+  orderByQr,
   orderService,
 } from "@/service/order.service";
 import { revalidateTag } from "next/cache";
@@ -39,4 +40,9 @@ export const assignDeliveryAction = async (orderId, deliveryId) => {
   const data = await assignDeliveryService(orderId, deliveryId);
   revalidateTag("assignDelivery");
   return data;
+};
+
+export const orderByQrAction = async (data) => {
+  console.log("data action ", data);
+  return await orderByQr(data);
 };

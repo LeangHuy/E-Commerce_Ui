@@ -165,3 +165,19 @@ export const assignDeliveryService = async (orderId, deliveryId) => {
   const result = await res.json();
   return result.payload;
 };
+
+export const orderByQr = async (data) => {
+  console.log("data in service ", JSON.stringify(data));
+  const session = await getServerSession(authOption);
+  const res = await fetch(`${process.env.BASE_URL}/orders/by-qr`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${session.user.payload.token}`,
+    },
+
+    body: JSON.stringify(data),
+  });
+  const result = await res.json();
+  return result;
+};
