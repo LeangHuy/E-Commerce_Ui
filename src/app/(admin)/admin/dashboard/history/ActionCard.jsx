@@ -20,6 +20,7 @@ import { Separator } from "@radix-ui/react-dropdown-menu";
 import { Contact } from "lucide-react";
 import { Phone } from "lucide-react";
 import { MapPin } from "lucide-react";
+import { CircleDollarSign } from "lucide-react";
 const ActionCard = async ({ order }) => {
   const product = await getProductById(order?.orderResponse?.orderDetail[0].productId);
   const user = order?.orderResponse?.user?.user;
@@ -237,6 +238,9 @@ const ActionCard = async ({ order }) => {
                       <h4>Receive by :</h4>
                       <p className="flex items-center gap-2"><Phone size={14} />{order?.receiverPhone}</p>
                       <p className="flex items-start gap-2"><MapPin size={18} className="mt-1" />{order?.receiverLocation}</p>
+                      {order?.orderResponse?.payment == false &&
+                        <p className="flex items-start gap-2"><CircleDollarSign size={18} className="mt-1" />បង់ប្រាក់ពេលទំនិញទៅដល់</p>
+                      }
                     </div>
                   </div>
 
