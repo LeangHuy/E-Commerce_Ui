@@ -18,6 +18,9 @@ import {
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { getAllDeliveries } from "@/service/user.service";
+import { Phone } from "lucide-react";
+import { MapPin } from "lucide-react";
+import { Contact } from "lucide-react";
 const ActionCard = async ({ order }) => {
   const product = await getProductById(order?.orderResponse?.orderDetail[0].productId);
   const user = order?.orderResponse?.user?.user;
@@ -50,6 +53,10 @@ const ActionCard = async ({ order }) => {
               <p className="flex gap-2">
                 <span className="text-gray-400">Total Quantity : </span>
                 <span>{order?.orderResponse?.orderTotalQty} </span>
+              </p>
+              <p className="flex gap-2">
+                <span className="text-gray-400">Total Price : </span>
+                <span className="font-medium">{order?.orderResponse?.totalPrice} $</span>
               </p>
             </div>
             <span className="bg-gray-100 self-start py-1 px-2 text-sm rounded-lg">
@@ -137,15 +144,30 @@ const ActionCard = async ({ order }) => {
                       <ChevronRight className="stroke-white size-5" />
                     </div>
                   </DialogTrigger>
-                  <DialogContent className="sm:max-w-[425px] h-auto">
+                  <DialogContent className="sm:max-w-[555px] h-auto">
                     <DialogHeader>
                       <DialogTitle>{userName}'s Order Detail</DialogTitle>
                       <DialogDescription> {new Date(order?.orderResponse?.orderDate).toDateString()}</DialogDescription>
                     </DialogHeader>
+                    <div className="flex justify-between border border-1 p-4 rounded-md">
+                      <div className="w-1/2">
+                        <h4>Order from :</h4>
+                        <p className="flex items-center gap-2"><Contact size={14} />{userName}</p>
+                        <p className="flex items-center gap-2"><Phone size={14} />{user?.phone}</p>
+                        <p className="flex items-start gap-2"><MapPin size={18} className="mt-1" />{user?.address}</p>
+                      </div>
+                      <div className="w-1/2">
+                        <h4>Receive by :</h4>
+                        <p className="flex items-center gap-2"><Phone size={14} />{order?.receiverPhone}</p>
+                        <p className="flex items-start gap-2"><MapPin size={18} className="mt-1" />{order?.receiverLocation}</p>
+                      </div>
+                    </div>
+
+
                     <div className="grid gap-4 py-4 ">
                       <div className="flex gap-2">
                         <div className="h-auto w-full ">
-                          <ScrollArea className="h-75 w-full rounded-md border">
+                          <ScrollArea className="h-64 w-full rounded-md border overflow-y-scroll">
                             <div className="p-4">
                               <div className="flex justify-between">
                                 <h4 className="mb-4 text-lg font-medium leading-none">Item</h4>
@@ -163,7 +185,7 @@ const ActionCard = async ({ order }) => {
                               {order?.orderResponse?.orderDetail.map((item, index) => (
                                 <>
                                   <div key={index} className="text-sm">
-                                    <div className="grid grid-cols-2 gap-2">
+                                    <div className="grid grid-cols-2 gap-4">
                                       <div className="">
                                         <Image
                                           src={getPhoto(item?.imageProductList[0]?.fileName)}
@@ -173,8 +195,8 @@ const ActionCard = async ({ order }) => {
                                           height={1000}
                                         />
                                       </div>
-                                      <div>
-                                        <p className="font-medium">{item?.productName}</p>
+                                      <div className="leading-7 ">
+                                        <p className="font-medium text-blue-500">{item?.productName}</p>
                                         <p>Price : {item?.unitPrice}$</p>
 
                                         {item?.discount !== 0 && <p>Discount : {item?.discount}%</p>}
@@ -186,7 +208,7 @@ const ActionCard = async ({ order }) => {
 
                                     </div>
                                   </div>
-                                  <Separator className="my-2" />
+                                  <Separator className="my-2 " />
                                 </>
                               ))}
 
@@ -216,15 +238,30 @@ const ActionCard = async ({ order }) => {
                     <ChevronRight className="stroke-white size-5" />
                   </div>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px] h-auto">
+                <DialogContent className="sm:max-w-[555px] h-auto">
                   <DialogHeader>
                     <DialogTitle>{userName}'s Order Detail</DialogTitle>
                     <DialogDescription> {new Date(order?.orderResponse?.orderDate).toDateString()}</DialogDescription>
                   </DialogHeader>
+                  <div className="flex justify-between border border-1 p-4 rounded-md">
+                    <div className="w-1/2">
+                      <h4>Order from :</h4>
+                      <p className="flex items-center gap-2"><Contact size={14} />{userName}</p>
+                      <p className="flex items-center gap-2"><Phone size={14} />{user?.phone}</p>
+                      <p className="flex items-start gap-2"><MapPin size={18} className="mt-1" />{user?.address}</p>
+                    </div>
+                    <div className="w-1/2">
+                      <h4>Receive by :</h4>
+                      <p className="flex items-center gap-2"><Phone size={14} />{order?.receiverPhone}</p>
+                      <p className="flex items-start gap-2"><MapPin size={18} className="mt-1" />{order?.receiverLocation}</p>
+                    </div>
+                  </div>
+
+
                   <div className="grid gap-4 py-4 ">
                     <div className="flex gap-2">
                       <div className="h-auto w-full ">
-                        <ScrollArea className="h-75 w-full rounded-md border">
+                        <ScrollArea className="h-64 w-full rounded-md border overflow-y-scroll">
                           <div className="p-4">
                             <div className="flex justify-between">
                               <h4 className="mb-4 text-lg font-medium leading-none">Item</h4>
@@ -242,7 +279,7 @@ const ActionCard = async ({ order }) => {
                             {order?.orderResponse?.orderDetail.map((item, index) => (
                               <>
                                 <div key={index} className="text-sm">
-                                  <div className="grid grid-cols-2 gap-2">
+                                  <div className="grid grid-cols-2 gap-4">
                                     <div className="">
                                       <Image
                                         src={getPhoto(item?.imageProductList[0]?.fileName)}
@@ -252,8 +289,8 @@ const ActionCard = async ({ order }) => {
                                         height={1000}
                                       />
                                     </div>
-                                    <div>
-                                      <p className="font-medium">{item?.productName}</p>
+                                    <div className="leading-7 ">
+                                      <p className="font-medium text-blue-500">{item?.productName}</p>
                                       <p>Price : {item?.unitPrice}$</p>
 
                                       {item?.discount !== 0 && <p>Discount : {item?.discount}%</p>}
@@ -265,7 +302,7 @@ const ActionCard = async ({ order }) => {
 
                                   </div>
                                 </div>
-                                <Separator className="my-2" />
+                                <Separator className="my-2 " />
                               </>
                             ))}
 
