@@ -18,10 +18,45 @@ import Image from "next/image";
 import { X } from "lucide-react";
 import { useAddToCart } from "@/store/useAddToCart";
 import toast from "react-hot-toast";
-import { orderAction } from "@/acitons/orderAction";
+import { orderAction, orderByQrAction } from "@/acitons/orderAction";
+import { useState } from "react";
+import { useEffect } from "react";
+import { getPaymentMethodAction } from "@/acitons/paymentAction";
+import { getPhoto } from "@/lib/utils";
+import { Input } from "../ui/input";
+import { useForm } from "react-hook-form";
+import { postImgAction } from "@/acitons/uploadImgAction";
 
 export function DrawerCheckout({ price }) {
   const { cartList, removeAllCart } = useAddToCart();
+  const { register, handleSubmit } = useForm();
+  const [img, setImg] = useState({ img: null, imgPrev: null });
+
+  const onSubmit = async (data) => {
+    if (!img.img) {
+      toast.error("Select an image");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", img.img);
+    const transferImage = await postImgAction(formData);
+    const result = await orderByQrAction({
+      orderProductRequestList: cartList?.map((pro) => ({
+        productId: pro?.productId,
+        qty: pro?.qty,
+      })),
+      paymentRequest: {
+        ...data,
+        transferImage,
+      },
+    });
+
+    console.log(result);
+    if (result?.status == "CREATED") {
+      toast.success("Success");
+    } else toast.error("Error");
+  };
 
   const onOrder = async (pro) => {
     try {
@@ -32,10 +67,25 @@ export function DrawerCheckout({ price }) {
       toast.error(error.message);
     }
   };
+
+  const [banks, setBank] = useState();
+  const [currentBank, setCurrentBank] = useState();
+
+  useEffect(() => {
+    getPaymentMethodAction().then((data) => {
+      console.log(data);
+      setBank(data);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (currentBank) console.log(JSON.parse(currentBank));
+  }, [currentBank]);
+
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button className="block w-full">Checkout now</Button>
+        <p>Pay by KHQR</p>
       </DrawerTrigger>
       <DrawerContent className="">
         <div className="mx-auto w-full max-w-sm ">
@@ -88,42 +138,83 @@ export function DrawerCheckout({ price }) {
           </div>
           <div className="flex flex-col gap-5">
             <h3 className="text-center font-semibold">Step 2</h3>
-            <div>
-              <Image
+            <div className="grid grid-cols-2 gap-6">
+              {/* <Image
                 src={"/images/payway.JPG"}
                 alt="payway"
                 width={1000}
                 height={1000}
                 className="object-cover"
-              />
+              /> */}
+              <select
+                defaultValue={0}
+                onChange={(e) => setCurrentBank(e.target.value)}
+              >
+                <option value="">Select</option>
+                {banks?.map((b, idx) => (
+                  <option
+                    key={idx}
+                    value={JSON.stringify(b)}
+                    // onChange={() => setCurrentBank(b)}
+                    // variant={"outline"}
+                  >
+                    {b?.bankName}
+                  </option>
+                ))}
+              </select>
             </div>
+            {currentBank && (
+              <Image
+                src={getPhoto(JSON.parse(currentBank)?.qrCode)}
+                alt="payway"
+                width={1000}
+                height={1000}
+                className="object-cover h-[450px]"
+              />
+            )}
           </div>
           <div className="flex flex-col gap-5">
             <h3 className="text-center font-semibold">Step 3</h3>
-            <div className="flex flex-col gap-3">
-              <p>
-                ក្រោយពេលបងប្អូនធ្វើការទូទាត់ប្រាក់រួច
-                បងប្អូនអាចចុចពាក្យ "DONE" នៅខាងក្រោមនេះដើម្បីបញ្ចាក់ពីការទូទាត់ប្រាក់រួចរាល់​និងធ្វើការឆាតជាមួយនឹងពួកយើងតាម
-                Telegram
-                ក្នុងការបញ្ចាក់ប្រាប់ពីទីតាំងនិងលេខទំនាក់ទំនងបងប្អូនដើម្បីទទួលបានឥវ៉ាន់។
-              </p>
-              {/* <Link
-                href={"https://t.me/Playstation_Game_cambodia"}
-                className="font-semibold"
-                target="_blank"
-              >
-                <Button className="block w-full ">
-
-                  Contact us via Telegram
-                </Button>
-
-              </Link> */}
-            </div>
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-col gap-3"
+            >
+              <Input
+                {...register("receiverPhone")}
+                type="number"
+                placeholder="Phone number"
+              />
+              <Input
+                {...register("receiverLocation")}
+                type="text"
+                placeholder="Location"
+              />
+              <Input
+                type="file"
+                placeholder="Location"
+                onChange={(e) => {
+                  setImg({
+                    img: e.target.files[0],
+                    imgPrev: URL.createObjectURL(e.target.files[0]),
+                  });
+                }}
+              />
+              {img.img && (
+                <Image
+                  src={img.imgPrev}
+                  alt="payway"
+                  width={1000}
+                  height={1000}
+                  className="object-cover h-[320px]"
+                />
+              )}
+              <Button type="submit">Submit</Button>
+            </form>
           </div>
           <div className="col-start-2 col-end-3">
             {/* <DrawerClose asChild> */}
 
-            <Button
+            {/* <Button
               type="button"
               onClick={(e) => {
                 e.preventDefault();
@@ -138,7 +229,7 @@ export function DrawerCheckout({ price }) {
               className="block w-full"
             >
               Done for payment
-            </Button>
+            </Button> */}
             {/* </DrawerClose> */}
           </div>
         </div>
