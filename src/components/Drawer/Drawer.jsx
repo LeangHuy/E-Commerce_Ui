@@ -29,8 +29,13 @@ import { postImgAction } from "@/acitons/uploadImgAction";
 
 export function DrawerCheckout({ price }) {
   const { cartList, removeAllCart } = useAddToCart();
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [img, setImg] = useState({ img: null, imgPrev: null });
+  const [open, setOpen] = useState(false);
 
   const onSubmit = async (data) => {
     if (!img.img) {
@@ -55,6 +60,8 @@ export function DrawerCheckout({ price }) {
     console.log(result);
     if (result?.status == "CREATED") {
       toast.success("Success");
+      removeAllCart();
+      setOpen(false);
     } else toast.error("Error");
   };
 
@@ -83,40 +90,17 @@ export function DrawerCheckout({ price }) {
   }, [currentBank]);
 
   return (
-    <Drawer>
+    <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <p>Pay by KHQR</p>
+        <p onClick={() => setOpen(true)}>Pay by KHQR</p>
       </DrawerTrigger>
       <DrawerContent className="">
         <div className="mx-auto w-full max-w-sm ">
-          {/* <DrawerHeader>
-            <DrawerTitle className="text-center">
-              Proccess the payment
-            </DrawerTitle>
-            <DrawerDescription className="text-center">
-              Complete the payment step below
-            </DrawerDescription>
-          </DrawerHeader> */}
           <DrawerClose asChild className="absolute top-4 right-4">
             <div className="flex cursor-pointer items-center justify-center rounded-full mt-8">
               <X />
             </div>
           </DrawerClose>
-          {/* <div className="p-4 pb-0">
-            <div className="mt-3 h-[120px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={data}>
-                  <Bar
-                    dataKey="goal"
-                    style={{
-                      fill: "hsl(var(--foreground))",
-                      opacity: 0.9,
-                    }}
-                  />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </div> */}
         </div>
         <div className="w-[80%] mx-auto p-10 grid grid-cols-3 gap-10">
           <div className="flex flex-col gap-5">
@@ -152,13 +136,15 @@ export function DrawerCheckout({ price }) {
                 defaultValue={0}
                 onChange={(e) => setCurrentBank(e.target.value)}
               >
-                <option value="" className="cursor-pointer">Select</option>
+                <option value="" className="cursor-pointer">
+                  Select
+                </option>
                 {banks?.map((b, idx) => (
                   <option
                     key={idx}
                     value={JSON.stringify(b)}
-                  // onChange={() => setCurrentBank(b)}
-                  // variant={"outline"}
+                    // onChange={() => setCurrentBank(b)}
+                    // variant={"outline"}
                   >
                     {b?.bankName}
                   </option>
@@ -178,18 +164,19 @@ export function DrawerCheckout({ price }) {
           <div className="flex flex-col gap-5">
             <h3 className="text-center font-semibold">Step 3</h3>
             <form
+              id="form-qr"
               onSubmit={handleSubmit(onSubmit)}
               className="flex flex-col gap-3"
             >
               <Input
                 {...register("receiverPhone", {
-                  required: "Phone number is required",
-                  pattern: {
-                    value: /^[0-9]{10}$/,
-                    message: "Phone number must be 10 digits"
-                  }
+                  // required: "Phone number is required",
+                  // pattern: {
+                  //   value: /^[0-9]{10}$/,
+                  //   message: "Phone number must be 10 digits",
+                  // },
                 })}
-                type="tel"
+                type="text"
                 placeholder="Phone number"
               />
 
@@ -198,12 +185,12 @@ export function DrawerCheckout({ price }) {
                   required: "Location is required",
                   minLength: {
                     value: 3,
-                    message: "Location must be at least 3 characters long"
+                    message: "Location must be at least 3 characters long",
                   },
                   maxLength: {
                     value: 100,
-                    message: "Location must be less than 100 characters"
-                  }
+                    message: "Location must be less than 100 characters",
+                  },
                 })}
                 type="text"
                 placeholder="Location"
@@ -232,27 +219,6 @@ export function DrawerCheckout({ price }) {
               )}
               <Button type="submit">Submit</Button>
             </form>
-          </div>
-          <div className="col-start-2 col-end-3">
-            {/* <DrawerClose asChild> */}
-
-            {/* <Button
-              type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                onOrder(
-                  cartList.map((pro) => ({
-                    qty: pro?.qty,
-                    productId: pro?.productId,
-                  }))
-                );
-              }}
-              variant="outline"
-              className="block w-full"
-            >
-              Done for payment
-            </Button> */}
-            {/* </DrawerClose> */}
           </div>
         </div>
       </DrawerContent>
