@@ -158,15 +158,15 @@ const RegisterFormComponent = () => {
               name="confirmPassword"
               className="focus:outline-none border-none w-full"
             />
-            {!showPass ? (
+            {!showCPass ? (
               <Eye
                 className="cursor-pointer"
-                onClick={() => setShowCPass(!showPass)}
+                onClick={() => setShowCPass(!showCPass)}
               />
             ) : (
               <EyeOff
                 className="cursor-pointer"
-                onClick={() => setShowCPass(!showPass)}
+                onClick={() => setShowCPass(!showCPass)}
               />
             )}
 
@@ -177,29 +177,6 @@ const RegisterFormComponent = () => {
             </p>
           )}
         </div>
-
-        {/* <div className="flex items-start flex-col justify-start ">
-          <label
-            htmlFor="confirmPassword"
-            className="text-sm text-gray-700 mr-2"
-          >
-            Confirm Password:
-          </label>
-          <input
-            {...register("confirmPassword", {
-              required: "Confirmed password is required",
-            })}
-            type={showCPass ? "text" : "password"}
-            id="confirmPassword"
-            name="confirmPassword"
-            className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
-          />
-          {errors?.confirmPassword?.message && (
-            <p className="text-red-500 text-[0.65rem] mt-2 self-end">
-              {errors?.confirmPassword?.message}
-            </p>
-          )}
-        </div> */}
 
         <Button
           isLoading={isSubmitting}
