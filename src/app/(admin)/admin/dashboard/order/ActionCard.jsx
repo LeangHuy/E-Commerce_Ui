@@ -110,22 +110,14 @@ const ActionCard = async ({ order }) => {
                         <div className="h-auto w-full ">
                           <ScrollArea className="h-75 w-full rounded-md border">
                             <div className="p-4">
-                              <div className="flex justify-between gap-4">
-                                <div className="w-1/2">
-                                  <Image
-                                    src={getPhoto(order?.transferImage)}
-                                    className="object-cover border border-gray-300 rounded-md"
-                                    alt="product"
-                                    width={1000}
-                                    height={1000}
-                                  />
-                                </div>
-                                <div className="w-1/2">
-                                  <p className="text-sm">Receiver Phone : </p>
-                                  <p>{order?.receiverPhone}</p>
-                                  <p className="text-sm mt-3">Receiver Location : </p>
-                                  <p>{order?.receiverLocation}</p>
-                                </div>
+                              <div className="">
+                                <Image
+                                  src={getPhoto(order?.transferImage)}
+                                  className="object-cover border border-gray-300 rounded-md"
+                                  alt="product"
+                                  width={1000}
+                                  height={1000}
+                                />
                               </div>
 
                             </div>

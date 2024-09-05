@@ -146,17 +146,19 @@ export function DrawerCheckout({ price }) {
                 height={1000}
                 className="object-cover"
               /> */}
+              <label className="font-medium">Choose Bank KHQR </label>
               <select
+                className="cursor-pointer"
                 defaultValue={0}
                 onChange={(e) => setCurrentBank(e.target.value)}
               >
-                <option value="">Select</option>
+                <option value="" className="cursor-pointer">Select</option>
                 {banks?.map((b, idx) => (
                   <option
                     key={idx}
                     value={JSON.stringify(b)}
-                    // onChange={() => setCurrentBank(b)}
-                    // variant={"outline"}
+                  // onChange={() => setCurrentBank(b)}
+                  // variant={"outline"}
                   >
                     {b?.bankName}
                   </option>
@@ -169,7 +171,7 @@ export function DrawerCheckout({ price }) {
                 alt="payway"
                 width={1000}
                 height={1000}
-                className="object-cover h-[450px]"
+                className="object-cover h-auto"
               />
             )}
           </div>
@@ -180,15 +182,35 @@ export function DrawerCheckout({ price }) {
               className="flex flex-col gap-3"
             >
               <Input
-                {...register("receiverPhone")}
-                type="number"
+                {...register("receiverPhone", {
+                  required: "Phone number is required",
+                  pattern: {
+                    value: /^[0-9]{10}$/,
+                    message: "Phone number must be 10 digits"
+                  }
+                })}
+                type="tel"
                 placeholder="Phone number"
               />
+
               <Input
-                {...register("receiverLocation")}
+                {...register("receiverLocation", {
+                  required: "Location is required",
+                  minLength: {
+                    value: 3,
+                    message: "Location must be at least 3 characters long"
+                  },
+                  maxLength: {
+                    value: 100,
+                    message: "Location must be less than 100 characters"
+                  }
+                })}
                 type="text"
                 placeholder="Location"
               />
+              {errors.receiverLocation && (
+                <span>{errors.receiverLocation.message}</span>
+              )}
               <Input
                 type="file"
                 placeholder="Location"
@@ -205,7 +227,7 @@ export function DrawerCheckout({ price }) {
                   alt="payway"
                   width={1000}
                   height={1000}
-                  className="object-cover h-[320px]"
+                  className="object-cover h-[490px]"
                 />
               )}
               <Button type="submit">Submit</Button>

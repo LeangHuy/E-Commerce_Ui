@@ -79,7 +79,7 @@ const OrderDetailCard = () => {
             </DialogTrigger>
             <DialogContent className="sm:max-w-md">
               <DialogHeader>
-                <DialogTitle>Chhose payment</DialogTitle>
+                <DialogTitle>Choose payment</DialogTitle>
                 <DialogDescription>
                   Choose your payment method
                 </DialogDescription>
@@ -93,7 +93,7 @@ const OrderDetailCard = () => {
                       setActive(1);
                     }}
                   >
-                    Pay direct
+                    ទូទាត់ប្រាក់ពេលទំនិញទៅដល់
                   </Button>
                   <Button
                     variant={active == 2 ? "" : "outline"}
