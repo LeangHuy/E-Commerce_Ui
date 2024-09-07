@@ -14,8 +14,9 @@ import { ArrowLeft } from "lucide-react";
 import { createBankAction } from "@/acitons/bankAction";
 import { Eye } from "lucide-react";
 import { EyeOff } from "lucide-react";
+import { postDeliveryAction } from "@/acitons/delivery";
 
-const AdminDashboardPage = ({ searchParams: { tab = "Overview" } }) => {
+const DeliveryPage = ({ searchParams: { tab = "Overview" } }) => {
   const {
     register,
     handleSubmit,
@@ -25,18 +26,18 @@ const AdminDashboardPage = ({ searchParams: { tab = "Overview" } }) => {
 
   const router = useRouter();
 
-  const { toast } = useToast();
-
   const [img, setImg] = useState({ imgPreview: null, imgFile: null });
 
   const onSubmit = async (data) => {
+    console.log(data);
     const formData = new FormData();
     formData.append("file", img.imgFile);
     const imgResult = await postImgAction(formData);
-    const result = await createBankAction({
-      bankName: data.bankName,
-      qrCode: imgResult
-    })
+    const result = await postDeliveryAction({
+      ...data,
+      gender: "Male",
+      profile: imgResult,
+    });
     reset();
     setImg({ imgFile: null, imgPreview: null });
     await revalidateWhere("getAllBank");
@@ -45,7 +46,7 @@ const AdminDashboardPage = ({ searchParams: { tab = "Overview" } }) => {
     }
   };
 
-  useEffect(() => { }, [img]);
+  useEffect(() => {}, [img]);
   const [showPass, setShowPass] = useState(false);
   const [showCPass, setShowCPass] = useState(false);
   return (
@@ -71,7 +72,6 @@ const AdminDashboardPage = ({ searchParams: { tab = "Overview" } }) => {
                 </p>
 
                 <div className="mt-10">
-
                   {/* first and last name */}
                   <div className="flex w-full justify-between ">
                     <div className="sm:col-span-4 ">
@@ -223,7 +223,6 @@ const AdminDashboardPage = ({ searchParams: { tab = "Overview" } }) => {
                               onClick={() => setShowPass(!showPass)}
                             />
                           )}
-
                         </div>
                         {errors?.password?.message && (
                           <p className="text-red-500 text-[0.65rem] mt-2 self-end">
@@ -242,12 +241,12 @@ const AdminDashboardPage = ({ searchParams: { tab = "Overview" } }) => {
                       <div className="mt-2">
                         <div className="flex relative w-full px-3 py-2 rounded-md border focus-within:border-gray-500 focus-within:border-2 justify-between items-center">
                           <input
-                            {...register("password", {
+                            {...register("confirmPassword", {
                               required: "Password is required",
                             })}
                             type={showCPass ? "text" : "password"}
-                            id="password"
-                            name="password"
+                            // id="password"
+                            // name="password"
                             placeholder="password"
                             className="focus:outline-none border-none w-full"
                           />
@@ -262,7 +261,6 @@ const AdminDashboardPage = ({ searchParams: { tab = "Overview" } }) => {
                               onClick={() => setShowPass(!showCPass)}
                             />
                           )}
-
                         </div>
                         {errors?.password?.message && (
                           <p className="text-red-500 text-[0.65rem] mt-2 self-end">
@@ -360,4 +358,4 @@ const AdminDashboardPage = ({ searchParams: { tab = "Overview" } }) => {
   );
 };
 
-export default AdminDashboardPage;
+export default DeliveryPage;
