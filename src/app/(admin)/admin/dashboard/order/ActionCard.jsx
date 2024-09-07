@@ -22,7 +22,7 @@ import { Phone } from "lucide-react";
 import { MapPin } from "lucide-react";
 import { Contact } from "lucide-react";
 import { CircleDollarSign } from "lucide-react";
-const ActionCard = async ({ order }) => {
+const ActionCard = async ({ order, deliveries }) => {
   const product = await getProductById(
     order?.orderResponse?.orderDetail[0].productId
   );
