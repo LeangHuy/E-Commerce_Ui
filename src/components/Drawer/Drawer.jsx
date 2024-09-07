@@ -143,8 +143,8 @@ export function DrawerCheckout({ price }) {
                   <option
                     key={idx}
                     value={JSON.stringify(b)}
-                    // onChange={() => setCurrentBank(b)}
-                    // variant={"outline"}
+                  // onChange={() => setCurrentBank(b)}
+                  // variant={"outline"}
                   >
                     {b?.bankName}
                   </option>
@@ -157,7 +157,7 @@ export function DrawerCheckout({ price }) {
                 alt="payway"
                 width={1000}
                 height={1000}
-                className="object-cover h-auto"
+                className="object-cover h-auto rounded-md"
               />
             )}
           </div>
@@ -170,7 +170,7 @@ export function DrawerCheckout({ price }) {
             >
               <Input
                 {...register("receiverPhone", {
-                  // required: "Phone number is required",
+                  required: "Phone number is required",
                   // pattern: {
                   //   value: /^[0-9]{10}$/,
                   //   message: "Phone number must be 10 digits",
@@ -184,12 +184,12 @@ export function DrawerCheckout({ price }) {
                 {...register("receiverLocation", {
                   required: "Location is required",
                   minLength: {
-                    value: 3,
-                    message: "Location must be at least 3 characters long",
+                    value: 25,
+                    message: "Location must be at least 25 characters long",
                   },
                   maxLength: {
-                    value: 100,
-                    message: "Location must be less than 100 characters",
+                    value: 255,
+                    message: "Location must be less than 255 characters",
                   },
                 })}
                 type="text"
@@ -214,7 +214,7 @@ export function DrawerCheckout({ price }) {
                   alt="payway"
                   width={1000}
                   height={1000}
-                  className="object-cover h-[490px]"
+                  className="object-cover h-[345px] rounded-md"
                 />
               )}
               <Button type="submit">Submit</Button>
