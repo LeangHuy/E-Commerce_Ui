@@ -46,7 +46,7 @@ const DeliveryPage = ({ searchParams: { tab = "Overview" } }) => {
     }
   };
 
-  useEffect(() => {}, [img]);
+  useEffect(() => { }, [img]);
   const [showPass, setShowPass] = useState(false);
   const [showCPass, setShowCPass] = useState(false);
   return (
@@ -253,12 +253,12 @@ const DeliveryPage = ({ searchParams: { tab = "Overview" } }) => {
                           {!showCPass ? (
                             <Eye
                               className="cursor-pointer"
-                              onClick={() => setShowPass(!showCPass)}
+                              onClick={() => setShowCPass(!showCPass)}
                             />
                           ) : (
                             <EyeOff
                               className="cursor-pointer"
-                              onClick={() => setShowPass(!showCPass)}
+                              onClick={() => setShowCPass(!showCPass)}
                             />
                           )}
                         </div>
