@@ -160,26 +160,26 @@ const ActionCard = async ({ order }) => {
                     <div className="flex justify-between border border-1 p-4 rounded-md">
                       <div className="w-1/2">
                         <h4>Order from :</h4>
-                        <p className="flex items-center gap-2">
-                          <Contact size={14} />
+                        <p className="grid grid-cols-[20px_1fr] items-center gap-2">
+                          <Contact size={18} />
                           {userName}
                         </p>
-                        <p className="flex items-center gap-2">
-                          <Phone size={14} />
+                        <p className="grid grid-cols-[20px_1fr] items-center gap-2">
+                          <Phone size={18} />
                           {user?.phone}
                         </p>
-                        <p className="flex items-start gap-2">
+                        <p className="grid grid-cols-[20px_1fr] items-center gap-2">
                           <MapPin size={18} className="mt-1" />
                           {user?.address}
                         </p>
                       </div>
                       <div className="w-1/2">
                         <h4>Receive by :</h4>
-                        <p className="flex items-center gap-2">
-                          <Phone size={14} />
+                        <p className="grid grid-cols-[20px_1fr] items-center gap-2">
+                          <Phone size={18} />
                           {order?.receiverPhone}
                         </p>
-                        <p className="flex items-start gap-2">
+                        <p className="grid grid-cols-[20px_1fr] items-center gap-2">
                           <MapPin size={18} className="mt-1" />
                           {order?.receiverLocation}
                         </p>
@@ -297,31 +297,31 @@ const ActionCard = async ({ order }) => {
                   <div className="flex justify-between border border-1 p-4 rounded-md">
                     <div className="w-1/2">
                       <h4>Order from :</h4>
-                      <p className="flex items-center gap-2">
-                        <Contact size={14} />
+                      <p className="grid grid-cols-[20px_1fr] items-center gap-2">
+                        <Contact size={18} />
                         {userName}
                       </p>
-                      <p className="flex items-center gap-2">
-                        <Phone size={14} />
+                      <p className="grid grid-cols-[20px_1fr] items-center gap-2">
+                        <Phone size={18} />
                         {user?.phone}
                       </p>
-                      <p className="flex items-start gap-2">
+                      <p className="grid grid-cols-[20px_1fr] items-center gap-2">
                         <MapPin size={18} className="mt-1" />
                         {user?.address}
                       </p>
                     </div>
                     <div className="w-1/2">
                       <h4>Receive by :</h4>
-                      <p className="flex items-center gap-2">
-                        <Phone size={14} />
+                      <p className="grid grid-cols-[20px_1fr] items-center gap-2">
+                        <Phone size={18} />
                         {order?.receiverPhone}
                       </p>
-                      <p className="flex items-start gap-2">
+                      <p className="grid grid-cols-[20px_1fr] items-center gap-2">
                         <MapPin size={18} className="mt-1" />
                         {order?.receiverLocation}
                       </p>
                       {order?.orderResponse?.payment == false && (
-                        <p className="flex items-start gap-2">
+                        <p className="grid grid-cols-[20px_1fr] items-center gap-2">
                           <CircleDollarSign size={18} className="mt-1" />
                           បង់ប្រាក់ពេលទំនិញទៅដល់
                         </p>
