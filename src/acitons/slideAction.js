@@ -3,13 +3,14 @@
 import {
   changeStatusSlide,
   createSlideShow,
+  deleteSlideById,
   editSlideById,
   getSlideById,
 } from "@/service/slide.service";
 import { revalidatePath, revalidateTag } from "next/cache";
 
-export const createSlideAction = async ({ title, description }) => {
-  const data = await createSlideShow({ title, description });
+export const createSlideAction = async ({ title, description, image }) => {
+  const data = await createSlideShow({ title, description, image });
   revalidateTag("getAllSlideShows");
   return data;
 };
@@ -26,6 +27,11 @@ export const getSlideByIdAction = async (slideId) => {
 
 export const editSlideByIdAction = async (data, slideId) => {
   const result = await editSlideById(data, slideId);
+  revalidateTag("getAllSlideShows");
+  return result;
+};
+export const deleteSlideAction = async (slideId) => {
+  const result = await deleteSlideById(slideId);
   revalidateTag("getAllSlideShows");
   return result;
 };

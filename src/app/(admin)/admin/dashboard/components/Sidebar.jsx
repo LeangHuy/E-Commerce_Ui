@@ -1,8 +1,13 @@
 "use client";
 import { clsx } from "clsx";
-import { Images } from "lucide-react";
+import { Images, ShoppingCart, ShoppingCartIcon } from "lucide-react";
 import { ShoppingBag } from "lucide-react";
 import { PackagePlus } from "lucide-react";
+import { LayoutList } from "lucide-react";
+import { Truck } from "lucide-react";
+import { BookMinus } from "lucide-react";
+import { Landmark } from "lucide-react";
+import { History } from "lucide-react";
 import { LayoutDashboardIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -131,7 +136,7 @@ const menu_links = [
   {
     title: "Categories",
     icon: (active) => (
-      <PackagePlus
+      <LayoutList
         className={clsx(
           "size-[18px] ",
           active ? "stroke-white" : "stroke-black"
@@ -139,5 +144,65 @@ const menu_links = [
       />
     ),
     tab: "/admin/dashboard/categories?tab=Categories",
+  },
+  {
+    title: "Deliveries",
+    icon: (active) => (
+      < Truck
+        className={clsx(
+          "size-[18px] ",
+          active ? "stroke-white" : "stroke-black"
+        )}
+      />
+    ),
+    tab: "/admin/dashboard/deliveries?tab=Deliveries",
+  },
+  {
+    title: "Bank",
+    icon: (active) => (
+      <Landmark
+        className={clsx(
+          "size-[18px] ",
+          active ? "stroke-white" : "stroke-black"
+        )}
+      />
+    ),
+    tab: "/admin/dashboard/bank?tab=Bank",
+  },
+  {
+    title: "Order",
+    icon: (active) => (
+      <ShoppingCartIcon
+        className={clsx(
+          "size-[18px] ",
+          active ? "stroke-white" : "stroke-black"
+        )}
+      />
+    ),
+    tab: "/admin/dashboard/order?tab=Order",
+  },
+  {
+    title: "History",
+    icon: (active) => (
+      <History
+        className={clsx(
+          "size-[18px] ",
+          active ? "stroke-white" : "stroke-black"
+        )}
+      />
+    ),
+    tab: "/admin/dashboard/history?tab=History",
+  },
+  {
+    title: "របាយការណ៍",
+    icon: (active) => (
+      <BookMinus
+        className={clsx(
+          "size-[18px] ",
+          active ? "stroke-white" : "stroke-black"
+        )}
+      />
+    ),
+    tab: "/admin/dashboard/reports?tab=Report",
   },
 ];

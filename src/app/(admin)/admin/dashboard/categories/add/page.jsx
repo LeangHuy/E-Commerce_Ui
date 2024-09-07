@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Package } from "lucide-react";
+import { Loader2, Package } from "lucide-react";
 
 import {
     Dialog,
@@ -21,7 +21,7 @@ const AddCategoryPage = () => {
         register,
         handleSubmit,
         reset,
-        formState: { errors },
+        formState: { errors, isSubmitting },
     } = useForm();
 
     const onSubmit = async (data) => {
@@ -68,7 +68,10 @@ const AddCategoryPage = () => {
                             </div>
                         </div>
                         <DialogFooter>
-                            <Button>Save changes</Button>
+                            <Button>
+                                {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                                Save changes
+                            </Button>
                         </DialogFooter>
                     </form>
                 </DialogContent>

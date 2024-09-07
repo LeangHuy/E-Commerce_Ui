@@ -94,14 +94,12 @@ export default function LoginComponents() {
                 alt="Email Icons"
               />
 
-              {/* <div> */}
               <input
                 placeholder="Password"
                 type={showPass ? "text" : "password"}
                 className="focus:outline-none border-none px-3 py-2  w-full  text-sm"
                 {...register("password", { required: true })}
               />
-              {/* </div> */}
               {!showPass ? (
                 <Eye
                   className="cursor-pointer"

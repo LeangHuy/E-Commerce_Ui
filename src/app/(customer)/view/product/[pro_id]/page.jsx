@@ -1,17 +1,11 @@
 import BreadCrumb from "@/components/BreadCrumb/BreadCrumb";
-import AddToCartButton from "@/components/Button/AddToCartButton";
 import ProductCard from "@/components/Card/ProductCard";
 import Tag from "@/components/Tag/Tag";
 import { AddToCart, MyToast } from "@/components/Toast/MyToast";
-import { Button } from "@/components/ui/button";
-import { specs } from "@/data/spec";
-import { tags } from "@/data/tags";
 import { getPhoto } from "@/lib/utils";
-import { getProductById } from "@/service/product.service";
+import { getCategoryById, getProductById } from "@/service/product.service";
 import { getUserData } from "@/service/user.service";
-import clsx from "clsx";
 import { Check } from "lucide-react";
-import { DollarSign } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import React from "react";
@@ -19,13 +13,13 @@ import React from "react";
 const page = async ({ params: { pro_id } }) => {
   if (pro_id == "undefined") notFound();
   const product = await getProductById(pro_id);
-
+  const category = await getCategoryById(product?.category?.categoryId)
   const user = await getUserData();
 
-  // return;
   return (
     <div className="w-[1300px] mx-auto my-10">
       <BreadCrumb proName={product?.productName} />
+
       <section className="grid-photo h-[500px] w-full grid grid-cols-3 grid-rows-2 gap-3 my-10">
         <Image
           width={1000}
@@ -61,35 +55,67 @@ const page = async ({ params: { pro_id } }) => {
             <div className="flex items-center gap-6">
               <h3 className="text-2xl font-bold">{product?.productName}</h3>
               <Tag
-                className={" !rounded-full text-sky-500"}
-                title={"Original"}
+                className={`font-bold !rounded-full text-center text-sky-500 ${product?.quality !== 'original' ? "after:content-['%']" : ''
+                  }`}
+                title={`${product?.quality} `}
               />
             </div>
-            <p className="flex gap-2 items-center text-xl text-red-500 font-medium">
-              <DollarSign className="size-[20px]" />
-              <span>{product?.unitPrice}</span>
-            </p>
+            {
+              product?.warranty?.warrantyDate != 0 &&
+              <div className="flex gap-2">
+                <span>Warranty : </span>
+                <p className="border border-gray-300 px-2 rounded-md font-medium">{product?.warranty?.warrantyDate} {product?.warranty?.warrantyTime}</p>
+              </div>
+
+            }
+            {product?.discount !== 0 &&
+              <div className="flex gap-4">
+                <p className="font-semibold">Discount</p>
+                <div className="flex  gap-2">
+                  <Tag
+                    className={
+                      "w-16 cursor-pointer bg-sky-400 text-white font-medium text-center"
+                    }
+                    title={`${product?.discount} %`}
+                  />
+                </div>
+              </div>
+            }
+
+            <div className=" text-[18px]">
+              {product?.discount == 0 ?
+                <div className="flex gap-2">
+                  <p className="font-semibold">Price :</p>
+                  <div className="flex text-sky-400 font-bold">
+                    {product?.unitPrice}$
+                  </div>
+                </div>
+                :
+                <div className="">
+                  <div className="flex gap-2">
+                    <p className="font-semibold">Original price :</p>
+                    <div className="flex text-sky-400 font-bold line-through">
+                      {product?.unitPrice}$
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <p className="font-semibold">Discount price:</p>
+                    <div className="flex text-sky-400 font-bold">
+                      {product?.priceAfterDiscount.toFixed(2)}$
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
             <div className="flex flex-col gap-4">
               <p className="font-semibold">Description</p>
               <p className="w-[70%] text-slate-600">{product?.productDesc}</p>
             </div>
-            {/* <div className="flex flex-col gap-2">
-              <p className="font-semibold">Spec</p>
-              {specs.map((data, idx) => (
-                <p key={idx} className="flex items-center gap-3">
-                  <span className="size-[6px] bg-black rounded-full"></span>
-                  <span className="flex gap-4 items-center">
-                    <span className="font-medium">{data.spec_title}</span>
-                    <span className="">{data.spec}</span>
-                  </span>
-                </p>
-              ))}
-            </div> */}
             <div className="flex flex-col gap-4">
               <p className="font-semibold">Tags</p>
               <div className="flex  gap-2">
                 <Tag
-                  title={"#" + product?.categoryName}
+                  title={"#" + product?.category?.categoryName}
                   className={
                     " hover:-translate-y-1 transition-all cursor-pointer hover:bg-sky-400 hover:text-white hover:border-transparent"
                   }
@@ -121,23 +147,22 @@ const page = async ({ params: { pro_id } }) => {
                 </p>
               </div>
             </div>
-            <div className="grid grid-cols-[auto_1fr] gap-3">
+            <div className="">
               <AddToCart
                 user={user}
                 data={{ ...product, qty: 1 }}
                 className={
-                  "bg-transparent group border hover:border-transparent "
+                  "bg-primary group border hover:border-transparent w-full"
                 }
               />
 
-              <Button className={" w-full"}>Buy Now</Button>
             </div>
           </div>
         </div>
       </section>
       <section className="my-10">
         <h3 className="text-2xl font-semibold mb-6">Related </h3>
-        {/* <ProductCard /> */}
+        <ProductCard products={category} />
       </section>
     </div>
   );

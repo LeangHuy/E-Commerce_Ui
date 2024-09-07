@@ -58,7 +58,7 @@ const ForgotVerifyFormComponent = ({ email }) => {
         renderInput={(props) => <input {...props} />}
         shouldAutoFocus
       />
-      <div class="flex items-center flex-row justify-between my-6">
+      <div className="flex items-center flex-row justify-between my-6">
         <Link href={routePath.LOGIN}>
           <button className="text-gray-600 text-sm">Back to Login</button>
         </Link>

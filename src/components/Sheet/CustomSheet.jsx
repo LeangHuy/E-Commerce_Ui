@@ -20,7 +20,6 @@ export function CustomSheet() {
   const { cartList } = useAddToCart();
 
   useEffect(() => {
-    console.log("product in cart change : ", cartList);
   }, [cartList]);
 
   return (

@@ -15,7 +15,6 @@ import RemoveFromCart from "../Button/RemoveFromCart";
 
 export function TableData() {
   const { cartList } = useAddToCart();
-  console.log("cart", cartList);
 
   return (
     <Table>
@@ -25,6 +24,8 @@ export function TableData() {
           <TableHead>Product</TableHead>
           <TableHead>Quantity</TableHead>
           <TableHead className="text-right">Price</TableHead>
+          <TableHead className="text-right">Discount</TableHead>
+          <TableHead className="text-right">Subtotal</TableHead>
           <TableHead className="text-right">Action</TableHead>
         </TableRow>
       </TableHeader>
@@ -33,7 +34,7 @@ export function TableData() {
           <TableRow key={product.productId}>
             <TableCell className="font-medium">{idx + 1}</TableCell>
             <TableCell>
-              <div className="flex gap-6">
+              <div className="flex gap-6 items-center">
                 <Image
                   width={1000}
                   height={1000}
@@ -53,6 +54,19 @@ export function TableData() {
             <TableCell className="text-right w-[100px]">
               ${product?.unitPrice}
             </TableCell>
+            <TableCell className="text-right w-[100px]">
+              {product?.discount}%
+            </TableCell>
+            <TableCell className="text-right w-[100px]">
+              <p className="before:content-['$']">
+                {cartList?.map((pro) => {
+                  return pro.productId == product?.productId
+                    ? pro.priceAfterDiscount * pro.qty
+                    : "";
+                })}
+              </p>
+            </TableCell>
+
             <TableCell className="text-right">
               <RemoveFromCart product={product} />
             </TableCell>

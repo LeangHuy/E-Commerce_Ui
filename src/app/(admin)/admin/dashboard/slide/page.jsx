@@ -2,7 +2,6 @@ import React from "react";
 import Header from "../components/Header";
 import { Button } from "@/components/ui/button";
 import { ImagePlusIcon } from "lucide-react";
-import { Switch } from "@/components/ui/switch";
 
 import {
   Table,
@@ -14,12 +13,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Image from "next/image";
-import { Trash2Icon } from "lucide-react";
 import { Pencil } from "lucide-react";
 import Link from "next/link";
 import { getAllSlideShows } from "@/service/slide.service";
 import { getPhoto } from "@/lib/utils";
-import SwtichToggle from "../components/SwtichToggle";
+import SwitchToggle from "../components/SwtichToggle";
+import SlideTableComponent from "./_components/SlideTableComponent";
 
 const ShopPage = async ({ searchParams: { tab = "Slide" } }) => {
   const allSlides = await getAllSlideShows();
@@ -36,55 +35,7 @@ const ShopPage = async ({ searchParams: { tab = "Slide" } }) => {
       </Header>
       <div className="content p-5 bg-gray-100">
         <div className=" bg-white min-h-screen rounded-2xl p-10">
-          <Table>
-            <TableCaption>List of Slides Show</TableCaption>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[100px]">No</TableHead>
-                <TableHead>Image</TableHead>
-                <TableHead>Title</TableHead>
-
-                <TableHead>Description</TableHead>
-                <TableHead className="text-right">Toggle Active</TableHead>
-                <TableHead className="text-right">Action</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {allSlides.map((slide, idx) => (
-                <TableRow key={idx} className="group">
-                  <TableCell className="font-medium">{idx + 1}</TableCell>
-                  <TableCell>
-                    <Image
-                      src={getPhoto(slide?.image)}
-                      priority
-                      width={1000}
-                      height={1000}
-                      alt="profile"
-                      className="size-[3.5rem] object-cover rounded-sm"
-                    />
-                  </TableCell>
-                  <TableCell>{slide?.title}</TableCell>
-                  <TableCell>{slide?.description}</TableCell>
-                  <TableCell className="flex items-center">
-                    <SwtichToggle
-                      slideId={slide?.slideId}
-                      isActive={slide?.isActive}
-                      slide={slide}
-                    />
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-4">
-                      <Link
-                        href={`/admin/dashboard/slide/edit/${slide?.slideId}?tab=Slide`}
-                      >
-                        <Pencil className="size-[18px] p-2 box-content bg-gray-100 rounded-lg group-hover:bg-white transition-all hover:stroke-red-500 cursor-pointer" />
-                      </Link>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+          <SlideTableComponent slides={allSlides} />
         </div>
       </div>
     </div>

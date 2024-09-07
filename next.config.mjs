@@ -19,7 +19,9 @@ const nextConfig = {
         port: "**",
       },
     ],
-    domains: ["localhost", "34.143.196.56"],
+    // domains: ["localhost", "localhost"],
+    domains: ["localhost"],
+    // domains: ["*"]
   },
 };
 

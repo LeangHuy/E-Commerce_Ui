@@ -3,11 +3,10 @@ import React from "react";
 import { Switch } from "@/components/ui/switch";
 import { changeStatusSlideAction } from "@/acitons/slideAction";
 
-const SwtichToggle = ({ isActive, slideId, slide }) => {
+const SwitchToggle = ({ isActive, slideId, slide }) => {
   const onChange = async (slideId) => {
     await changeStatusSlideAction(slideId, isActive);
   };
-
 
   return (
     <Switch
@@ -19,4 +18,4 @@ const SwtichToggle = ({ isActive, slideId, slide }) => {
   );
 };
 
-export default SwtichToggle;
+export default SwitchToggle;

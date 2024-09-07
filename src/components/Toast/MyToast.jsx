@@ -21,7 +21,11 @@ export const AddToCart = ({ data = {}, className, user }) => {
         toast.success("Product has been added to cart");
       }}
     >
-      <ShoppingCart className="stroke-black group-hover:stroke-white" />
+      <div className="flex gap-3 justify-center items-center">
+        <ShoppingCart className="stroke-white group-hover:stroke-white" />
+        <p>Add to cart</p>
+      </div>
+
     </Button>
   );
 };

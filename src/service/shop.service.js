@@ -2,28 +2,17 @@ import { authOption } from "@/app/api/auth/[...nextauth]/route";
 import { shopUrl } from "@/utils/constants";
 import { getServerSession } from "next-auth";
 import { getSession } from "next-auth/react";
-
-// export const getShopInfoService = async () => {
-//   try {
-//     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/shops`, {
-//       next: { tags: ["shop"] },
-//     })
-//       .then((data) => data.json())
-//       .catch((e) => console.log(e));
-//     return res;
-//   } catch (e) {
-//     console.log("Error: ", e);
-//   }
-// };
+import { revalidateTag } from "next/cache";
 
 export const getShopInfoService = async () => {
   const session = await getServerSession(authOption);
-  console.log("userSession", session);
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/shops`, {
     method: "GET",
     headers: {
       "CONTENT-TYPE": "application/json",
-      Authorization: `Bearer ${session.user.payload.token}`,
+    },
+    next: {
+      tag: ["getShopInfoService"],
     },
   });
   const data = await res.json();
@@ -31,7 +20,6 @@ export const getShopInfoService = async () => {
 };
 
 export const updateShopInfoService = async (req) => {
-  console.log(req)
   const {
     shopId,
     shopName,

@@ -4,11 +4,18 @@ import React from "react";
 import Link from "next/link";
 import { getPhoto } from "@/lib/utils";
 import { BadgePercent } from "lucide-react";
+import { getBookmarks, postBookmark } from "@/service/bookmark";
+import AddToBookmark from "../Button/AddToBookmark";
+import Tag from "../Tag/Tag";
+import { getServerSession } from "next-auth";
+import { authOption } from "@/app/api/auth/[...nextauth]/route";
 
-const ProductCard = ({
+const ProductCard = async ({
   products = [{ categoryName: "" }],
   searchParams = "All",
   isPromotion = false,
+  bookmarkData,
+  session
 }) => {
   let filterProducts;
   if (!isPromotion) {
@@ -16,20 +23,21 @@ const ProductCard = ({
       searchParams == "All" || undefined
         ? products
         : products.filter((p) =>
-            p.categoryName
-              .toLocaleLowerCase()
-              .includes(searchParams.toLocaleLowerCase())
-          );
+          p?.category?.categoryName
+            .toLocaleLowerCase()
+            .includes(searchParams?.toLocaleLowerCase())
+        );
   } else {
-    filterProducts = products?.filter((p) => p.discount > 0);
+    filterProducts = products?.filter((p) => p.discount > 5);
   }
+
 
   return (
     <main className="w-full grid grid-cols-4 gap-6 my-8 max-[1400px]:grid-cols-3 max-[950px]:grid-cols-2 max-[600px]:grid-cols-1">
       {filterProducts?.map((item, idx) => (
         <div
           key={idx}
-          className="grid transition-all grid-rows-[1fr_auto_auto] gap-3"
+          className="grid transition-all grid-rows-[1fr_auto_auto] gap-3 p-2 bg-gray-300 bg-opacity-20 rounded-xl"
         >
           <div className="h-[20rem] relative">
             <Link href={`/view/product/${item?.productId}`}>
@@ -39,16 +47,15 @@ const ProductCard = ({
                 alt="pic 1"
                 src={getPhoto(
                   item &&
-                    item?.imageProductList &&
-                    item?.imageProductList[0]?.fileName
+                  item?.imageProductList &&
+                  item?.imageProductList[0]?.fileName
                 )}
                 className="object-cover w-full h-full  rounded-xl"
               />
             </Link>
-            <Heart
-              // onClick={() => setIsActive(idx)}
-              className={`absolute top-3 right-3 size-[35px] stroke-red-500 p-2 bg-white  rounded-full stroke-[2] cursor-pointer `}
-            />
+            {session?.user.payload.token && (
+              <AddToBookmark item={item} bookmarkData={bookmarkData} />
+            )}
             {item?.discount > 0 && (
               <p className="absolute top-3 left-3 stroke-red-500 py-1 px-4 text-sm bg-white  rounded-full stroke-[2] flex gap-1 items-center cursor-pointer">
                 <span className="text-red-500 font-medium">
@@ -58,16 +65,30 @@ const ProductCard = ({
               </p>
             )}
           </div>
+
+          <section className="flex-grow border-t border-primary opacity-20"></section>
           <Link href={`/view/product/${item?.productId}`} className="">
-            <p className=" text-[18px] text-[#ff540a]">{item?.unitPrice}$</p>
-            <h3 className="font-medium text-xl text-[#1d1d1d]">
+            <h3 className="font-medium text-xl text-[#1d1d1d] line-clamp-1">
               {item?.productName}
             </h3>
-            {/* <p className="text-gray-600">{item?.productDesc}</p> */}
+            <p className="line-clamp-2 text-sm mb-3">{item?.productDesc}</p>
+            <div className=" text-[18px flex justify-end">
+              {item?.discount == 0 ? (
+                <span className="text-white font-medium bg-sky-300 py-0 px-2 rounded-md">
+                  {item?.unitPrice}$
+                </span>
+              ) : (
+                <div className="flex gap-2 items-center">
+                  <div className="line-through text-sm text-red-500">
+                    {item?.unitPrice}$
+                  </div>
+                  <div className="text-white font-medium bg-sky-300 py-0 px-2 rounded-md">
+                    {parseFloat(item?.priceAfterDiscount).toFixed(2)}$
+                  </div>
+                </div>
+              )}
+            </div>
           </Link>
-          <div className="grid grid-cols-[auto_1fr] gap-4 items-center">
-            {/* <Button className=" rounded-lg">Add to Cart</Button> */}
-          </div>
         </div>
       ))}
     </main>
