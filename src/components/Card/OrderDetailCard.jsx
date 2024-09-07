@@ -22,9 +22,18 @@ import { usePaymentMethod } from "@/store/usePayment";
 import { getPaymentMethodAction } from "@/acitons/paymentAction";
 import Image from "next/image";
 import { cn, getPhoto } from "@/lib/utils";
+import { useForm } from "react-hook-form";
+import { orderService } from "@/service/order.service";
+import toast from "react-hot-toast";
+import { Cross2Icon } from "@radix-ui/react-icons";
 
 const OrderDetailCard = () => {
   const { cartList, removeAllCart } = useAddToCart();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const { payment_option, setPaymentOption, current_bank, setCurrentBank } =
     usePaymentMethod();
 
@@ -39,6 +48,7 @@ const OrderDetailCard = () => {
   }, [payment_option]);
 
   const [active, setActive] = useState(0);
+  const [open, setOpen] = useState(false);
   const [banks, setBank] = useState();
 
   useEffect(() => {
@@ -47,6 +57,24 @@ const OrderDetailCard = () => {
       setBank(data);
     });
   }, []);
+
+  const onSubmit = async (data) => {
+    const result = await orderAction({
+      orderProductRequestList: cartList?.map((pro) => ({
+        productId: pro?.productId,
+        qty: pro?.qty,
+      })),
+      paymentRequest: {
+        ...data,
+      },
+    });
+    if (result?.receiverLocation) {
+      toast.success("Order Success");
+      setOpen(false);
+      setPaymentOption(0);
+      removeAllCart();
+    }
+  };
 
   return (
     <div className="border h-fit sticky top-20 p-6 rounded-md flex flex-col gap-6">
@@ -73,81 +101,103 @@ const OrderDetailCard = () => {
               0
             )}
           /> */}
-          <Dialog>
+          <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-              <Button className="w-full">Checkout now</Button>
+              <Button onClick={() => setOpen(true)} className="w-full">
+                Checkout now
+              </Button>
             </DialogTrigger>
+
             <DialogContent className="sm:max-w-md">
               <DialogHeader>
-                <DialogTitle>Choose payment</DialogTitle>
+                <DialogTitle>
+                  {payment_option != 1 ? (
+                    "Choose payment"
+                  ) : (
+                    <p
+                      onClick={() => setPaymentOption(0)}
+                      className="underline cursor-pointer"
+                    >
+                      Back
+                    </p>
+                  )}
+                </DialogTitle>
                 <DialogDescription>
-                  Choose your payment method
+                  {payment_option != 1 ? (
+                    "Choose your payment method"
+                  ) : (
+                    <p>Fill the information</p>
+                  )}
                 </DialogDescription>
               </DialogHeader>
-              <div className="flex items-center space-x-2">
-                <div className="grid flex-1 gap-2">
-                  <Button
-                    variant={active == 1 ? "" : "outline"}
-                    onClick={() => {
-                      setPaymentOption(1);
-                      setActive(1);
-                    }}
-                  >
-                    ទូទាត់ប្រាក់ពេលទំនិញទៅដល់
-                  </Button>
-                  <Button
-                    variant={active == 2 ? "" : "outline"}
-                    onClick={() => {
-                      setPaymentOption(2);
-                      setActive(2);
-                    }}
-                  >
-                    <DrawerCheckout
-                      price={cartList?.reduce(
-                        (acc, pro) => pro?.priceAfterDiscount * pro?.qty + acc,
-                        0
-                      )}
-                    />
-                  </Button>
-                  {payment_option == 2 && (
-                    <div className="grid grid-cols-2 gap-6">
-                      {banks?.map((b, idx) => (
-                        // <Image
-                        //   onClick={() => setCurrentBank(idx + 1)}
-                        //   src={getPhoto(b?.qrCode)}
-                        //   width={1000}
-                        //   height={1000}
-                        //   priority
-                        //   alt="qr"
-                        //   className={cn("p-2 border rounded-md", {
-                        //     "bg-gray-900": current_bank == idx + 1,
-                        //   })}
-                        // />
-                        <div></div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-              <DialogFooter className="sm:justify-start">
-                {/* <DialogClose asChild>
-                  <Button type="button" variant="secondary">
-                    Close
-                  </Button>
-                </DialogClose> */}
-                {/* {payment_option == 2 ? (
-                  <div className="mt-10 w-full">
-                    <DrawerCheckout
-                      price={cartList?.reduce(
-                        (acc, pro) => pro?.priceAfterDiscount * pro?.qty + acc,
-                        0
-                      )}
-                    />
+              {payment_option !== 1 && (
+                <div className="flex items-center space-x-2">
+                  <div className="grid flex-1 gap-2">
+                    <Button
+                      variant={active == 1 ? "" : "outline"}
+                      onClick={() => {
+                        setPaymentOption(1);
+                        setActive(1);
+                      }}
+                    >
+                      ទូទាត់ប្រាក់ពេលទំនិញទៅដល់
+                    </Button>
+                    <Button
+                      variant={active == 2 ? "" : "outline"}
+                      onClick={() => {
+                        setPaymentOption(2);
+                        setActive(2);
+                      }}
+                    >
+                      <DrawerCheckout
+                        price={cartList?.reduce(
+                          (acc, pro) =>
+                            pro?.priceAfterDiscount * pro?.qty + acc,
+                          0
+                        )}
+                      />
+                    </Button>
+                    {payment_option == 2 && (
+                      <div className="grid grid-cols-2 gap-6">
+                        {banks?.map((b, idx) => (
+                          // <Image
+                          //   onClick={() => setCurrentBank(idx + 1)}
+                          //   src={getPhoto(b?.qrCode)}
+                          //   width={1000}
+                          //   height={1000}
+                          //   priority
+                          //   alt="qr"
+                          //   className={cn("p-2 border rounded-md", {
+                          //     "bg-gray-900": current_bank == idx + 1,
+                          //   })}
+                          // />
+                          <div></div>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                ) : (
-                  <Button className="w-full mt-10">Continue process</Button>
-                )} */}
-              </DialogFooter>
+                </div>
+              )}
+              {payment_option == 1 && (
+                <div>
+                  <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    className="flex flex-col gap-3"
+                  >
+                    <Input
+                      {...register("receiverLocation")}
+                      type="text"
+                      placeholder="Enter phone location"
+                    />
+                    <Input
+                      {...register("receiverPhone")}
+                      type="text"
+                      placeholder="Enter phone number"
+                    />
+                    <Button>Submit</Button>
+                  </form>
+                </div>
+              )}
             </DialogContent>
           </Dialog>
         </div>

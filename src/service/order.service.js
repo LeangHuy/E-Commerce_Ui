@@ -1,6 +1,5 @@
 import { authOption } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
-import { headers } from "next/headers";
 
 export const orderService = async (proList) => {
   try {
