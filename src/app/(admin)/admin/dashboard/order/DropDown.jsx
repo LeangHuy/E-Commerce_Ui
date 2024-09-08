@@ -47,8 +47,8 @@ export function Action({ data, deliveries, useFor }) {
 
   const filterDeli = deliveries
     ? deliveries?.payload?.filter((p) =>
-        p.firstName.toLowerCase().trim().includes(search?.toLowerCase().trim())
-      )
+      p.firstName.toLowerCase().trim().includes(search?.toLowerCase().trim())
+    )
     : [];
 
   const setDelivery = async (data, userId) => {
@@ -59,22 +59,45 @@ export function Action({ data, deliveries, useFor }) {
     } else toast.error("Error");
   };
 
+  // const updateOrderStatus = async (orderId, status) => {
+  //   const result = await updateOrderStatusToDeliveryAction(orderId, status);
+  //   if (result?.payload) {
+  //     toast.success("Accepted");
+  //   } else toast.error("Error");
+  // };
+
   const updateOrderStatus = async (orderId, status) => {
     const result = await updateOrderStatusToDeliveryAction(orderId, status);
     if (result?.payload) {
-      toast.success("Accepted");
-    } else toast.error("Error");
+      if (status === "DELIVERY") {
+        toast.success("Accepted");
+      } else if (status === "DONE") {
+        toast.success("Order has finished");
+      }
+    } else {
+      toast.error("Error");
+    }
   };
 
   if (useFor == "delivery")
     return (
-      <Button
-        onClick={() => updateOrderStatus(data?.orderResponse?.orderId, "DONE")}
-        variant="outline"
-      >
-        DONE
-      </Button>
+      data?.orderResponse?.status === "DELIVERY" ? (
+        <Button
+          onClick={() => updateOrderStatus(data?.orderResponse?.orderId, "DONE")}
+          variant="outline"
+        >
+          DONE
+        </Button>
+      ) : (
+        <Button
+          onClick={() => updateOrderStatus(data?.orderResponse?.orderId, "DELIVERY")}
+          variant="outline"
+        >
+          ACCEPT
+        </Button>
+      )
     );
+
 
   if (useFor == "no") return;
 
