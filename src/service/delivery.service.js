@@ -15,3 +15,22 @@ export const postDelivery = async (data) => {
   const result = await res.json();
   return result;
 };
+
+export const assignDel = async (orderId, userId) => {
+  const session = await getServerSession(authOption);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/orders/${orderId}/assign/delivery?deliveryId=${userId}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session.user.payload.token}`,
+      },
+      next: { tags: ["bookmarks"] },
+    }
+  );
+  const result = await res.json();
+  return result;
+};
+
+// /api/v1/orders/{orderId}/assign/delivery
