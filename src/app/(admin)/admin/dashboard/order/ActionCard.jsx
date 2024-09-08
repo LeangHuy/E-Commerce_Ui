@@ -22,7 +22,8 @@ import { Phone } from "lucide-react";
 import { MapPin } from "lucide-react";
 import { Contact } from "lucide-react";
 import { CircleDollarSign } from "lucide-react";
-const ActionCard = async ({ order, deliveries }) => {
+import { Button } from "@/components/ui/button";
+const ActionCard = async ({ order, deliveries, useFor = "" }) => {
   const product = await getProductById(
     order?.orderResponse?.orderDetail[0].productId
   );
@@ -422,7 +423,7 @@ const ActionCard = async ({ order, deliveries }) => {
           </div>
         </div>
         <div>
-          <Action data={order} deliveries={allDeliveries} />
+          <Action useFor={useFor} data={order} deliveries={allDeliveries} />
         </div>
       </div>
     </div>

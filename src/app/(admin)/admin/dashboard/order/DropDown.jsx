@@ -10,7 +10,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn, getPhoto } from "@/lib/utils";
-import { changeStatusOrderAction } from "@/acitons/orderAction";
+import {
+  changeStatusOrderAction,
+  updateOrderStatusToDeliveryAction,
+} from "@/acitons/orderAction";
 import toast from "react-hot-toast";
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -29,7 +32,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { assignDelAction } from "@/acitons/delivery";
 
-export function Action({ data, deliveries }) {
+export function Action({ data, deliveries, useFor }) {
   const handleStatus = async (orderId, status) => {
     const res = await changeStatusOrderAction(orderId, status);
     if (res?.status == "DELIVERY") {
@@ -56,32 +59,59 @@ export function Action({ data, deliveries }) {
     } else toast.error("Error");
   };
 
+  const updateOrderStatus = async (orderId, status) => {
+    const result = await updateOrderStatusToDeliveryAction(orderId, status);
+    if (result?.payload) {
+      toast.success("Accepted");
+    } else toast.error("Error");
+  };
+
+  if (useFor == "delivery")
+    return (
+      <Button
+        onClick={() =>
+          updateOrderStatus(data?.orderResponse?.orderId, "DELIVERY")
+        }
+        variant="outline"
+      >
+        Accept
+      </Button>
+    );
+
+  if (useFor == "no") return;
+
   return (
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <div className="cursor-pointer">
             <span className="border font-medium border-sky-400 p-2 rounded-md hover:bg-sky-400 hover:text-white hover:font-medium">
-              Action
+              {!useFor ? "Action" : "Accept"}
             </span>
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-50">
           <DropdownMenuGroup>
-            <DropdownMenuItem className="cursor-pointer">
-              <p onClick={() => setOpen(!isOpen)}>Assign Delivery</p>
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => handleStatus(data?.orderResponse?.orderId, DONE)}
-              className={cn(
-                "",
-                data?.orderResponse?.status == "DONE"
-                  ? "text-green-400 cursor-pointer"
-                  : " cursor-pointer"
-              )}
-            >
-              DONE
-            </DropdownMenuItem>
+            {!useFor && (
+              <>
+                <DropdownMenuItem className="cursor-pointer">
+                  <p onClick={() => setOpen(!isOpen)}>Assign Delivery</p>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() =>
+                    handleStatus(data?.orderResponse?.orderId, DONE)
+                  }
+                  className={cn(
+                    "",
+                    data?.orderResponse?.status == "DONE"
+                      ? "text-green-400 cursor-pointer"
+                      : " cursor-pointer"
+                  )}
+                >
+                  DONE
+                </DropdownMenuItem>
+              </>
+            )}
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>

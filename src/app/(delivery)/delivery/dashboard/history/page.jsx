@@ -1,21 +1,10 @@
 import React from "react";
-import Header from "./components/Header";
 import { redirect } from "next/navigation";
 import { getUserData } from "@/service/user.service";
-import {
-  countTotalOrderPerDayService,
-  countTotalOrderService,
-  totalPriceOrderService,
-} from "@/service/order.service";
-import {
-  allProductInShop,
-  allProductInStock,
-  allProductOutStock,
-} from "@/service/product.service";
-import CardOverview from "./CardOverview";
-import { ShoppingBag } from "lucide-react";
+
 import { getCurrentDeli } from "@/service/delivery.service";
 import ActionCard from "@/app/(admin)/admin/dashboard/order/ActionCard";
+import Header from "../components/Header";
 
 const AdminDashboardPage = async ({ searchParams: { tab = "Overview" } }) => {
   const userData = await getUserData();
@@ -35,7 +24,7 @@ const AdminDashboardPage = async ({ searchParams: { tab = "Overview" } }) => {
                 .filter(
                   (o) =>
                     o?.orderResponse.orderDetail?.length > 0 &&
-                    o?.orderResponse?.status !== "WAITING"
+                    o?.orderResponse?.status !== "DONE"
                 )
                 .reduce((acc, order) => {
                   const date = new Date(
@@ -55,7 +44,7 @@ const AdminDashboardPage = async ({ searchParams: { tab = "Overview" } }) => {
                   <div className="card-overview flex flex-col gap-6">
                     {groupedOrders.map((order) => (
                       <ActionCard
-                        useFor="delivery"
+                        useFor="no"
                         deliveries={allDeli?.payload}
                         order={order}
                         key={order?.orderResponse?.orderId}
