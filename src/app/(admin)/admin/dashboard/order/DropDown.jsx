@@ -59,12 +59,6 @@ export function Action({ data, deliveries, useFor }) {
     } else toast.error("Error");
   };
 
-  // const updateOrderStatus = async (orderId, status) => {
-  //   const result = await updateOrderStatusToDeliveryAction(orderId, status);
-  //   if (result?.payload) {
-  //     toast.success("Accepted");
-  //   } else toast.error("Error");
-  // };
 
   const updateOrderStatus = async (orderId, status) => {
     const result = await updateOrderStatusToDeliveryAction(orderId, status);
