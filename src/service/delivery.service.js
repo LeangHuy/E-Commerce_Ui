@@ -34,3 +34,20 @@ export const assignDel = async (orderId, userId) => {
 };
 
 // /api/v1/orders/{orderId}/assign/delivery
+
+export const getCurrentDeli = async (deliverId) => {
+  console.log(deliverId);
+  const session = await getServerSession(authOption);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/orders/deliveries/${deliverId}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session.user.payload.token}`,
+      },
+      next: { tags: ["getCurrentDeli"] },
+    }
+  );
+  const result = await res.json();
+  return result;
+};

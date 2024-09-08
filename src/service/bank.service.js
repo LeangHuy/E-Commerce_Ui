@@ -60,3 +60,19 @@ export const deleteBankById = async (bankId) => {
   const { payload } = await res.json();
   return payload;
 };
+
+export const updateBank = async (data, bankId) => {
+  const session = await getServerSession(authOption);
+
+  const res = await fetch(`${process.env.BASE_URL}/banks/${bankId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${session.user.payload.token}`,
+    },
+    body: JSON.stringify(data),
+  });
+
+  const { payload } = await res.json();
+  return payload;
+};

@@ -79,7 +79,7 @@ export default Sidebar;
 
 const menu_links = [
   {
-    title: "Order",
+    title: "Overview",
     icon: (active) => (
       <ShoppingCartIcon
         className={clsx(
@@ -88,7 +88,19 @@ const menu_links = [
         )}
       />
     ),
-    tab: "/delivery/dashboard/order?tab=Order",
+    tab: "/delivery/dashboard?tab=Overview",
+  },
+  {
+    title: "Process",
+    icon: (active) => (
+      <ShoppingCartIcon
+        className={clsx(
+          "size-[18px] ",
+          active ? "stroke-white" : "stroke-black"
+        )}
+      />
+    ),
+    tab: "/delivery/dashboard/process?tab=Process",
   },
   {
     title: "History",

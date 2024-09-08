@@ -6,8 +6,9 @@ import {
   countTotalOrderService,
   orderByQr,
   orderService,
+  updateOrderStatusToDelivery,
 } from "@/service/order.service";
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 export const orderAction = async (proList) => {
   const data = await orderService(proList);
@@ -45,4 +46,10 @@ export const assignDeliveryAction = async (orderId, deliveryId) => {
 export const orderByQrAction = async (data) => {
   console.log("data action ", data);
   return await orderByQr(data);
+};
+
+export const updateOrderStatusToDeliveryAction = async (orderId, status) => {
+  const result = await updateOrderStatusToDelivery(orderId, status);
+  revalidatePath("/delivery/dashboard");
+  return result;
 };

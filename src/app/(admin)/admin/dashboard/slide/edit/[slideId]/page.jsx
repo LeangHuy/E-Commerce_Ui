@@ -11,6 +11,9 @@ import { ArrowLeft, Loader2 } from "lucide-react";
 import { editSlideByIdAction, getSlideByIdAction } from "@/acitons/slideAction";
 import toast from "react-hot-toast";
 import { revalidateWhere } from "@/acitons/revalidateAction";
+import Image from "next/image";
+import { getPhoto } from "@/lib/utils";
+import { postImgAction, uploadImgAction } from "@/acitons/uploadImgAction";
 
 const AdminDashboardPage = ({
   searchParams: { tab = "Overview" },
@@ -28,19 +31,28 @@ const AdminDashboardPage = ({
   const [img, setImg] = useState({ imgPreview: null, imgFile: null });
 
   const onSubmit = async (data) => {
-    const result = await editSlideByIdAction(data, slideId);
+    // console.log(data);
+    // if (!img.imgFile) {
+    //   toast.error("No Img");
+    //   return;
+    // }
+    const formData = new FormData();
+    formData.append("file", img?.imgFile);
+    const imgresult = await postImgAction(formData);
+    const result = await editSlideByIdAction(
+      { ...data, image: imgresult },
+      slideId
+    );
 
     reset();
-
 
     if (result?.slideId) {
       toast.success("Slide has been updated successfully");
       router.push("/admin/dashboard/slide?tab=Slide");
-    }
+    } else toast.error("Error");
   };
 
-  useEffect(() => {
-  }, [img]);
+  useEffect(() => {}, [img]);
 
   const [currentSlide, setCurrentSlide] = useState(null);
 
@@ -114,7 +126,7 @@ const AdminDashboardPage = ({
                     </p>
                   </div>
 
-                  {/* <div className="col-span-full">
+                  <div className="col-span-full">
                     <label
                       htmlFor="cover-photo"
                       className="block text-sm font-medium leading-6 text-gray-900"
@@ -123,7 +135,7 @@ const AdminDashboardPage = ({
                     </label>
                     {!img.imgFile ? (
                       <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                        <div className="text-center">
+                        {/* <div className="text-center">
                           <svg
                             className="mx-auto h-12 w-12 text-gray-300"
                             viewBox="0 0 24 24"
@@ -162,7 +174,30 @@ const AdminDashboardPage = ({
                           <p className="text-xs leading-5 text-gray-600">
                             PNG, JPG, GIF up to 10MB
                           </p>
-                        </div>
+                        </div> */}
+                        <input
+                          onChange={(e) =>
+                            setImg({
+                              imgPreview: URL.createObjectURL(
+                                e.target.files[0]
+                              ),
+                              imgFile: e.target.files[0],
+                            })
+                          }
+                          id="file-upload"
+                          name="file-upload"
+                          type="file"
+                          className="sr-only"
+                        />
+                        <label htmlFor="file-upload">
+                          <Image
+                            src={getPhoto(currentSlide?.image)}
+                            width={1000}
+                            height={1000}
+                            alt="preview"
+                            className="h-[400px] object-cover rounded-lg"
+                          />
+                        </label>
                       </div>
                     ) : (
                       <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
@@ -175,10 +210,21 @@ const AdminDashboardPage = ({
                         />
                       </div>
                     )}
-                  </div> */}
+                  </div>
                 </div>
               </div>
             </div>
+            {/* {!img.imgFile && (
+              <div>
+                <Image
+                  src={getPhoto(currentSlide?.image)}
+                  width={1000}
+                  height={1000}
+                  alt="preview"
+                  className="h-[400px] object-cover rounded-lg"
+                />
+              </div>
+            )} */}
 
             <div className="mt-6 flex items-center justify-end gap-x-6">
               <Link
@@ -188,7 +234,9 @@ const AdminDashboardPage = ({
                 Cancel
               </Link>
               <Button>
-                {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                {isSubmitting && (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                )}
                 Save
               </Button>
             </div>

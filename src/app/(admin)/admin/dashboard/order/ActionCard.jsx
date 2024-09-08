@@ -22,7 +22,8 @@ import { Phone } from "lucide-react";
 import { MapPin } from "lucide-react";
 import { Contact } from "lucide-react";
 import { CircleDollarSign } from "lucide-react";
-const ActionCard = async ({ order, deliveries }) => {
+import { Button } from "@/components/ui/button";
+const ActionCard = async ({ order, deliveries, useFor = "" }) => {
   const product = await getProductById(
     order?.orderResponse?.orderDetail[0].productId
   );
@@ -96,50 +97,192 @@ const ActionCard = async ({ order, deliveries }) => {
               {order?.orderResponse?.status}
             </span>
           </div>
-          <div className="flex gap-4">
-            {order?.orderResponse?.payment ? (
-              <div className="flex gap-4">
-                {/* view payment */}
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <div className="flex gap-2 bg-gray-900 rounded-md cursor-pointer items-center self-start p-2 ">
-                      <p className="text-white text-sm">View Payment</p>
-                      <ChevronRight className="stroke-white size-5" />
-                    </div>
-                  </DialogTrigger>
-                  <DialogContent className="sm:max-w-[425px] h-auto">
-                    <DialogHeader>
-                      <DialogTitle>{userName}'s Payment</DialogTitle>
-                      <DialogDescription>
-                        {" "}
-                        {new Date(
-                          order?.orderResponse?.orderDate
-                        ).toDateString()}
-                      </DialogDescription>
-                    </DialogHeader>
-                    <div className="grid gap-4 py-4 ">
-                      <div className="flex gap-2">
-                        <div className="h-auto w-full ">
-                          <ScrollArea className="h-75 w-full rounded-md border">
-                            <div className="p-4">
-                              <div className="">
-                                <Image
-                                  src={getPhoto(order?.transferImage)}
-                                  className="object-cover border border-gray-300 rounded-md"
-                                  alt="product"
-                                  width={1000}
-                                  height={1000}
-                                />
+          {useFor != "delivery" && (
+            <div className="flex gap-4">
+              {order?.orderResponse?.payment ? (
+                <div className="flex gap-4">
+                  {/* view payment */}
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <div className="flex gap-2 bg-gray-900 rounded-md cursor-pointer items-center self-start p-2 ">
+                        <p className="text-white text-sm">View Payment</p>
+                        <ChevronRight className="stroke-white size-5" />
+                      </div>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px] h-auto">
+                      <DialogHeader>
+                        <DialogTitle>{userName}'s Payment</DialogTitle>
+                        <DialogDescription>
+                          {" "}
+                          {new Date(
+                            order?.orderResponse?.orderDate
+                          ).toDateString()}
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="grid gap-4 py-4 ">
+                        <div className="flex gap-2">
+                          <div className="h-auto w-full ">
+                            <ScrollArea className="h-75 w-full rounded-md border">
+                              <div className="p-4">
+                                <div className="">
+                                  <Image
+                                    src={getPhoto(order?.transferImage)}
+                                    className="object-cover border border-gray-300 rounded-md"
+                                    alt="product"
+                                    width={1000}
+                                    height={1000}
+                                  />
+                                </div>
                               </div>
-                            </div>
-                          </ScrollArea>
+                            </ScrollArea>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </DialogContent>
-                </Dialog>
+                    </DialogContent>
+                  </Dialog>
 
-                {/* Order detail */}
+                  {/* Order detail */}
+                  <Dialog Dialog>
+                    <DialogTrigger asChild>
+                      <div className="flex gap-2 bg-gray-900 rounded-md cursor-pointer items-center self-start p-2 ">
+                        <p className="text-white text-sm">Detail</p>
+                        <ChevronRight className="stroke-white size-5" />
+                      </div>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[555px] h-auto">
+                      <DialogHeader>
+                        <DialogTitle>{userName}'s Order Detail</DialogTitle>
+                        <DialogDescription>
+                          {" "}
+                          {new Date(
+                            order?.orderResponse?.orderDate
+                          ).toDateString()}
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="flex justify-between border border-1 p-4 rounded-md">
+                        <div className="w-1/2">
+                          <h4>Order from :</h4>
+                          <p className="grid grid-cols-[20px_1fr] items-center gap-2">
+                            <Contact size={18} />
+                            {userName}
+                          </p>
+                          <p className="grid grid-cols-[20px_1fr] items-center gap-2">
+                            <Phone size={18} />
+                            {user?.phone}
+                          </p>
+                          <p className="grid grid-cols-[20px_1fr] items-center gap-2">
+                            <MapPin size={18} className="mt-1" />
+                            {user?.address}
+                          </p>
+                        </div>
+                        <div className="w-1/2">
+                          <h4>Receive by :</h4>
+                          <p className="grid grid-cols-[20px_1fr] items-center gap-2">
+                            <Phone size={18} />
+                            {order?.receiverPhone}
+                          </p>
+                          <p className="grid grid-cols-[20px_1fr] items-center gap-2">
+                            <MapPin size={18} className="mt-1" />
+                            {order?.receiverLocation}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="grid gap-4 py-4 ">
+                        <div className="flex gap-2">
+                          <div className="h-auto w-full ">
+                            <ScrollArea className="h-64 w-full rounded-md border overflow-y-scroll">
+                              <div className="p-4">
+                                <div className="flex justify-between">
+                                  <h4 className="mb-4 text-lg font-medium leading-none">
+                                    Item
+                                  </h4>
+                                  <div className="w-1/4">
+                                    <span
+                                      className={`text-[14px] text-black font-medium ${
+                                        order?.orderResponse?.status !==
+                                        "NONPAYMENT"
+                                          ? "bg-purple-400 py-1 px-5 rounded-full"
+                                          : ""
+                                      }`}
+                                    >
+                                      {order?.orderResponse?.status}
+                                    </span>
+                                  </div>
+                                </div>
+
+                                {order?.orderResponse?.orderDetail.map(
+                                  (item, index) => (
+                                    <>
+                                      <div key={index} className="text-sm">
+                                        <div className="grid grid-cols-2 gap-4">
+                                          <div className="">
+                                            <Image
+                                              src={getPhoto(
+                                                item?.imageProductList[0]
+                                                  ?.fileName
+                                              )}
+                                              className="object-cover border border-gray-300 rounded-md"
+                                              alt="product"
+                                              width={1000}
+                                              height={1000}
+                                            />
+                                          </div>
+                                          <div className="leading-7 ">
+                                            <p className="font-medium text-blue-500">
+                                              {item?.productName}
+                                            </p>
+                                            <p>Price : {item?.unitPrice}$</p>
+
+                                            {item?.discount !== 0 && (
+                                              <p>
+                                                Discount : {item?.discount}%
+                                              </p>
+                                            )}
+                                            <p>
+                                              After discount :{" "}
+                                              <span>
+                                                {item?.priceAfterDiscount.toFixed(
+                                                  2
+                                                )}
+                                                $
+                                              </span>{" "}
+                                            </p>
+                                            <p>Order Qty : {item?.orderQty}</p>
+                                            <p>
+                                              Warranty :{" "}
+                                              {item?.warranty?.warrantyDate}{" "}
+                                              {item?.warranty?.warrantyTime}
+                                            </p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <Separator className="my-2 " />
+                                    </>
+                                  )
+                                )}
+                              </div>
+                            </ScrollArea>
+                            <div className="flex justify-between px-3">
+                              <div>Total Quantity : </div>
+                              <div className="font-medium">
+                                {order?.orderResponse?.orderTotalQty} products
+                              </div>
+                            </div>
+                            <div className="flex justify-between px-3">
+                              <div>Total Price : </div>
+                              <div className="font-medium border border-sky-300 py-0 px-1.5 rounded-md">
+                                {order?.orderResponse?.totalPrice.toFixed(2)}$
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+              ) : (
+                //Order detail
                 <Dialog Dialog>
                   <DialogTrigger asChild>
                     <div className="flex gap-2 bg-gray-900 rounded-md cursor-pointer items-center self-start p-2 ">
@@ -183,6 +326,12 @@ const ActionCard = async ({ order, deliveries }) => {
                           <MapPin size={18} className="mt-1" />
                           {order?.receiverLocation}
                         </p>
+                        {order?.orderResponse?.payment == false && (
+                          <p className="grid grid-cols-[20px_1fr] items-center gap-2">
+                            <CircleDollarSign size={18} className="mt-1" />
+                            បង់ប្រាក់ពេលទំនិញទៅដល់
+                          </p>
+                        )}
                       </div>
                     </div>
 
@@ -276,153 +425,12 @@ const ActionCard = async ({ order, deliveries }) => {
                     </div>
                   </DialogContent>
                 </Dialog>
-              </div>
-            ) : (
-              //Order detail
-              <Dialog Dialog>
-                <DialogTrigger asChild>
-                  <div className="flex gap-2 bg-gray-900 rounded-md cursor-pointer items-center self-start p-2 ">
-                    <p className="text-white text-sm">Detail</p>
-                    <ChevronRight className="stroke-white size-5" />
-                  </div>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[555px] h-auto">
-                  <DialogHeader>
-                    <DialogTitle>{userName}'s Order Detail</DialogTitle>
-                    <DialogDescription>
-                      {" "}
-                      {new Date(order?.orderResponse?.orderDate).toDateString()}
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="flex justify-between border border-1 p-4 rounded-md">
-                    <div className="w-1/2">
-                      <h4>Order from :</h4>
-                      <p className="grid grid-cols-[20px_1fr] items-center gap-2">
-                        <Contact size={18} />
-                        {userName}
-                      </p>
-                      <p className="grid grid-cols-[20px_1fr] items-center gap-2">
-                        <Phone size={18} />
-                        {user?.phone}
-                      </p>
-                      <p className="grid grid-cols-[20px_1fr] items-center gap-2">
-                        <MapPin size={18} className="mt-1" />
-                        {user?.address}
-                      </p>
-                    </div>
-                    <div className="w-1/2">
-                      <h4>Receive by :</h4>
-                      <p className="grid grid-cols-[20px_1fr] items-center gap-2">
-                        <Phone size={18} />
-                        {order?.receiverPhone}
-                      </p>
-                      <p className="grid grid-cols-[20px_1fr] items-center gap-2">
-                        <MapPin size={18} className="mt-1" />
-                        {order?.receiverLocation}
-                      </p>
-                      {order?.orderResponse?.payment == false && (
-                        <p className="grid grid-cols-[20px_1fr] items-center gap-2">
-                          <CircleDollarSign size={18} className="mt-1" />
-                          បង់ប្រាក់ពេលទំនិញទៅដល់
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="grid gap-4 py-4 ">
-                    <div className="flex gap-2">
-                      <div className="h-auto w-full ">
-                        <ScrollArea className="h-64 w-full rounded-md border overflow-y-scroll">
-                          <div className="p-4">
-                            <div className="flex justify-between">
-                              <h4 className="mb-4 text-lg font-medium leading-none">
-                                Item
-                              </h4>
-                              <div className="w-1/4">
-                                <span
-                                  className={`text-[14px] text-black font-medium ${
-                                    order?.orderResponse?.status !==
-                                    "NONPAYMENT"
-                                      ? "bg-purple-400 py-1 px-5 rounded-full"
-                                      : ""
-                                  }`}
-                                >
-                                  {order?.orderResponse?.status}
-                                </span>
-                              </div>
-                            </div>
-
-                            {order?.orderResponse?.orderDetail.map(
-                              (item, index) => (
-                                <>
-                                  <div key={index} className="text-sm">
-                                    <div className="grid grid-cols-2 gap-4">
-                                      <div className="">
-                                        <Image
-                                          src={getPhoto(
-                                            item?.imageProductList[0]?.fileName
-                                          )}
-                                          className="object-cover border border-gray-300 rounded-md"
-                                          alt="product"
-                                          width={1000}
-                                          height={1000}
-                                        />
-                                      </div>
-                                      <div className="leading-7 ">
-                                        <p className="font-medium text-blue-500">
-                                          {item?.productName}
-                                        </p>
-                                        <p>Price : {item?.unitPrice}$</p>
-
-                                        {item?.discount !== 0 && (
-                                          <p>Discount : {item?.discount}%</p>
-                                        )}
-                                        <p>
-                                          After discount :{" "}
-                                          <span>
-                                            {item?.priceAfterDiscount.toFixed(
-                                              2
-                                            )}
-                                            $
-                                          </span>{" "}
-                                        </p>
-                                        <p>Order Qty : {item?.orderQty}</p>
-                                        <p>
-                                          Warranty :{" "}
-                                          {item?.warranty?.warrantyDate}{" "}
-                                          {item?.warranty?.warrantyTime}
-                                        </p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <Separator className="my-2 " />
-                                </>
-                              )
-                            )}
-                          </div>
-                        </ScrollArea>
-                        <div className="flex justify-between px-3">
-                          <div>Total Quantity : </div>
-                          <div className="font-medium">
-                            {order?.orderResponse?.orderTotalQty} products
-                          </div>
-                        </div>
-                        <div className="flex justify-between px-3">
-                          <div>Total Price : </div>
-                          <div className="font-medium border border-sky-300 py-0 px-1.5 rounded-md">
-                            {order?.orderResponse?.totalPrice.toFixed(2)}$
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </DialogContent>
-              </Dialog>
-            )}
-          </div>
+              )}
+            </div>
+          )}
         </div>
         <div>
-          <Action data={order} deliveries={allDeliveries} />
+          <Action useFor={useFor} data={order} deliveries={allDeliveries} />
         </div>
       </div>
     </div>

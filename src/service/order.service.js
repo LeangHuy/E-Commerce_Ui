@@ -180,3 +180,19 @@ export const orderByQr = async (data) => {
   const result = await res.json();
   return result;
 };
+
+export const updateOrderStatusToDelivery = async (orderId, status) => {
+  const session = await getServerSession(authOption);
+  const res = await fetch(
+    `${process.env.BASE_URL}/orders/${orderId}?status=${status}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session.user.payload.token}`,
+      },
+    }
+  );
+  const result = await res.json();
+  return result;
+};
