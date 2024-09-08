@@ -69,12 +69,10 @@ export function Action({ data, deliveries, useFor }) {
   if (useFor == "delivery")
     return (
       <Button
-        onClick={() =>
-          updateOrderStatus(data?.orderResponse?.orderId, "DELIVERY")
-        }
+        onClick={() => updateOrderStatus(data?.orderResponse?.orderId, "DONE")}
         variant="outline"
       >
-        Accept
+        DONE
       </Button>
     );
 

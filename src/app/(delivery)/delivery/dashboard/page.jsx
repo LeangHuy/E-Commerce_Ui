@@ -35,7 +35,7 @@ const AdminDashboardPage = async ({ searchParams: { tab = "Overview" } }) => {
                 .filter(
                   (o) =>
                     o?.orderResponse.orderDetail?.length > 0 &&
-                    o?.orderResponse?.status !== "WAITING"
+                    o?.orderResponse?.status == "WAITING"
                 )
                 .reduce((acc, order) => {
                   const date = new Date(
