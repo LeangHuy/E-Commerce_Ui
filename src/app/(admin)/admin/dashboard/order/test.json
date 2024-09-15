@@ -1,0 +1,95 @@
+{
+  "template": {
+    "name": "/Invoice/invoice-main"
+  },
+  "data": {
+    "orderResponse": {
+      "orderId": "ceccb021-fb1a-42b3-9e7c-c11c5186a579",
+      "invoiceId": 4,
+      "orderDetail": [
+        {
+          "productId": "60a958d6-9aca-46f5-b84f-edd971e14c0b",
+          "productName": "Controller Xbox X",
+          "unitPrice": 55,
+          "discount": 0,
+          "priceAfterDiscount": 55,
+          "orderQty": 1,
+          "imageProductList": [
+            {
+              "fileName": "4f114594-9259-43d6-bf0e-051153199991.png",
+              "fileUrl": "http://34.143.196.56:9090/4f114594-9259-43d6-bf0e-051153199991.png"
+            },
+            {
+              "fileName": "25f319f6-1841-4118-8246-27ef6b22a886.png",
+              "fileUrl": "http://34.143.196.56:9090/25f319f6-1841-4118-8246-27ef6b22a886.png"
+            },
+            {
+              "fileName": "52ff3cb4-3ac5-442c-a42c-aaa8e9c5945b.png",
+              "fileUrl": "http://34.143.196.56:9090/52ff3cb4-3ac5-442c-a42c-aaa8e9c5945b.png"
+            }
+          ],
+          "totalProductPrice": 55,
+          "warranty": {
+            "warrantyId": "3b2467eb-f683-429f-a5ea-9b3236bd7959",
+            "warrantyDate": 1,
+            "warrantyTime": "DAY",
+            "productId": "60a958d6-9aca-46f5-b84f-edd971e14c0b"
+          },
+          "createAt": "2024-07-30T16:20:47.693+00:00",
+          "updateAt": "2024-07-30T16:20:47.693+00:00"
+        },
+        {
+          "productId": "88bcb9ec-d7b5-42da-9276-bab785784e6d",
+          "productName": "Case for ROG Ally",
+          "unitPrice": 15,
+          "discount": 0,
+          "priceAfterDiscount": 15,
+          "orderQty": 1,
+          "imageProductList": [
+            {
+              "fileName": "d45d1fd3-3cb1-4731-bd0c-a66bf2b8ecce.png",
+              "fileUrl": "http://34.143.196.56:9090/d45d1fd3-3cb1-4731-bd0c-a66bf2b8ecce.png"
+            },
+            {
+              "fileName": "5e392dff-0172-4877-b102-7cc0c715771a.png",
+              "fileUrl": "http://34.143.196.56:9090/5e392dff-0172-4877-b102-7cc0c715771a.png"
+            },
+            {
+              "fileName": "4bfdc7fc-068c-4de6-8ee6-5fae1b61edf3.png",
+              "fileUrl": "http://34.143.196.56:9090/4bfdc7fc-068c-4de6-8ee6-5fae1b61edf3.png"
+            }
+          ],
+          "totalProductPrice": 15,
+          "warranty": {
+            "warrantyId": "888aa9b8-aa55-4c57-919e-5eb40dd766ef",
+            "warrantyDate": 0,
+            "warrantyTime": "DAY",
+            "productId": "88bcb9ec-d7b5-42da-9276-bab785784e6d"
+          },
+          "createAt": "2024-07-30T16:46:32.336+00:00",
+          "updateAt": "2024-07-30T16:46:32.336+00:00"
+        }
+      ],
+      "user": {
+        "user": {
+          "userId": "f3d1a13b-a244-46d3-808f-2a68b54a1c1b",
+          "firstName": "Moeurn",
+          "lastName": "Leanghuy",
+          "email": "leanghuy2419@gmail.com",
+          "phone": "081731530",
+          "profile": "fa78e671-214c-4879-9e80-0b7bde9e9ce8.png",
+          "gender": "Male",
+          "address": "Kandal"
+        },
+        "role": "USER"
+      },
+      "orderDate": "2024-09-03",
+      "orderTotalQty": 2,
+      "totalPrice": 70,
+      "status": "NONPAYMENT",
+      "payment": false
+    },
+    "receiverPhone": "081731530",
+    "receiverLocation": "Russeychroy muk kompol kandal"
+  }
+}
