@@ -34,7 +34,6 @@ import {
 import { deleteSlideAction } from "@/acitons/slideAction";
 import { EyeIcon } from "lucide-react";
 function DeliveryTable({ data }) {
-  console.log(data);
   return (
     <div>
       <Table>

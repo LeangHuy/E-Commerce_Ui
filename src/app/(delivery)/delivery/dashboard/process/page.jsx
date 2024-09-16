@@ -12,7 +12,6 @@ const AdminDashboardPage = async ({ searchParams: { tab = "Overview" } }) => {
     redirect("/");
   }
   const allDeli = await getCurrentDeli(userData?.payload?.user?.userId);
-  console.log(allDeli);
   return (
     <div className="w-full">
       <Header tab={tab} />

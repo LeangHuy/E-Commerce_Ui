@@ -6,7 +6,6 @@ import { getAllDeliveries } from "@/service/user.service";
 const OrderPage = async ({ searchParams: { tab = "Overview" } }) => {
   const orders = await getAllOrdersAdmin();
   const deliveries = await getAllDeliveries();
-  console.log(orders);
   return (
     <div className="w-full">
       <Header tab={tab} />

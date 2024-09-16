@@ -57,7 +57,6 @@ export function DrawerCheckout({ price }) {
       },
     });
 
-    console.log(result);
     if (result?.status == "CREATED") {
       toast.success("Success");
       removeAllCart();
@@ -80,13 +79,12 @@ export function DrawerCheckout({ price }) {
 
   useEffect(() => {
     getPaymentMethodAction().then((data) => {
-      console.log(data);
       setBank(data);
     });
   }, []);
 
   useEffect(() => {
-    if (currentBank) console.log(JSON.parse(currentBank));
+    // if (currentBank) console.log(JSON.parse(currentBank));
   }, [currentBank]);
 
   return (

@@ -44,7 +44,7 @@ const OrderDetailCard = () => {
   };
 
   useEffect(() => {
-    console.log("option payment : ", payment_option);
+    // console.log("option payment : ", payment_option);
   }, [payment_option]);
 
   const [active, setActive] = useState(0);
@@ -53,7 +53,6 @@ const OrderDetailCard = () => {
 
   useEffect(() => {
     getPaymentMethodAction().then((data) => {
-      console.log(data);
       setBank(data);
     });
   }, []);

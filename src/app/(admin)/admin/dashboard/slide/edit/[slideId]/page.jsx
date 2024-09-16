@@ -31,11 +31,6 @@ const AdminDashboardPage = ({
   const [img, setImg] = useState({ imgPreview: null, imgFile: null });
 
   const onSubmit = async (data) => {
-    // console.log(data);
-    // if (!img.imgFile) {
-    //   toast.error("No Img");
-    //   return;
-    // }
     const formData = new FormData();
     formData.append("file", img?.imgFile);
     const imgresult = await postImgAction(formData);
@@ -52,7 +47,7 @@ const AdminDashboardPage = ({
     } else toast.error("Error");
   };
 
-  useEffect(() => {}, [img]);
+  useEffect(() => { }, [img]);
 
   const [currentSlide, setCurrentSlide] = useState(null);
 

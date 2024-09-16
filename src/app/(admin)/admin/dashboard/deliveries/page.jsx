@@ -8,7 +8,6 @@ import DeliveryTable from "./TableDelivery";
 
 async function DeliveryPage({ searchParams: { tab = "Delivery" } }) {
   const deliveries = await getAllDeliveries();
-  console.log(deliveries);
   return (
     <div className="w-full">
       <Header tab={tab}>

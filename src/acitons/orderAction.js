@@ -44,7 +44,6 @@ export const assignDeliveryAction = async (orderId, deliveryId) => {
 };
 
 export const orderByQrAction = async (data) => {
-  console.log("data action ", data);
   return await orderByQr(data);
 };
 

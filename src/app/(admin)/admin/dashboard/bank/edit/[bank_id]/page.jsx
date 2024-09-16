@@ -31,8 +31,6 @@ const AdminDashboardPage = ({
   const [img, setImg] = useState({ imgPreview: null, imgFile: null });
 
   const onSubmit = async (data) => {
-    console.log(data);
-    // return;
     const formData = new FormData();
     formData.append("file", img.imgFile);
     const imgString = await postImgAction(formData);
@@ -41,7 +39,6 @@ const AdminDashboardPage = ({
       { ...data, qrCode: imgString },
       currentBank?.id
     );
-    console.log(result);
     if (result?.id) {
       reset();
       toast.success("Bank KHQR has been updated successfully");
@@ -49,7 +46,7 @@ const AdminDashboardPage = ({
     }
   };
 
-  useEffect(() => {}, [img]);
+  useEffect(() => { }, [img]);
 
   const [currentBank, setCurrentBank] = useState(null);
 

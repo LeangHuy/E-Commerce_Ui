@@ -27,7 +27,6 @@ const DeliveryPage = ({ searchParams: { tab = "Overview" } }) => {
   const [img, setImg] = useState({ imgPreview: null, imgFile: null });
 
   const onSubmit = async (data) => {
-    console.log(data);
     const formData = new FormData();
     formData.append("file", img.imgFile);
     const imgResult = await postImgAction(formData);
