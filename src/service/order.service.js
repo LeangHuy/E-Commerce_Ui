@@ -122,7 +122,6 @@ export const changeStatusOrder = async (orderId, status) => {
         },
       }
     ).then((data) => data.json());
-    console.log("res : ", res);
     return res?.payload;
   } catch (error) {
     return {
@@ -166,7 +165,6 @@ export const assignDeliveryService = async (orderId, deliveryId) => {
 };
 
 export const orderByQr = async (data) => {
-  console.log("data in service ", JSON.stringify(data));
   const session = await getServerSession(authOption);
   const res = await fetch(`${process.env.BASE_URL}/orders/by-qr`, {
     method: "POST",
