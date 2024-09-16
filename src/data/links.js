@@ -22,7 +22,7 @@ export const my_links = [
   },
   {
     link: "Contact",
-    path: "contact",
+    path: "/view/contact",
     tag: "contact",
   },
   {

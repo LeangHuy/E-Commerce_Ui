@@ -11,12 +11,12 @@ export const footer_data = [
   },
   {
     id: 3,
-    title: "Office",
-    data: ["Boeung Kak", "Phnom Penh Thmei"],
+    title: "Shop",
+    data: ["Phnom Penh Thmei"],
   },
   {
     id: 4,
     title: "Solution",
-    data: ["Fix", "Trade", "Exchange"],
+    data: ["Fix", "Exchange"],
   },
 ];
