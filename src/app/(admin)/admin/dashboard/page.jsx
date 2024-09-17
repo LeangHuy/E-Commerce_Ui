@@ -5,6 +5,8 @@ import { getUserData } from "@/service/user.service";
 import { countTotalOrderPerDayService, countTotalOrderService, totalPriceOrderService } from "@/service/order.service";
 import { TotalOrder } from "./components/TotalOrderCard";
 import { allProductInShop, allProductInStock, allProductOutStock } from "@/service/product.service";
+import NotificationComponent from "@/components/NotificationComponent";
+
 
 const AdminDashboardPage = async ({ searchParams: { tab = "Overview" } }) => {
   const userData = await getUserData();
@@ -18,8 +20,10 @@ const AdminDashboardPage = async ({ searchParams: { tab = "Overview" } }) => {
   const allProductHaveStock = await allProductInStock();
   const allProductNoStock = await allProductOutStock();
 
+
   return (
     <div className="w-full">
+      <NotificationComponent userId={userData?.payload?.user?.userId} />
       <Header tab={tab} />
       <div className="content p-5 bg-gray-100">
         <div className="  rounded-2xl p-10">

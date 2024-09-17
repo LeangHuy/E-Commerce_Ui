@@ -95,6 +95,9 @@ dependencies:
   react-hot-toast:
     specifier: ^2.4.1
     version: 2.4.1(csstype@3.1.3)(react-dom@18.3.1)(react@18.3.1)
+  react-onesignal:
+    specifier: ^3.0.1
+    version: 3.0.1(react@18.3.1)
   react-otp-input:
     specifier: ^3.1.1
     version: 3.1.1(react-dom@18.3.1)(react@18.3.1)
@@ -6437,6 +6440,15 @@ packages:
 
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
+
+  /react-onesignal@3.0.1(react@18.3.1):
+    resolution: {integrity: sha512-AfAtGdXRcuMhVf+9OXehGcQeiJIYl1ihAByvfVNa3RCA1Vnn19tBha4XQB+o3ukUh2IQn0yiflRO4vXgI9nOng==}
+    engines: {node: '>=8', npm: '>=5'}
+    peerDependencies:
+      react: '>= 16.8'
+    dependencies:
+      react: 18.3.1
+    dev: false
 
   /react-otp-input@3.1.1(react-dom@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-bjPavgJ0/Zmf/AYi4onj8FbH93IjeD+e8pWwxIJreDEWsU1ILR5fs8jEJmMGWSBe/yyvPP6X/W6Mk9UkOCkTPw==}
