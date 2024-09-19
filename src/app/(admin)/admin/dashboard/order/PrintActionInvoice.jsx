@@ -30,12 +30,6 @@ const PrintActionInvoice = ({ order }) => {
         mode: "cors",
       });
       if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
-      } else {
-        console.error('Cannot print');
-        // alert('Cannot print');
-      }
-      if (!response.ok) {
         console.error('Error: Unable to fetch the report.');
         alert('Error: Unable to fetch the report.');
         return;

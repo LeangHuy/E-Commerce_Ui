@@ -16,6 +16,7 @@ import CardOverview from "./CardOverview";
 import { ShoppingBag } from "lucide-react";
 import { getCurrentDeli } from "@/service/delivery.service";
 import ActionCard from "@/app/(admin)/admin/dashboard/order/ActionCard";
+import NotificationComponent from "@/components/NotificationComponent";
 
 const AdminDashboardPage = async ({ searchParams: { tab = "Overview" } }) => {
   const userData = await getUserData();
@@ -25,6 +26,7 @@ const AdminDashboardPage = async ({ searchParams: { tab = "Overview" } }) => {
   const allDeli = await getCurrentDeli(userData?.payload?.user?.userId);
   return (
     <div className="w-full">
+      <NotificationComponent userId={userData?.payload?.user?.userId} />
       <Header tab={tab} />
       <div className="content p-5 bg-gray-100">
         <div className="  rounded-2xl bg-white p-10">

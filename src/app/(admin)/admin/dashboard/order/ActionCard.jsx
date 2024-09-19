@@ -86,12 +86,12 @@ const ActionCard = async ({ order, deliveries, useFor = "" }) => {
                 order?.orderResponse?.status === "PAID"
                   ? "text-green-400"
                   : order?.orderResponse?.status === "DELIVERY"
-                  ? "text-purple-400"
-                  : order?.orderResponse?.status === "NONPAYMENT"
-                  ? "text-red-400"
-                  : order?.orderResponse?.status === "WAITING"
-                  ? "text-blue-400"
-                  : ""
+                    ? "text-purple-400"
+                    : order?.orderResponse?.status === "NONPAYMENT"
+                      ? "text-red-400"
+                      : order?.orderResponse?.status === "WAITING"
+                        ? "text-blue-400"
+                        : ""
               )}
             >
               {order?.orderResponse?.status}
@@ -181,7 +181,7 @@ const ActionCard = async ({ order, deliveries, useFor = "" }) => {
                             <Phone size={18} />
                             {order?.receiverPhone}
                           </p>
-                          <p className="grid grid-cols-[20px_1fr] items-center gap-2">
+                          <p className="grid grid-cols-[20px_1fr] items-start gap-2">
                             <MapPin size={18} className="mt-1" />
                             {order?.receiverLocation}
                           </p>
@@ -199,12 +199,11 @@ const ActionCard = async ({ order, deliveries, useFor = "" }) => {
                                   </h4>
                                   <div className="w-1/4">
                                     <span
-                                      className={`text-[14px] text-black font-medium ${
-                                        order?.orderResponse?.status !==
+                                      className={`text-[14px] text-black font-medium ${order?.orderResponse?.status !==
                                         "NONPAYMENT"
-                                          ? "bg-purple-400 py-1 px-5 rounded-full"
-                                          : ""
-                                      }`}
+                                        ? "bg-purple-400 py-1 px-5 rounded-full"
+                                        : ""
+                                        }`}
                                     >
                                       {order?.orderResponse?.status}
                                     </span>
@@ -349,12 +348,11 @@ const ActionCard = async ({ order, deliveries, useFor = "" }) => {
                                   </h4>
                                   <div className="w-1/4">
                                     <span
-                                      className={`text-[14px] text-black font-medium ${
-                                        order?.orderResponse?.status !==
+                                      className={`text-[14px] text-black font-medium ${order?.orderResponse?.status !==
                                         "NONPAYMENT"
-                                          ? "bg-purple-400 py-1 px-5 rounded-full"
-                                          : ""
-                                      }`}
+                                        ? "bg-purple-400 py-1 px-5 rounded-full"
+                                        : ""
+                                        }`}
                                     >
                                       {order?.orderResponse?.status}
                                     </span>
