@@ -33,9 +33,6 @@ const Navbar = async () => {
         </section>
         <div className="flex items-center gap-6">
           <SearchDialog />
-          {/* <Search className="cursor-pointer hover:stroke-sky-500" /> */}
-          {/* <ShoppingCart className="cursor-pointer hover:stroke-sky-500" /> */}
-          {/* <CustomSheet /> */}
           <Link href={"/view/cart"} className="relative">
             <ShoppingCart className="cursor-pointer hover:stroke-sky-500" />
             <div className="absolute -top-3 -right-3">
