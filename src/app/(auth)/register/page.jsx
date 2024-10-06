@@ -10,7 +10,7 @@ function RegisterPage() {
     <div className="flex h-full p-10">
       <div className=" bg-white p-10 rounded-xl lg:rounded-r-none lg:rounded-l-xl w-[30rem]">
         <div className="flex flex-col gap-5">
-          <div className="font-semibold text-[1rem]">Cambodia Shopping</div>
+          <div className="font-semibold text-[1rem]">PlayStation Game Cambodia</div>
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-3">
               <div className="text-[1.4rem] font-bold">

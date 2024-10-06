@@ -193,7 +193,7 @@ const menu_links = [
     tab: "/admin/dashboard/history?tab=History",
   },
   {
-    title: "របាយការណ៍",
+    title: "Report",
     icon: (active) => (
       <BookMinus
         className={clsx(

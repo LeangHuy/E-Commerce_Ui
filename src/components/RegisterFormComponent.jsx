@@ -179,7 +179,7 @@ const RegisterFormComponent = () => {
         </div>
 
         <Button
-          isLoading={isSubmitting}
+          // isLoading={isSubmitting}
           type="submit"
           color="primary"
           className="rounded-sm"

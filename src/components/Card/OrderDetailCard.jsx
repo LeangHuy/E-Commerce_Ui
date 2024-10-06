@@ -125,7 +125,7 @@ const OrderDetailCard = () => {
                   {payment_option != 1 ? (
                     "Choose your payment method"
                   ) : (
-                    <p>Fill the information</p>
+                    <p>Fill the Receiver information</p>
                   )}
                 </DialogDescription>
               </DialogHeader>
@@ -184,15 +184,16 @@ const OrderDetailCard = () => {
                     className="flex flex-col gap-3"
                   >
                     <Input
-                      {...register("receiverLocation")}
-                      type="text"
-                      placeholder="Enter phone location"
-                    />
-                    <Input
                       {...register("receiverPhone")}
                       type="text"
                       placeholder="Enter phone number"
                     />
+                    <Input
+                      {...register("receiverLocation")}
+                      type="text"
+                      placeholder="Enter location"
+                    />
+
                     <Button>Submit</Button>
                   </form>
                 </div>

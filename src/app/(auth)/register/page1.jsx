@@ -8,7 +8,7 @@ const RegisterPage = () => {
     <>
       <div className="max-w-lg mx-auto  bg-white dark:bg-gray-800 rounded-lg shadow-md px-8 py-10 flex flex-col items-center">
         <h1 className="text-xl font-bold text-center text-gray-700 dark:text-gray-200 mb-8">
-          Welcome to My Company
+          Welcome to PlayStation Game Cambodia
         </h1>
         <RegisterFormComponent />
 
