@@ -1,15 +1,18 @@
 import { getAllOrdersAdmin } from '@/service/order.service';
-import React from 'react'
+import React from 'react';
 import Header from '../components/Header';
-import ActionCard from './ActionCard';
+import ExportToExcel from './ExportToExcel';
 
 const ReportPage = async ({ searchParams: { tab = "Overview" } }) => {
     const orders = await getAllOrdersAdmin();
+    const formattedDate = new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD format
     return (
         <div className="w-full">
             <Header tab={tab} />
             <div className="content p-5 bg-gray-100">
                 <div className="bg-white rounded-2xl p-5">
+                    {/* <ExportToExcel data={orders} fileName="OrdersReport" /> */}
+
                     {Object.entries(
                         orders
                             .filter((o) => o?.orderResponse.orderDetail?.length > 0)
@@ -22,10 +25,16 @@ const ReportPage = async ({ searchParams: { tab = "Overview" } }) => {
                                 return acc;
                             }, {})
                     )
-                        .sort(([dateA], [dateB]) => new Date(dateB) - new Date(dateA)) // Sort dates in descending order
+                        .sort(([dateA], [dateB]) => new Date(dateB) - new Date(dateA))
                         .map(([date, groupedOrders]) => (
                             <div key={date} className="mb-6">
-                                <h1 className="text-2xl font-bold mb-4">Report on {date}</h1>
+                                <div className="flex justify-between">
+                                    <div><h1 className="text-2xl font-bold mb-4">Report on {date}</h1></div>
+                                    <div><ExportToExcel data={groupedOrders} fileName={`OrdersReport_${formattedDate}`} /></div>
+                                </div>
+
+
+
                                 <div className="card-overview flex flex-col gap-6">
                                     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                                         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -99,8 +108,6 @@ const ReportPage = async ({ searchParams: { tab = "Overview" } }) => {
                 </div>
             </div>
         </div>
-
-
     );
 };
 
