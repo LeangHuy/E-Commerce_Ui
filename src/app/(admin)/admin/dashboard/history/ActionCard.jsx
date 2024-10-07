@@ -216,8 +216,8 @@ const ActionCard = async ({ order }) => {
                 <PrintActionInvoice order={order} />
               </div>
               :
-              <div className="">
-                //Order detail
+              <div className="flex gap-4">
+                {/* Order detail */}
                 <Dialog Dialog >
                   <DialogTrigger asChild>
                     <div className="flex gap-2 bg-gray-900 rounded-md cursor-pointer items-center self-start p-2 ">
@@ -230,6 +230,7 @@ const ActionCard = async ({ order }) => {
                       <DialogTitle>{userName}'s Order Detail</DialogTitle>
                       <DialogDescription> {new Date(order?.orderResponse?.orderDate).toDateString()}</DialogDescription>
                     </DialogHeader>
+
                     <div className="flex justify-between border border-1 p-4 rounded-md">
                       <div className="w-1/2">
                         <h4>Order from :</h4>
@@ -246,7 +247,6 @@ const ActionCard = async ({ order }) => {
                         }
                       </div>
                     </div>
-
 
                     <div className="grid gap-4 py-4 ">
                       <div className="flex gap-2">
@@ -312,10 +312,9 @@ const ActionCard = async ({ order }) => {
                     </div>
                   </DialogContent>
                 </Dialog>
+
                 <PrintActionInvoice order={order} />
-
               </div>
-
 
             }
           </div>
