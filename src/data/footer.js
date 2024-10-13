@@ -2,7 +2,8 @@ export const footer_data = [
   {
     id: 1,
     title: "Legal conditions",
-    data: ["About us"],
+    link: "/view/contact",
+    data: ["Contact us"],
   },
   // {
   //   id: 2,
