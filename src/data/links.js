@@ -25,9 +25,4 @@ export const my_links = [
     path: "/view/contact",
     tag: "contact",
   },
-  {
-    link: "About",
-    path: "about",
-    tag: "about",
-  },
 ];
