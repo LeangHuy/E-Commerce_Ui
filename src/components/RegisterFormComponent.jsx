@@ -25,8 +25,8 @@ const RegisterFormComponent = () => {
     const res = await registerService({
       firstName: data?.firstName,
       lastName: data?.lastName,
-      phone: "0962626669",
-      address: "no address",
+      phone: data?.phone,
+      address: data?.location,
       gender: "Other",
       profile: "string.png",
       email: data?.email,
@@ -49,40 +49,81 @@ const RegisterFormComponent = () => {
         onSubmit={handleSubmit(handleRegister)}
         className="w-full flex flex-col my-2 gap-2"
       >
-        <div className="flex items-start flex-col justify-start  ">
-          <label htmlFor="firstName" className="text-sm text-gray-700 mr-2">
-            First Name:
+        <div className="flex gap-4">
+          <div className="flex items-start flex-col justify-start  ">
+            <label htmlFor="firstName" className="text-sm text-gray-700 mr-2">
+              First Name:
+            </label>
+            <input
+              {...register("firstName", {
+                required: "Firstname is required",
+              })}
+              type="text"
+              name="firstName"
+              className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
+            />
+            {errors?.firstName?.message && (
+              <p className="text-red-500 text-[0.65rem] mt-2 self-end">
+                {errors?.firstName?.message}
+              </p>
+            )}
+          </div>
+
+          <div className="flex items-start flex-col justify-start">
+            <label htmlFor="lastName" className="text-sm text-gray-700 mr-2">
+              Last Name:
+            </label>
+            <input
+              {...register("lastName", {
+                required: "Lastname is required",
+              })}
+              type="text"
+              name="lastName"
+              className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
+            />
+            {errors?.lastName?.message && (
+              <p className="text-red-500 text-[0.65rem] mt-2 self-end">
+                {errors?.lastName?.message}
+              </p>
+            )}
+          </div>
+        </div>
+        
+
+        <div className="flex items-start flex-col justify-start">
+          <label htmlFor="location" className="text-sm text-gray-700 mr-2">
+            Location:
           </label>
           <input
-            {...register("firstName", {
-              required: "Firstname is required",
+            {...register("location", {
+              required: "Location is required",
             })}
             type="text"
-            name="firstName"
+            name="location"
             className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
           />
-          {errors?.firstName?.message && (
+          {errors?.location?.message && (
             <p className="text-red-500 text-[0.65rem] mt-2 self-end">
-              {errors?.firstName?.message}
+              {errors?.location?.message}
             </p>
           )}
         </div>
 
         <div className="flex items-start flex-col justify-start">
-          <label htmlFor="lastName" className="text-sm text-gray-700 mr-2">
-            Last Name:
+          <label htmlFor="phone" className="text-sm text-gray-700 mr-2">
+            Phone Number:
           </label>
           <input
-            {...register("lastName", {
-              required: "Lastname is required",
+            {...register("phone", {
+              required: "Phone is required",
             })}
             type="text"
-            name="lastName"
+            name="phone"
             className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
           />
-          {errors?.lastName?.message && (
+          {errors?.phone?.message && (
             <p className="text-red-500 text-[0.65rem] mt-2 self-end">
-              {errors?.lastName?.message}
+              {errors?.phone?.message}
             </p>
           )}
         </div>

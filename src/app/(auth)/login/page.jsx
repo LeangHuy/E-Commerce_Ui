@@ -20,36 +20,14 @@ async function LoginPage() {
                 Log in to your account
               </div>
               <div className="text-[0.85rem] text-gray-500 font-semibold">
-                Welcome back! Select method to log in
+                Welcome back!
               </div>
             </div>
-            <div className="flex gap-5">
-              <div className="border w-[15rem] h-[3rem] rounded flex items-center p-2 gap-5 cursor-pointer">
-                <Image
-                  src={"/google.svg"}
-                  width={30}
-                  height={30}
-                  alt="Google Icons"
-                />
-                <div className="text-[0.8rem] font-semibold">Google</div>
-              </div>
-              <div className="border w-[15rem] h-[3rem] rounded flex items-center p-2 gap-5 cursor-pointer">
-                <Image
-                  src={"/facebook.svg"}
-                  width={30}
-                  height={30}
-                  alt="Facebook Icons"
-                />
-                <div className="text-[0.8rem] font-semibold">Facebook</div>
-              </div>
-            </div>
-            {/* <div>Or continue with email</div> */}
-            <TextBetweenLine />
           </div>
         </div>
         <LoginComponents />
         <div className="text-[0.8rem] self-end ">
-          Dont have an account?
+          Don't have an account?
           <Link href={"/register"} className="text-blue-500 ml-2 font-semibold">
             Register
           </Link>

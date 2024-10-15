@@ -1,7 +1,6 @@
 import { footer_data } from "@/data/footer";
 import { InstagramLogoIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
 import { MapPinned } from "lucide-react";
-import { CopyrightIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -11,13 +10,16 @@ export default function Footer() {
     <div id="footer" className="py-24  relative overflow-hidden  isolate bg-sky-300 bg-opacity-20">
       <div className="w-[1330px] mx-auto grid grid-cols-[200px_1fr_auto] gap-[8rem]">
         <div className="flex flex-col gap-3">
-          <Image
-            src="/images/logo.png"
-            alt="alt"
-            width={1000}
-            height={1000}
-            className="size-[6rem] rounded-full"
-          />
+          <Link href="/">
+            <Image
+              src="/images/logo.png"
+              alt="alt"
+              width={1000}
+              height={1000}
+              className="size-[6rem] rounded-full"
+            />
+          </Link>
+
         </div>
         <div className="flex justify-between ">
           {footer_data.map((item, idx) => (
