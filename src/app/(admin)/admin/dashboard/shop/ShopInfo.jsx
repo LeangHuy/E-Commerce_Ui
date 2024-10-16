@@ -2,15 +2,9 @@
 import { postImgAction } from "@/acitons/uploadImgAction";
 import { Button } from "@/components/ui/button";
 import { getPhoto } from "@/lib/utils";
-import {
-  fetchLocationByLatLon,
-  fetchLocationBySearching,
-} from "@/service/location.service";
 import { updateShopInfoService } from "@/service/shop.service";
-import clsx from "clsx";
 import { Edit } from "lucide-react";
 import { Camera } from "lucide-react";
-import { Loader2 } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { useEffect } from "react";
@@ -33,75 +27,42 @@ function ShopInfo({ shopData }) {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    reset,
   } = useForm({
-    shopId,
-    shopName,
-    shopAddress,
-    email,
-    phone,
-    logo,
-    facebookLink,
-    telegramLink,
+    defaultValues: {
+      shopId,
+      shopName,
+      shopAddress,
+      email,
+      phone,
+      logo,
+      facebookLink,
+      telegramLink,
+    },
   });
-
   async function onSubmit(reqdata) {
     const formData = new FormData();
-    formData.append("file", img.imgFile);
-    let logo = !img.imgFile
-      ? shopData.payload.logo
-      : await postImgAction(formData);
-    // if(!img.imgFile)
-    //  logo = await postImgAction(formData);
+    if (img.imgFile) {
+      formData.append("file", img.imgFile);
+    }
+    const logo = img.imgFile ? await postImgAction(formData) : shopData.payload.logo;
     const data = {
       ...reqdata,
-      shopAddress: currentLoc,
       shopId,
       logo,
     };
+
     const updateInfo = await updateShopInfoService(data);
     if (updateInfo.statusCode === 200) {
       toast.success("Shop Info Updated!");
-      setEdit(!isEdit);
+      setEdit(false);
+      reset(data); // Reset form to updated values
     }
   }
-
-  const [location, setLocationWhenGetData] = useState(null);
-  const [currentLoc, setCurrentUserLocation] = useState(null);
-
-  // getting current coords
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((pos) => {
-        const { latitude, longitude } = pos.coords;
-        fetchLocationByLatLon(latitude, longitude).then((data) => {
-          setLocationWhenGetData(data);
-          setCurrentUserLocation(
-            data?.address?.town ||
-            data?.address?.state ||
-            data?.address?.city ||
-            data?.address?.village ||
-            "Unknown"
-          );
-        });
-      });
-    }
-  }, []);
 
   const [isEdit, setEdit] = useState(false);
   const [img, setImg] = useState({ imgFile: null, imgPreview: null });
 
-  const [searchLoc, setSearchLoc] = useState("");
-
-  useEffect(() => {
-  }, [location, currentLoc]);
-
-  const [foundLoc, setFound] = useState([]);
-
-  useEffect(() => {
-    fetchLocationBySearching(searchLoc).then((data) => {
-      setFound(data);
-    });
-  }, [searchLoc]);
 
   return (
     <div className=" grid grid-cols-1 gap-10">
@@ -231,36 +192,10 @@ function ShopInfo({ shopData }) {
                       <input
                         {...register("shopAddress", { required: true })}
                         type="text"
-                        defaultValue={currentLoc}
+                        defaultValue={shopData?.payload?.shopAddress}
                         className="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                        placeholder="shop name"
-                        onChange={(e) => setSearchLoc(e.target.value)}
+                        placeholder="shop location"
                       />
-
-                      {foundLoc.length >= 1 && (
-                        <div className="absolute w-full h-[200px] overflow-hidden overflow-y-scroll top-full mt-2 rounded-sm p-2 border bg-white">
-                          <ul className="flex flex-col gap-4">
-                            {foundLoc.map((data, idx) => (
-                              <li
-                                onClick={() => {
-                                  setCurrentUserLocation(
-                                    data?.address?.town ||
-                                    data?.address?.state ||
-                                    data?.address?.city ||
-                                    data?.address?.village ||
-                                    "Unknown"
-                                  );
-                                  setSearchLoc("");
-                                }}
-                                key={idx}
-                                className=" p-1 border-b cursor-pointer hover:bg-gray-200"
-                              >
-                                {data?.name}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
                     </div>
                   )}
                 </div>

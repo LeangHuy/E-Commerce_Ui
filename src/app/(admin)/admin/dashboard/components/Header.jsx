@@ -9,9 +9,6 @@ const Header = ({ tab, children }) => {
         <p className="text-2xl font-semibold text-gray-800">{tab}</p>
         <div className="flex gap-4 items-center">
           {children}
-          <div className="size-[35px] bg-gray-100 cursor-pointer rounded-lg flex items-center justify-center">
-            <Bell className="size-[18px]" />
-          </div>
           <DropdownHeader />
         </div>
       </header>

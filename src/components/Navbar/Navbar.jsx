@@ -1,11 +1,8 @@
 import Link from "next/link";
 import React from "react";
 import MyLink from "../Link/Link";
-import { User } from "lucide-react";
 import { ShoppingCart } from "lucide-react";
-import { Search } from "lucide-react";
 import { SearchDialog } from "../Search/SearchBtn";
-import { CustomSheet } from "../Sheet/CustomSheet";
 import Image from "next/image";
 import { DropdownMenuDemo, MenuDropdown } from "../Dropdown/Menu";
 import NavBadge from "./NavBadge";
@@ -19,8 +16,6 @@ const Navbar = async () => {
       <div className="w-[1330px] max-[1400px]:w-[90%] mx-auto flex items-center justify-between">
         <section className="logo-links flex gap-10 items-center">
           <Link href={"/"} className="font-bold text-3xl">
-            {/* <span>Cam</span>
-            <span className="text-sky-500">Game</span> */}
             <Image
               src={getPhoto(shopInfo?.payload?.logo)}
               alt="alt"
@@ -39,10 +34,6 @@ const Navbar = async () => {
               <NavBadge />
             </div>
           </Link>
-
-          {/* <Link href={"/login"}>
-            <User className="cursor-pointer hover:stroke-sky-500" />
-          </Link> */}
           <DropdownMenuDemo />
         </div>
       </div>

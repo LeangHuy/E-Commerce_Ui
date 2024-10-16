@@ -1,17 +1,12 @@
-import MyCarousel from "@/components/Carousel/MyCarousel";
 import React from "react";
-import { categories } from "@/data/categories";
 import ProductCard from "@/components/Card/ProductCard";
 import CategoryButton from "@/components/Button/CategoryButton";
 import {
   getAllProductActiveService,
-  getAllProductService,
 } from "@/service/product.service";
-import { mock_data } from "@/data/mock_data";
 import { getAllCategories } from "@/service/category.service";
 import { ImagesSliderDemo } from "@/components/Slider/ImageSlider";
 import { getAllSlideActive } from "@/service/slide.service";
-import MyPagination from "../(admin)/admin/dashboard/components/MyPagination";
 import { getBookmarks, postBookmark } from "@/service/bookmark";
 import CustomerProductComponent from "./_component/CustomerProductComponent";
 import { authOption } from "../api/auth/[...nextauth]/route";

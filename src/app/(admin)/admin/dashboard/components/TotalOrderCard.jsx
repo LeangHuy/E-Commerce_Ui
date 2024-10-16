@@ -35,10 +35,6 @@ export function TotalOrder({ orderCount, data: { title, description, subtitle, c
   };
   return (
     <Card className="flex flex-col">
-      {/* <CardHeader className="items-center pb-0">
-          <CardTitle>Order</CardTitle>
-        </CardHeader> */}
-
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfig}

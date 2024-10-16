@@ -1,18 +1,21 @@
 import { footer_data } from "@/data/footer";
-import { InstagramLogoIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
+import { getPhoto } from "@/lib/utils";
+import { getShopInfoService } from "@/service/shop.service";
 import { MapPinned } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-export default function Footer() {
+export default async function Footer() {
+  const shopData = await getShopInfoService();
+  const shopPayload = shopData?.payload;
   return (
     <div id="footer" className="py-24  relative overflow-hidden  isolate bg-sky-300 bg-opacity-20">
       <div className="w-[1330px] mx-auto grid grid-cols-[200px_1fr_auto] gap-[8rem]">
         <div className="flex flex-col gap-3">
           <Link href="/">
             <Image
-              src="/images/logo.png"
+              src={getPhoto(shopPayload?.logo)}
               alt="alt"
               width={1000}
               height={1000}
@@ -45,8 +48,18 @@ export default function Footer() {
           <h3 className="font-semibold ">Contact</h3>
 
           <div className="flex gap-2 items-center mt-6">
-            <InstagramLogoIcon className="size-6 cursor-pointer hover:scale-105 transition-all " />
-            <TwitterLogoIcon className="size-6 cursor-pointer hover:scale-105 transition-all " />
+            <Link href={shopPayload?.telegramLink} target="new">
+              <Image src="/telegram.svg" alt="alt" width={1000}
+                height={1000}
+                className="size-[1.5rem] rounded-full" />
+            </Link>
+
+            <Link href={shopPayload?.facebookLink} target="new">
+              <Image src="/facebook.svg" alt="alt" width={1000}
+                height={1000}
+                className="size-[1.5rem] rounded-full" />
+            </Link>
+
           </div>
         </div>
       </div>

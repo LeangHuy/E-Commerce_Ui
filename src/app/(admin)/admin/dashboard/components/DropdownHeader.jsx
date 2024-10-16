@@ -7,12 +7,10 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
 import SignOutButton from "@/components/Dropdown/SignOutButton";
-import { getUserData } from "@/service/user.service";
 import { useEffect } from "react";
 import { useState } from "react";
 import { getPhoto } from "@/lib/utils";
