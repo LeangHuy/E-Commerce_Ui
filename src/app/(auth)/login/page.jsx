@@ -1,11 +1,7 @@
 import LoginComponents from "@/components/LoginComponents";
 import React from "react";
-import TextBetweenLine from "../_component/TextBetweenLine";
-import Image from "next/image";
 import Link from "next/link";
-import { getUserData } from "@/service/user.service";
-import { getServerSession } from "next-auth";
-import { authOption } from "@/app/api/auth/[...nextauth]/route";
+import { ArrowLeft } from "lucide-react";
 
 async function LoginPage() {
 
@@ -13,7 +9,8 @@ async function LoginPage() {
     <div className="flex h-full p-16">
       <div className=" bg-white p-10 rounded-xl lg:rounded-r-none lg:rounded-l-xl w-[30rem]">
         <div className="flex flex-col gap-5">
-          <div className="font-semibold text-[1rem]">Cambodia Shopping</div>
+          {/* <Link href={"/"} className="flex"><ArrowLeft />Back</Link> */}
+          <div className="font-semibold text-[1rem] flex"><Link href={"/"}><ArrowLeft /></Link>Cambodia Shopping</div>
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-3">
               <div className="text-[1.4rem] font-bold">

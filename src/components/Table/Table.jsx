@@ -15,7 +15,7 @@ import RemoveFromCart from "../Button/RemoveFromCart";
 
 export function TableData() {
   const { cartList } = useAddToCart();
-
+  console.log("cart list :", cartList)
   return (
     <Table>
       <TableHeader>
@@ -59,12 +59,12 @@ export function TableData() {
             </TableCell>
             <TableCell className="text-right w-[100px]">
               <p className="before:content-['$']">
-                {cartList?.map((pro) => {
-                  return pro.productId == product?.productId
-                    ? pro.priceAfterDiscount * pro.qty
-                    : "";
-                })}
+                {cartList
+                  ?.filter((pro) => pro.productId === product?.productId)
+                  .reduce((total, pro) => total + pro.priceAfterDiscount * pro.qty, 0)
+                  .toFixed(2)}
               </p>
+
             </TableCell>
 
             <TableCell className="text-right">

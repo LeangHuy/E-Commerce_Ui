@@ -7,13 +7,8 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import Link from "next/link";
 import Image from "next/image";
 import { X } from "lucide-react";
 import { useAddToCart } from "@/store/useAddToCart";

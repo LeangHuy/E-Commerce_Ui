@@ -17,7 +17,6 @@ import {
 import { usePaymentMethod } from "@/store/usePayment";
 import { getPaymentMethodAction } from "@/acitons/paymentAction";
 import { useForm } from "react-hook-form";
-import { orderService } from "@/service/order.service";
 import toast from "react-hot-toast";
 
 const OrderDetailCard = ({ user }) => {
@@ -79,10 +78,10 @@ const OrderDetailCard = ({ user }) => {
       <div className="pt-4 border-t flex justify-between items-center">
         <p className="font-medium">Grand Total</p>
         <p className="before:content-['$']">
-          {cartList?.reduce(
-            (acc, pro) => pro?.priceAfterDiscount * pro?.qty + acc,
-            0
-          )}
+          {cartList
+            ?.reduce((acc, pro) => acc + pro?.priceAfterDiscount * pro?.qty, 0)
+            .toFixed(2)
+          }
         </p>
       </div>
       {cartList?.length > 0 && (
