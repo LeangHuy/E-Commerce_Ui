@@ -8,26 +8,20 @@ import Link from "next/link";
 
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { usePaymentMethod } from "@/store/usePayment";
 import { getPaymentMethodAction } from "@/acitons/paymentAction";
-import Image from "next/image";
-import { cn, getPhoto } from "@/lib/utils";
 import { useForm } from "react-hook-form";
 import { orderService } from "@/service/order.service";
 import toast from "react-hot-toast";
-import { Cross2Icon } from "@radix-ui/react-icons";
 
-const OrderDetailCard = () => {
+const OrderDetailCard = ({ user }) => {
+  const currentUser = user?.payload?.user;
   const { cartList, removeAllCart } = useAddToCart();
   const {
     register,
@@ -74,7 +68,6 @@ const OrderDetailCard = () => {
       removeAllCart();
     }
   };
-
   return (
     <div className="border h-fit sticky top-20 p-6 rounded-md flex flex-col gap-6">
       <div className="flex justify-between items-center">
@@ -94,12 +87,6 @@ const OrderDetailCard = () => {
       </div>
       {cartList?.length > 0 && (
         <div>
-          {/* <DrawerCheckout
-            price={cartList?.reduce(
-              (acc, pro) => pro?.priceAfterDiscount * pro?.qty + acc,
-              0
-            )}
-          /> */}
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <Button onClick={() => setOpen(true)} className="w-full">
@@ -183,18 +170,22 @@ const OrderDetailCard = () => {
                     onSubmit={handleSubmit(onSubmit)}
                     className="flex flex-col gap-3"
                   >
-                    <Input
+                    <input
                       {...register("receiverPhone")}
                       type="text"
+                      defaultValue={currentUser?.phone}
+                      className="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                       placeholder="Enter phone number"
                     />
-                    <Input
+                    <input
                       {...register("receiverLocation")}
                       type="text"
+                      defaultValue={currentUser?.address}
+                      className="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                       placeholder="Enter location"
                     />
 
-                    <Button>Submit</Button>
+                    <Button>Buy now</Button>
                   </form>
                 </div>
               )}
