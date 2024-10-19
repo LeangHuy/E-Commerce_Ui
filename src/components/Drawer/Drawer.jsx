@@ -27,7 +27,7 @@ import { Input } from "../ui/input";
 import { useForm } from "react-hook-form";
 import { postImgAction } from "@/acitons/uploadImgAction";
 
-export function DrawerCheckout({ price }) {
+export function DrawerCheckout({ price, user }) {
   const { cartList, removeAllCart } = useAddToCart();
   const {
     register,
@@ -121,13 +121,6 @@ export function DrawerCheckout({ price }) {
           <div className="flex flex-col gap-5">
             <h3 className="text-center font-semibold">Step 2</h3>
             <div className="grid grid-cols-2 gap-6">
-              {/* <Image
-                src={"/images/payway.JPG"}
-                alt="payway"
-                width={1000}
-                height={1000}
-                className="object-cover"
-              /> */}
               <label className="font-medium">Choose Bank KHQR </label>
               <select
                 className="cursor-pointer"
@@ -141,15 +134,14 @@ export function DrawerCheckout({ price }) {
                   <option
                     key={idx}
                     value={JSON.stringify(b)}
-                  // onChange={() => setCurrentBank(b)}
-                  // variant={"outline"}
                   >
                     {b?.bankName}
                   </option>
                 ))}
               </select>
             </div>
-            {currentBank && (
+            {currentBank ? (
+              // Show image for the selected `currentBank`
               <Image
                 src={getPhoto(JSON.parse(currentBank)?.qrCode)}
                 alt="payway"
@@ -157,7 +149,19 @@ export function DrawerCheckout({ price }) {
                 height={1000}
                 className="object-cover h-auto rounded-md"
               />
+            ) : (
+              // If `currentBank` is not set, show the image for the first bank in the list (if available)
+              banks && banks.length > 0 && (
+                <Image
+                  src={getPhoto(banks[0]?.qrCode)}
+                  alt="payway"
+                  width={1000}
+                  height={1000}
+                  className="object-cover h-auto rounded-md"
+                />
+              )
             )}
+
           </div>
           <div className="flex flex-col gap-5">
             <h3 className="text-center font-semibold">Step 3</h3>
@@ -166,19 +170,16 @@ export function DrawerCheckout({ price }) {
               onSubmit={handleSubmit(onSubmit)}
               className="flex flex-col gap-3"
             >
-              <Input
+              <input
                 {...register("receiverPhone", {
                   required: "Phone number is required",
-                  // pattern: {
-                  //   value: /^[0-9]{10}$/,
-                  //   message: "Phone number must be 10 digits",
-                  // },
                 })}
                 type="text"
-                placeholder="Phone number"
+                defaultValue={user?.phone}
+                className="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                placeholder="Enter location"
               />
-
-              <Input
+              <input
                 {...register("receiverLocation", {
                   required: "Location is required",
                   minLength: {
@@ -192,6 +193,8 @@ export function DrawerCheckout({ price }) {
                 })}
                 type="text"
                 placeholder="Location"
+                defaultValue={user?.address}
+                className="block flex-1 border rounded-md bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
               />
               {errors.receiverLocation && (
                 <span>{errors.receiverLocation.message}</span>
@@ -215,7 +218,7 @@ export function DrawerCheckout({ price }) {
                   className="object-cover h-[345px] rounded-md"
                 />
               )}
-              <Button type="submit">Submit</Button>
+              <Button type="submit">Buy now</Button>
             </form>
           </div>
         </div>

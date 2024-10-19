@@ -136,6 +136,7 @@ const OrderDetailCard = ({ user }) => {
                       }}
                     >
                       <DrawerCheckout
+                        user={currentUser}
                         price={cartList?.reduce(
                           (acc, pro) =>
                             pro?.priceAfterDiscount * pro?.qty + acc,
