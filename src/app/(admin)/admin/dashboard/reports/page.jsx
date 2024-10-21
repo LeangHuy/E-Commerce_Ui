@@ -96,7 +96,7 @@ const ReportPage = async ({ searchParams: { tab = "Overview" } }) => {
                                                                 (sum, product) => sum + product.totalProductPrice, 0
                                                             );
                                                             return acc + totalOrderPrice;
-                                                        }, 0)}
+                                                        }, 0).toFixed(2)}
                                                     </td>
                                                 </tr>
                                             </tbody>
