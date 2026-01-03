@@ -54,7 +54,7 @@ const AdminDashboardPage = ({
     getBankByIdAction(bank_id).then((data) => {
       setCurrentBank(data);
     });
-  }, []);
+  }, [bank_id]);
 
   return (
     <div className="w-full">

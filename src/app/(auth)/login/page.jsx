@@ -24,7 +24,7 @@ async function LoginPage() {
         </div>
         <LoginComponents />
         <div className="text-[0.8rem] self-end ">
-          Don't have an account?
+          Don&apos;t have an account?
           <Link href={"/register"} className="text-blue-500 ml-2 font-semibold">
             Register
           </Link>

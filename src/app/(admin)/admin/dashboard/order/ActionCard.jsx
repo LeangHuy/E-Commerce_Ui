@@ -111,7 +111,7 @@ const ActionCard = async ({ order, deliveries, useFor = "" }) => {
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-[425px] h-auto">
                       <DialogHeader>
-                        <DialogTitle>{userName}'s Payment</DialogTitle>
+                        <DialogTitle>{userName}&apos;s Payment</DialogTitle>
                         <DialogDescription>
                           {" "}
                           {new Date(
@@ -151,7 +151,7 @@ const ActionCard = async ({ order, deliveries, useFor = "" }) => {
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-[555px] h-auto">
                       <DialogHeader>
-                        <DialogTitle>{userName}'s Order Detail</DialogTitle>
+                        <DialogTitle>{userName}&apos;s Order Detail</DialogTitle>
                         <DialogDescription>
                           {" "}
                           {new Date(
@@ -294,7 +294,7 @@ const ActionCard = async ({ order, deliveries, useFor = "" }) => {
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-[555px] h-auto">
                       <DialogHeader>
-                        <DialogTitle>{userName}'s Order Detail</DialogTitle>
+                        <DialogTitle>{userName}&apos;s Order Detail</DialogTitle>
                         <DialogDescription>
                           {" "}
                           {new Date(

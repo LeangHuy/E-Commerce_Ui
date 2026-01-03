@@ -157,7 +157,7 @@ const OrderDetailCard = ({ user }) => {
                           //     "bg-gray-900": current_bank == idx + 1,
                           //   })}
                           // />
-                          <div></div>
+                          <div key={idx}></div>
                         ))}
                       </div>
                     )}

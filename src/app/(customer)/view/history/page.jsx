@@ -52,7 +52,7 @@ const ActionHistoryPage = async () => {
                   width={1000}
                   height={1000}
                 />
-                <p className="text-center">You don't have any order history now.</p>
+                <p className="text-center">You don&apos;t have any order history now.</p>
               </div>
             </div>
           )}

@@ -94,7 +94,7 @@ const ActionCard = async ({ order }) => {
                   </DialogTrigger>
                   <DialogContent className="sm:max-w-[425px] h-auto">
                     <DialogHeader>
-                      <DialogTitle>{userName}'s Payment</DialogTitle>
+                      <DialogTitle>{userName}&apos;s Payment</DialogTitle>
                       <DialogDescription> {new Date(order?.orderResponse?.orderDate).toDateString()}</DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4 ">
@@ -131,7 +131,7 @@ const ActionCard = async ({ order }) => {
                   </DialogTrigger>
                   <DialogContent className="sm:max-w-[555px] h-auto">
                     <DialogHeader>
-                      <DialogTitle>{userName}'s Order Detail</DialogTitle>
+                      <DialogTitle>{userName}&apos;s Order Detail</DialogTitle>
                       <DialogDescription> {new Date(order?.orderResponse?.orderDate).toDateString()}</DialogDescription>
                     </DialogHeader>
                     <div className="flex justify-between border border-1 p-4 rounded-md">
@@ -227,7 +227,7 @@ const ActionCard = async ({ order }) => {
                   </DialogTrigger>
                   <DialogContent className="sm:max-w-[555px] h-auto">
                     <DialogHeader>
-                      <DialogTitle>{userName}'s Order Detail</DialogTitle>
+                      <DialogTitle>{userName}&apos;s Order Detail</DialogTitle>
                       <DialogDescription> {new Date(order?.orderResponse?.orderDate).toDateString()}</DialogDescription>
                     </DialogHeader>
 

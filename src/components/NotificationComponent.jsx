@@ -19,7 +19,7 @@ function NotificationComponent({ userId }) {
             .catch((error) => {
                 console.error("OneSignal initialization failed:", error);
             });
-    }, []);
+    }, [userId]);
 
 }
 

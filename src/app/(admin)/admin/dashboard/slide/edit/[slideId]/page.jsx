@@ -55,7 +55,7 @@ const AdminDashboardPage = ({
     getSlideByIdAction(slideId).then((data) => {
       setCurrentSlide(data);
     });
-  }, []);
+  }, [slideId]);
 
   return (
     <div className="w-full">

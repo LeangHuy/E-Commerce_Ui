@@ -97,7 +97,7 @@ const EditProductPage = ({
       setWarranty(data?.warranty?.warrantyTime);
       setStoreFile([...data?.imageProductList]);
     });
-  }, []);
+  }, [product_id]);
 
   useEffect(() => {
   }, [currentPro]);

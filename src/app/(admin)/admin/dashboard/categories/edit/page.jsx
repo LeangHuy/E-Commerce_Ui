@@ -52,7 +52,7 @@ const EditCategoryPage = ({ cate }) => {
           <DialogHeader>
             <DialogTitle>Edit Category</DialogTitle>
             <DialogDescription>
-              Make category here. Click save when you're done.
+              Make category here. Click save when you&apos;re done.
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4 py-4">

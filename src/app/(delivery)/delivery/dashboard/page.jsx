@@ -65,7 +65,7 @@ const AdminDashboardPage = async ({ searchParams: { tab = "Overview" } }) => {
                   </div>
                 ))
             ) : (
-              <h1 className="font-bold text-lg">Now you don't have assign to deliver yet.</h1>
+              <h1 className="font-bold text-lg">Now you don&apos;t have assign to deliver yet.</h1>
             )}
 
 
